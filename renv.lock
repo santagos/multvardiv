@@ -1053,7 +1053,7 @@
     "multvardiv": {
       "Package": "multvardiv",
       "Version": "1.0.11",
-      "Source": "Git",
+      "Source": "Repository",
       "Type": "Package",
       "Title": "Multivariate Probability Distributions, Statistical Divergence",
       "Authors@R": "c( person(\"Pierre\", \"Santagostini\", email = \"pierre.santagostini@institut-agro.fr\", role = c(\"aut\", \"cre\")), person(\"Nizar\", \"Bouhlel\", email = c(\"nizar.bouhlel@institut-agro.fr\", \"nizar.bouhlel@inrae.fr\"), role = c(\"aut\")) )",
@@ -1071,17 +1071,14 @@
       "URL": "https://forge.inrae.fr/imhorphen/multvardiv",
       "BugReports": "https://forge.inrae.fr/imhorphen/multvardiv/-/issues",
       "Encoding": "UTF-8",
-      "Roxygen": "list(markdown = TRUE)",
       "RoxygenNote": "7.3.2",
       "Suggests": [
         "testthat (>= 3.2.1)"
       ],
       "Config/testthat/edition": "3",
-      "RemoteType": "xgit",
-      "RemoteUrl": "https://forge.inrae.fr/imhorphen/multvardiv",
-      "RemoteSha": "5c5da29efec382d6dfc0dd3a2b890d703c522f4f",
       "NeedsCompilation": "no",
-      "Author": "Pierre Santagostini [aut, cre], Nizar Bouhlel [aut]"
+      "Author": "Pierre Santagostini [aut, cre], Nizar Bouhlel [aut]",
+      "Repository": "CRAN"
     },
     "rappdirs": {
       "Package": "rappdirs",
