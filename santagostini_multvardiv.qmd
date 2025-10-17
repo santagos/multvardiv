@@ -1,0 +1,1355 @@
+---
+title: "`multvardiv` package"
+subtitle: "Multivariate Generalized Gaussian Distribution, $t$ and Cauchy Distributions, Kullback-Leibler Divergence"
+author:
+  - name: Pierre Santagostini
+    corresponding: true
+    email: pierre.santagostini@institut-agro.fr
+    affiliations:
+      - name: Univ Angers, Institut Agro, INRAE, IRHS, SFR QUASAV, F-49000 Angers, France
+        url: https://www6.angers-nantes.inrae.fr/irhs
+  - name: Nizar Bouhlel
+    email: nizar.bouhlel@institut-agro.fr; nizar.bouhlel@inrae.fr
+    url: https://www.researchgate.net/profile/Nizar-Bouhlel
+    orcid: 0000-0002-4861-8550
+    affiliations:
+      - name: Univ Angers, Institut Agro, INRAE, IRHS, SFR QUASAV, F-49000 Angers, France
+        department: 
+        url: https://www6.angers-nantes.inrae.fr/irhs
+date: "`r Sys.Date()`"
+date-modified: "`r Sys.Date()`"
+description: |
+  The R package `multvardiv` provides functions to compute the Kullback-Leibler divergence between two multivariate generalized Gaussian, $t$ or Cauchy distributions using analytic expressions of the divergence. For the $t$ and Cauchy distributions, the Rényi, Bhattacharyya and Hellinger divergences are also available. This package also gives tools for the manipulation of these distributions: probability density function, simulation of a random sample, estimation of the parameters, graph.
+abstract: >+
+  The R package `multvardiv` provides functions to compute the Kullback-Leibler divergence between two multivariate generalized Gaussian, $t$ or Cauchy distributions using analytic expressions of the divergence. For the $t$ and Cauchy distributions, the Rényi, Bhattacharyya and Hellinger divergences are also available. This package also gives tools for the manipulation of these distributions: probability density function, simulation of a random sample, estimation of the parameters, graph.
+keywords: [multivariate generalized Gaussian distribution, multivariate t distribution, multivariate Cauchy distribution, Kullback-Leibler divergence]
+citation:
+  type: article-journal
+  container-title: "Computo"
+  doi: "xxxx"
+  url: https://computo.sfds.asso.fr/template-computo-quarto
+  publisher: "Société Française de Statistique"
+  issn: "2824-7795"
+bibliography: references.bib
+github-user: computorg
+repo: "template-computo-r"
+draft: true # set to false once the build is running
+published: false # will be set to true once accepted
+format:
+  computo-html: default
+  computo-pdf: default
+---
+
+```{r}
+#| include: false
+library(multvardiv)
+```
+
+# Introduction
+
+The multivariate generalized Gaussian distribution (MGGD) belongs to the family of elliptic distributions [@pascal].
+MGGD is used in several signal and image processing applications [@bouhlel19].
+In particular, it is widely used to accurately model the magnitudes of wavelet detail coefficients to capture inter-band dependencies or/and intra-band in a wide-sense (multi-scale, multi-channel, spatial dependencies, etc).
+Application examples include, but are not limited to: image denoising [@sendur; @dongwook05; @dongwook09], texture image retrieving and classification [@verdoolaege09; @verdoolaege11; @berthoumieu].
+
+The multivariate $t$ distribution (MTD) belongs to the elliptical symmetric distributions [@kotz, bouhlel23].
+Such distribution has been deployed in several signal and image processing applications where heavy-tailed distribution is weel-suited.
+
+The multivariate Cauchy distribution (MCD) <!-- belongs to the elliptical symmetric distributions and --> is a special case of the multivariate $t$-distribution [@bouhlel22]. -->
+MCD has been recently used in several signal and image processing applications for which non-Gaussian models are needed.
+These applications include speckle denoising [@sahu; @ranjani], color image denoising [@sadreazami16], watermarking [@sadreazami14], speech enhancement [@fontaine].
+
+The Kullback-Leibler divergence (KLD) is a measure of the dissimilarity between two univariate or multivariate probability distributions.
+<!-- It is extensively used on statistical signal processing, machine learning, pattern recognition and other related fields in computer science. -->
+It is extensively used on statistical signal processing, pattern recognition, machine learning, data science, statistical inference and other related fields in computer science, to assess the effectiveness of probabilistic models, compare distributions and perform tasks like feature selection. **\textcolor{red}{[AJOUTER DES REF]}**
+Explicit expressions of KLD have been developed for most univariate distributions such as the Gamma, the Cauchy, the generalized Gamma, the generalized Gaussian ones, etc.
+KLD expressions have also been developed around multivariate distributions such as, for example, Wishart and multivariate Gaussian.
+
+Other measurements of the divergencence between two probability distributions include the Rényi divergence (RD), the Bhattacharyya divergence (BD) and the Hellinger divergence (HD).
+
+Very recently, closed form expressions of the KLD have been developed for MGGDs [@bouhlel19] and MCDs [@bouhlel22]. Furthermore, an expression of the RD has been developed for MTDs [@bouhlel23]. The BD and HD can be computed from the RD. For scientific interest, we propose in this article to implement these divergences in the R packages [`multvardiv`](https://CRAN.R-project.org/package=multvardiv). Our approach is very different from functions provided by existing R packages such as [`philentropy`](https://joss.theoj.org/papers/10.21105/joss.00765), [`FNN`](https://CRAN.R-project.org/package=FNN), [`dlookr`](https://CRAN.R-project.org/package=dlookr), [`LaplacesDemon`](https://web.archive.org/web/20150206004624/http://www.bayesian-inference.com/software), which allow the computation of KLD between discrete (or discretized) probability distributions
+[@philentropy; @FNN; @dlookr; @LaplacesDemon].
+
+In what follows, we first present the MGGD, the MTD and the MCD (sections [Multivariate Generalized Gaussian Distribution], [Multivariate $t$ Distribution] and [Multivariate Cauchy Distribution]).
+For each of these distributions, some results are presented, and an analytic expression of the KLD is exposed.
+All of these results are used in the [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package.
+
+Then we present the tools available in the [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package for these distributions ([The multvardiv package]).
+We first present some functions for the multivariate generalized Gaussian distribution ([Multivariate generalized Gaussian distributions]): probability density function, simulation, parameter estimation and graphical representations.
+Then we present the computation of the Kullback-Leibler divergence between MGGDs.
+The [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package provides the same tools for the MTDs ([Multivariate $t$ distribution]) and MCDs ([Multivariate Cauchy distributions]).
+
+Some particular cases provide interesting results.
+We use these particular cases to test the computation of the Kullback-Leibler divergence for both packages ([Some particular cases -- test of the results]).
+
+# Multivariate $t$ distribution -- Simulation
+
+Let $\mathbf{X}$ be a random vector of $\mathbb{R}^p$ from a multivariate $t$ distribution (MTD) with degrees of freedom $\nu$, mean vector $\boldsymbol{\mu}$ and correlation matrix $\Sigma$, which is a $p \times p$ symmetric, positive definite matrix. Its probability density function is given by:
+$$
+    \displaystyle{ f(\mathbf{x}|\nu, \boldsymbol{\mu}, \Sigma) = \frac{\Gamma\left( \frac{\nu+p}{2} \right) |\Sigma|^{-1/2}}{\Gamma\left( \frac{\nu}{2} \right) (\nu \pi)^{p/2}} \left( 1 + \frac{1}{\nu} (\mathbf{x}-\boldsymbol{\mu})^T \Sigma^{-1} (\mathbf{x}-\boldsymbol{\mu}) \right)^{-\frac{\nu+p}{2}} }
+$$ {#eq-mcd}
+
+where $\Gamma(\cdot)$ is the gamma function
+
+A sample from a multivariate $t$-distribution with location parameter $\boldsymbol{\mu}$, scale matrix $\Sigma$ and $\nu$ degrees of freedom can be generated using [@roth; @kotz]:
+$$
+    \displaystyle{\mathbf{X} = \boldsymbol{\mu} + \frac{\mathbf{Y}}{\sqrt{u/\nu}}}
+$$ {#eq-rmtd}
+where $\mathbf{Y}$ is generated from a centered Gaussian distribution with covariance matrix $\Sigma$
+and $u$ is distributed according to a Chi-squared distribution with $\nu$ degrees of freedom.
+
+<!-- The MCD is a particular case of the multivariate $t$-distribution with $\nu = 1$. -->
+<!-- Hence, a sample from a MCD with location parameter $\boldsymbol{\mu}$ and dispersion matrix $\Sigma$ can be generated using @eq-rmtd with $\nu = 1$. -->
+
+## Parameter estimation by the EM method {#sec-est_mtd}
+
+We use the EM method to estimate the parameters of a multivariate $t$ distribution.
+
+Let $\{ \mathbf{x}_1, \dots, x_n \}$ be $n$ observations from a MTD with parameters probability density function $g_{\mathbf{X}}(\mathbf{x})$.
+We assume each random vector $\mathbf{x}_i$ to be associated with a non observed, hidden variable $U_i$.
+The sequence $\{U_i,i=1,\cdots,N\}$ is also assumed to be $iid$.
+
+The probability density of $\mathbf{X}$ depends on a set of unknown parameters $\theta = (\boldsymbol{\mu}, \Sigma, \nu)$.
+<!-- We know that $\displaystyle{\mathbf{X} = \boldsymbol{\mu} + \frac{\mathbf{Y}}{\sqrt{u/\nu}}}$ (@eq-rmtd), -->
+<!-- where $\Y\sim \mathcal{N}^p(0,\gSigma)$ is a $p$-variate normal random vector with mean 0 and covariance matrix $\gSigma$, $U$ is the chi-squared -->
+<!-- random variable with degrees of freedom $\nu$ and $U$ is independent of $\Y$. -->
+
+The ML estimator $\hat{\theta}$ of the parameters $\theta$ of the compound distribution $g_{\mathbf{X}}(\mathbf{x})$ is given by:
+$$
+\hat{\theta}_{ML} = \arg \max_{\theta} g_{\mathbf{X}}(\mathbf{x}|\theta) = \arg \max_{\theta}\prod_{i=1}^N g_{\mathbf{X}}(\mathbf{x}_i|\theta)
+$${#eq-MV}
+
+In the lack of an explicit solution of @eq-MV, the EM algorithm is used to find an estimation $\hat{\theta}$, given a current $\theta'$ estimation.
+The new expression is then given by:
+$$\begin{array}{lll}
+\hat{\theta} &    = &   \arg \max_{\theta} \mathbb{E}_{U|\mathbf{X}} \left\{ \ln f_{U,\mathbf{X}}(U,\mathbf{X}|\theta)\big|\mathbf{x},\theta' \right\} \\
+&   = &   \arg \max_{\theta} \mathbb{E}_{U|\mathbf{X}} \left\{ \ln \prod\limits_{i=1}^N f_{U,\mathbf{X}}(\mathbf{X}_i,U_i|\theta)\big|\mathbf{x}_i,\theta' \right\} \\
+&   = &   \arg \max_{\theta} \mathbb{E}_{U|\mathbf{X}} \left\{ \sum\limits_{i=1}^N \ln f_{U,\mathbf{X}}(\mathbf{X}_i,U_i|\theta)\big|\mathbf{x}_i,\theta' \right\} \\
+&   = &   \arg \max_{\theta} \sum\limits_{i=1}^N E_{U|\mathbf{X}} \left\{ \ln f_{U,\mathbf{X}}(\mathbf{X}_i,U_i|\theta)\big|\mathbf{x}_i,\theta' \right\}
+\end{array}$${#eq-armax}
+
+Let $\theta_y=(\boldsymbol{\mu},\Sigma)$ and $\theta_u=(\nu)$,
+using the fact that $f_{U,\mathbf{X}}(\mathbf{x}_i,u_i|\theta)=f_{\mathbf{X}|U}(\mathbf{x}_i|u_i,\theta_y)f_{U}(u_i|\theta_{u})$,
+then @eq-armax can bee maximised separately from the other parameters $\theta_y$ et $\theta_{u}$, so:
+
+$$
+\hat{\theta}_y = \arg \max_{\theta_y}\sum_{i=1}^N \mathbb{E}_{U|\mathbf{X}}\{\ln f_{\mathbf{X}|U}(\mathbf{X}_i|U_i,\theta_y)\big|\mathbf{x}_i,\theta'\}
+$${#eq-lamda_w}
+
+$$
+\hat{\theta}_u = \arg \max_{\theta_y}\sum_{i=1}^N \mathbb{E}_{U|\mathbf{X}}\{\ln f_{U}(U_i|\theta_{u})\big|\mathbf{x}_i,\theta'\}
+$${#eq-lamda_x}
+
+### Estimation of $\theta_y=(\boldsymbol{\mu},\Sigma)$ {.unnumbered .unlisted}
+
+<!-- Sachant que -->
+<!-- \begin{align} -->
+<!-- \label{loi_conditionel} -->
+<!-- f_{\X|U}(\x_i|u_i, \theta_y)&=|\frac{\partial \Y}{\partial \X}|f_\Y\bigg((\x_i-\gmu)\sqrt{\frac{u_i}{\nu}}\bigg)\\ -->
+<!-- &=\bigg(\frac{u_i}{\nu}\bigg)^{\frac{p}{2}}\frac{1}{(2\pi)^{p/2}|\gSigma|^{1/2}}\exp\bigg(-\frac{1}{2}(\x_i-\gmu)^T\frac{u_i}{\nu}\gSigma^{-1}(\x_i-\gmu)\bigg)    \\ -->
+<!-- \X|U &\sim \mathcal{N}^p(\gmu, \frac{\nu}{u_i}\gSigma) -->
+<!-- \end{align} -->
+
+<!-- Sachant que  -->
+<!-- \begin{align} -->
+<!-- \label{loi_conditionel_2} -->
+<!-- f_{U}(U_i|\theta_{u})&= \frac{1}{2^{\nu/2}\Gamma(\nu/2)}u_i^{\frac{\nu}{2}-1}e^{-\frac{u_i}{2}} -->
+<!-- \end{align} -->
+<!-- Faisant le produit de $f_{\X|U}(\x_i|u_i, \theta_y)f_{U}(U_i|\theta_{u})=f_{\X,U}(\x_i,u_i, \theta_y,\theta_u)$ainsi -->
+<!-- \begin{align} -->
+<!-- \label{loi_conditionel} -->
+<!-- f_{\X,U}(\x_i,u_i, \theta_y)&=\bigg(\frac{u_i}{\nu}\bigg)^{\frac{p}{2}}\frac{1}{(2\pi)^{p/2}|\gSigma|^{1/2}}\exp\bigg(-\frac{1}{2}(\x_i-\gmu)^T\frac{u_i}{\nu}\gSigma^{-1}(\x_i-\gmu)\bigg)  \frac{1}{2^{\nu/2}\Gamma(\nu/2)}u_i^{\frac{\nu}{2}-1}e^{-\frac{u_i}{2}}  \\ -->
+<!-- &=\frac{1}{2^{\nu/2}\Gamma(\nu/2)} u_i^{\frac{\nu+p}{2}-1}\bigg(\frac{1}{\nu}\bigg)^{\frac{p}{2}}\frac{1}{(2\pi)^{p/2}|\gSigma|^{1/2}}\exp-\frac{u_i}{2}\bigg(1+\frac{1}{\nu}(\x_i-\gmu)^T\gSigma^{-1}(\x_i-\gmu)\bigg)   -->
+<!-- \end{align} -->
+<!-- si on calcule la loi marginale de $\X$ nous allons retrouver la loi de t multivariée -->
+<!-- \begin{align} -->
+<!-- f_{\X}(\x_i)&=\int\limits_{0}^{+\infty}f_{\X,U}(\x_i,u_i, \theta_y)\mathrm{d}u  \\ -->
+<!-- &=\frac{1}{2^{\nu/2}\Gamma(\nu/2)} \frac{1}{(2\pi)^{p/2}|\gSigma|^{1/2}} \bigg(\frac{1}{\nu}\bigg)^{\frac{p}{2}}\int\limits_{0}^{+\infty} u_i^{\frac{\nu+p}{2}-1}\exp-\frac{u_i}{2}\bigg(1+\frac{1}{\nu}(\x_i-\gmu)^T\gSigma^{-1}(\x_i-\gmu)\bigg) -->
+<!-- \end{align} -->
+<!-- or  -->
+<!-- \begin{align} -->
+<!-- \int\limits_{0}^{+\infty} u_i^{\frac{\nu+p}{2}-1}\exp-\frac{u_i}{2}\bigg(1+\frac{1}{\nu}(\x_i-\gmu)^T\gSigma^{-1}(\x_i-\gmu)\bigg)\mathrm{d}u_i&= \Gamma(\frac{\nu+p}{2})(\frac{1}{2})^{-\frac{\nu+p}{2}}\bigg[1+\frac{1}{\nu}(\x_i-\gmu)^T\gSigma^{-1}(\x_i-\gmu)\bigg]^{-\frac{\nu+p}{2}} -->
+<!-- \end{align} -->
+<!-- donc, on retrouve l'expression de la densité de student multivariée  -->
+<!-- \begin{align} -->
+<!-- f_{\X}(\x_i)&=\frac{\Gamma(\frac{\nu+p}{2})}{\Gamma(\nu/2)} \frac{1}{\pi^{p/2}|\gSigma|^{1/2}\nu^{\frac{p}{2}}} \bigg[1+\frac{1}{\nu}(\x_i-\gmu)^T\gSigma^{-1}(\x_i-\gmu)\bigg]^{-\frac{\nu+p}{2}} -->
+<!-- \end{align} -->
+<!-- Nous allons procéder autrement, soit $V=\frac{U}{\nu}$, nous allons alors déterminer $f_{\X|V}(x_i|v_i, \theta_y)$ et $f_{V}(v_i|\theta_{u})$.  -->
+<!-- Sachant que -->
+<!-- \begin{align} -->
+<!-- \label{loi_conditionel} -->
+<!-- f_{\X|V}(x_i|v_i, \theta_y)&=|\frac{\partial \Y}{\partial \X}|f_\Y\bigg((\x_i-\gmu)\sqrt{v_i}\bigg)\\ -->
+<!-- &=v_i^{\frac{p}{2}}\frac{1}{(2\pi)^{p/2}|\gSigma|^{1/2}}\exp\bigg(-\frac{v_i}{2}(\x_i-\gmu)^T\gSigma^{-1}(\x_i-\gmu)\bigg)    \\ -->
+<!-- &=\frac{1}{(2\pi)^{p/2}|\frac{\gSigma}{v_i}|^{1/2}}\exp\bigg(-\frac{v_i}{2}(\x_i-\gmu)^T\gSigma^{-1}(\x_i-\gmu)\bigg)    \\ -->
+<!-- \X|V &\sim \mathcal{N}^p(\gmu, \frac{1}{v_i}\gSigma) -->
+<!-- \end{align} -->
+<!-- Le passage au log aboutit à  -->
+<!-- \begin{align} -->
+<!-- \label{loi_conditionel} -->
+<!-- \ln f_{\X|V}(x_i|v_i, \theta_y)&=\frac{p}{2}\ln v_i-\frac{p}{2}\ln 2\pi -\frac{1}{2} \ln |\gSigma| -\frac{v_i}{2}(\x_i-\gmu)^T\gSigma^{-1}(\x_i-\gmu)     -->
+<!-- \end{align} -->
+
+
+<!-- Les paramètres $\theta_y$ et $\theta_{v}$ peuvent être déterminés comme suit: -->
+<!-- \begin{align} -->
+<!-- \label{eq:lamda_x} -->
+<!-- &\hat{\theta}_y=\arg \max_{\theta_y}\sum_{i=1}^N \mathbb{E}_{V|\X}\{\ln f_{\X|V}(\X_i|V_i,\theta_y)\big|\x_i,\theta'\} \\ -->
+<!-- \label{eq:lamda_w} -->
+<!-- &\hat{\theta}_v=\arg \max_{\theta_y}\sum_{i=1}^N \mathbb{E}_{V|\X}\{\ln f_{V}(V_i|\theta_{v})\big|\x_i,\theta'\}. -->
+<!-- \end{align} -->
+<!-- Substituer (\ref{loi_conditionel}) dans (\ref{eq:lamda_x}), différencier par rapport à $\gmu$ et $\gSigma$ et mettre le résultat à zéro donne: -->
+<!-- \begin{align} -->
+<!-- \sum_{i=1}^N \mathbb{E}_{V|\X}\{\frac{\partial}{\partial \gmu}\ln f_{\X|V}(\X_i|V_i,\theta_y)\big|\x_i,\theta'\}=0 =\sum_{i=1}^N \mathbb{E}_{V|\X}\{-\frac{V_i}{2}\frac{\partial}{\partial \gmu}(\X_i-\gmu)^T\gSigma^{-1}(\X_i-\gmu)\big|\x_i,\theta'\}\\ -->
+<!-- \sum_{i=1}^N \mathbb{E}_{V|\X}\{\frac{\partial}{\partial \gSigma}\ln f_{\X|V}(\X_i|V_i,\theta_y)\big|\x_i,\theta'\}=0=\sum_{i=1}^N \mathbb{E}_{V|\X}\{-\frac{1}{2}\frac{\partial}{\partial \gSigma} \ln |\gSigma| -\frac{V_i}{2}\frac{\partial}{\partial \gSigma}(\X_i-\gmu)^T\gSigma^{-1}(\X_i-\gmu)    \big|\x_i,\theta'\}. -->
+<!-- \end{align} -->
+<!-- Le développement de ces équations aboutit  -->
+<!-- \begin{align} -->
+<!-- \sum_{i=1}^N \mathbb{E}_{V|\X}\{-\frac{V_i}{2}\frac{\partial}{\partial \gmu}\bigg[-\gmu^T\gSigma^{-1}\X_i -\X_i^T\gSigma^{-1}\gmu +\gmu^T\gSigma^{-1}\gmu\bigg]|\x_i,\theta'\}=0\\ -->
+<!-- \sum_{i=1}^N \mathbb{E}_{V|\X}\{-\frac{1}{2}\frac{\partial}{\partial \gSigma} \ln |\gSigma| -\frac{V_i}{2}\frac{\partial}{\partial \gSigma}(\X_i-\gmu)^T\gSigma^{-1}(\X_i-\gmu)    \big|\x_i,\theta'\}=0. -->
+<!-- \end{align} -->
+<!-- sachant que  -->
+<!-- \begin{align} -->
+<!-- \frac{\partial}{\partial \gmu}[-\gmu^T\gSigma^{-1}\x_i] = -\gSigma^{-1}\x_i, \quad \frac{\partial}{\partial \gmu}[-\x_i^T\gSigma^{-1}\gmu] = -\gSigma^{-1}\x_i,~ \frac{\partial}{\partial \gmu}[\gmu^T\gSigma^{-1}\gmu]=2\gSigma^{-1}\gmu \text{~et~} \frac{\partial}{\partial \gSigma} \ln |\gSigma| = \gSigma^{-1}, \\ -->
+<!-- \frac{\partial}{\partial \gSigma}(\x_i-\gmu)^T\gSigma^{-1}(\x_i-\gmu)= \frac{\partial}{\partial \gSigma}\mathrm{tr}\left(\gSigma^{-1}(\x_i-\gmu)(\x_i-\gmu)^T\right)= - \gSigma^{-1}(\x_i-\gmu)(\x_i-\gmu)^T\gSigma^{-1} -->
+<!-- \end{align} -->
+
+We can show that the parameters $\boldsymbol{\mu}$ and $\Sigma$ are given by:
+
+$$
+\hat{\boldsymbol{\mu}} = \frac{\sum_{i=1}^{N}\mathbf{x}_i\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}}{\sum_{i=1}^{N}\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}}
+$${#eq-EM_K1}
+
+$$
+\hat{\Sigma} = \frac{1}{N}\sum_{i=1}^{N}\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}(\mathbf{x}_i-\boldsymbol{\mu})(\mathbf{x}_i-\boldsymbol{\mu})^T
+$${#eq-EM_K2}
+
+where $E_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}$ is the expected value a posteriori and depends on the distribution of $V$.
+The expression of these expected values are provided further.
+
+### Estimation of $\theta_v=(\nu)$ {.unnumbered .unlisted}
+
+<!-- %************************************************************************* -->
+<!-- \subsection{Estimation de $\theta_v=(\nu)$} -->
+<!-- %************************************************************************* -->
+<!-- la distribution de $V$ est alors  -->
+<!-- \begin{align} -->
+<!-- \label{loi_conditionel_2} -->
+<!-- f_{V}(v_i|\theta_{v})&= (\frac{\nu}{2})^{\frac{\nu}{2}}\frac{1}{\Gamma(\nu/2)}v_i^{\frac{\nu}{2}-1}e^{-\frac{\nu}{2}v_i} -->
+<!-- \end{align} -->
+<!-- Il est clair que la distribution de $V=\frac{u}{\nu}\sim \text{Gamma}(\frac{\nu}{2}, \frac{\nu}{2})$. \\ -->
+<!-- Le passage au log  -->
+<!-- \begin{align} -->
+<!-- \label{loi_conditionel_2} -->
+<!-- \ln f_{V}(v_i|\theta_{v})&= \frac{\nu}{2} \ln\frac{\nu}{2} -\ln\Gamma(\nu/2)+(\frac{\nu}{2}-1)\ln v_i -\frac{v_i\nu}{2} -->
+<!-- \end{align} -->
+<!-- En substituant (\ref{loi_conditionel_2}) dans (\ref{eq:lamda_w}), en différenciant par rapport à $\nu$ et en mettant le résultat à zéro donne : -->
+<!-- \begin{align} -->
+<!-- \sum_{i=1}^N \mathbb{E}_{V|\X}\{\frac{\partial}{\partial \nu}\ln f_{V}(V_i|\theta_{v})|\x_i,\theta'\}&=0 = -->
+<!-- \sum_{i=1}^N \mathbb{E}_{V|\X}\{1+\ln \frac{\nu}{2}-\psi(\frac{\nu}{2})+\ln V_i-V_i |\x_i,\theta'\}\\ -->
+<!-- &=\sum_{i=1}^N 1+\ln \frac{\nu}{2}-\psi(\frac{\nu}{2})+ \mathbb{E}_{V|\X}\{\ln V_i|\x_i,\theta'\} -\mathbb{E}_{V|\X}\{V_i |\x_i,\theta'\} -->
+<!-- \end{align} -->
+<!-- En conclusion -->
+
+We can show that:
+
+$$
+1+\ln \frac{\hat{\nu}}{2}-\psi(\frac{\hat{\nu}}{2})=\frac{1}{N}\sum_{i=1}^N \mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\} -\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\}
+$${#eq-EM_G_1}
+
+### Determine $\mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\}$ and $\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\}$ {.unnumbered .unlisted}
+
+The expected values included in @eq-EM_K1, @eq-EM_K2 and @eq-EM_G_1 are given by:
+
+$$
+\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\} = \frac{\nu+p}{\nu+(\mathbf{x}_i-\boldsymbol{\mu})^T\Sigma^{-1}(\mathbf{x}_i-\boldsymbol{\mu})}
+$${#eq-E1}
+
+and:
+
+$$
+\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\} = \psi(\frac{\nu+p}{2}) -\ln \frac{1}{2}\bigg[\nu+(\mathbf{x}_i-\boldsymbol{\mu})^T\Sigma^{-1}(\mathbf{x}_i-\boldsymbol{\mu})\bigg]
+$${#eq-E2}
+
+<!-- \begin{tcolorbox}[arc=1ex, colback=yellow, colframe=yellow, left=3pt, right=3pt, top=2pt, bottom=2pt] -->
+<!-- \begin{align} -->
+<!-- \mathbb{E}_{V|\X}\{V_i |\x_i,\theta'\}&=\frac{\nu+p}{\nu+(\x_i-\gmu)^T\gSigma^{-1}(\x_i-\gmu)} -->
+<!-- \end{align} -->
+<!-- \end{tcolorbox} -->
+
+<!-- %************************************************************************************************* -->
+<!-- \subsection{Détermination de $\mathbb{E}_{V|\X}\{V_i |\x_i,\theta'\}$ et $\mathbb{E}_{V|\X}\{\ln V_i|\x_i,\theta'\}$} -->
+<!-- %************************************************************************************************* -->
+<!-- L'espérance a posteriori $\mathbb{E}_{V|\X}\{V_i |\x_i,\theta'\}$ et $\mathbb{E}_{V|\X}\{\ln V_i|\x_i,\theta'\}$ dépendent de la densité a posteriori $f_{V|\X}(v_i|\x_i)$ qui est exprimé comme suit: -->
+<!-- \begin{align} -->
+<!-- f_{V|\X}(v_i|\x_i)&=\frac{f_{\X|V}(\x_i|v_i,\theta_{y})f_V(v_i|\theta_{v})}{f_{\X}(\x_i|\theta_{y},\theta_{v})}\\ -->
+<!-- &=\frac{v_i^{\frac{p}{2}}\frac{1}{(2\pi)^{p/2}|\gSigma|^{1/2}}\exp\bigg[-\frac{v_i}{2}(\x_i-\gmu)^T\gSigma^{-1}(\x_i-\gmu)\bigg] (\frac{\nu}{2})^{\frac{\nu}{2}}\frac{1}{\Gamma(\nu/2)}v_i^{\frac{\nu}{2}-1}e^{-\frac{\nu}{2}v_i}       }{ \frac{\Gamma(\frac{\nu+p}{2})}{\Gamma(\nu/2)} \frac{1}{\pi^{p/2}|\gSigma|^{1/2}\nu^{\frac{p}{2}}} \bigg[1+\frac{1}{\nu}(\x_i-\gmu)^T\gSigma^{-1}(\x_i-\gmu)\bigg]^{-\frac{\nu+p}{2}}   }   \\ -->
+<!-- &=\frac{v_i^{\frac{p+\nu}{2}-1}}{\Gamma(\frac{p+\nu}{2})}(\frac{\nu}{2})^{\frac{p+\nu}{2}}\bigg[1+\frac{1}{\nu}(\x_i-\gmu)^T\gSigma^{-1}(\x_i-\gmu)\bigg]^{\frac{\nu+p}{2}} \exp-\frac{v_i}{2}\bigg[\nu+(\x_i-\gmu)^T\gSigma^{-1}(\x_i-\gmu)\bigg] -->
+<!-- \end{align} -->
+
+<!-- \begin{tcolorbox}[arc=1ex, colback=yellow, colframe=yellow, left=3pt, right=3pt, top=2pt, bottom=2pt] -->
+<!-- \begin{align} -->
+<!-- V|\X &\sim \text{Gamma}\bigg(\frac{\nu+p}{2}, \frac{1}{2}\bigg[\nu+(\x_i-\gmu)^T\gSigma^{-1}(\x_i-\gmu)\bigg] \bigg) -->
+<!-- \end{align} -->
+<!-- \end{tcolorbox} -->
+
+<!-- Nous pouvons maintenant exprimé l'espérance  -->
+<!-- \begin{tcolorbox}[arc=1ex, colback=yellow, colframe=yellow, left=3pt, right=3pt, top=2pt, bottom=2pt] -->
+<!-- \begin{align} -->
+<!-- \mathbb{E}_{V|\X}\{V_i |\x_i,\theta'\}&=\frac{\nu+p}{\nu+(\x_i-\gmu)^T\gSigma^{-1}(\x_i-\gmu)} -->
+<!-- \end{align} -->
+<!-- \end{tcolorbox} -->
+
+<!-- L'expression de $\mathbb{E}_{V|\X}\{\ln V_i|\x_i,\theta'\}$ est donnée  -->
+<!-- \begin{tcolorbox}[arc=1ex, colback=yellow, colframe=yellow, left=3pt, right=3pt, top=2pt, bottom=2pt] -->
+<!-- \begin{align} -->
+<!-- \mathbb{E}_{V|\X}\{\ln V_i|\x_i,\theta'\}&= \psi(\frac{\nu+p}{2}) -\ln \frac{1}{2}\bigg[\nu+(\x_i-\gmu)^T\gSigma^{-1}(\x_i-\gmu)\bigg]  -->
+<!-- \end{align} -->
+<!-- \end{tcolorbox} -->
+
+<!-- \begin{table}[h] -->
+<!-- \begin{tabular}{l} -->
+<!-- \toprule -->
+
+### Algorithm {#sec-mtd_algo .unnumbered .unlisted}
+
+From these expressions, we can build an algorithm for the parameter estimation:
+
+<!-- \textbf{Algorithme }  \\ -->
+<!-- \bottomrule -->
+<!-- \end{tabular} -->
+<!-- \end{table} -->
+
+<!-- **Input**: $N, \mathbf{x}_i, \epsilon$ -->
+
+<!-- **Output**: $\hat{\theta}=(\hat{\boldsymbol{\mu}},\hat{\Sigma},\hat{\nu})$ -->
+
+<!-- *   [**Initialisation:**]{.underline} -->
+
+1.    Initialization of the parameters $\theta'=({\boldsymbol{\mu}}',{\Sigma}',{\nu}')$
+
+1.    **until** convergence **do**
+
+      *   Compute $\mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta\}$ (@eq-E1) and $\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta\}$ (@eq-E2)
+      
+      *   Estimate $\hat{\boldsymbol{\mu}}$ using @eq-EM_K1
+      
+      *   Estimate $\hat{\Sigma}$ using @eq-EM_K2
+      
+      *   Resolve @eq-EM_G_1 to estimate $\hat{\nu}$
+
+<!--           *   Compute the stop criterion: $D\leftarrow\Vert\hat{\theta}-\theta'\Vert$ -->
+
+<!--           *   Define the inputs for the next iteration: $\boldsymbol{\mu}',\Sigma',\nu' \leftarrow\hat{\boldsymbol{\mu}},\hat{\Sigma},\hat{\nu}$ -->
+
+<!--     1.    **Until** $D<\epsilon$ -->
+
+<!-- *   **Return** $(\hat{\boldsymbol{\mu}},\hat{\Sigma},\hat{\nu})$ -->
+
+## Rényi divergence
+
+Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of $\mathbb{R}^p$ from MTDs with probability density functions: 
+$$
+    \displaystyle{ f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \Sigma_1) = f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \boldsymbol{0}, \Sigma_1) = \frac{\Gamma\left( \frac{\nu_1+p}{2} \right) |\Sigma_1|^{-1/2}}{\Gamma\left( \frac{\nu_1}{2} \right) (\nu_1 \pi)^{p/2}} \left( 1 + \frac{1}{\nu_1} \mathbf{x}^T \Sigma_1^{-1} \mathbf{x} \right)^{-\frac{\nu_1+p}{2}} }
+$$
+and
+$$
+    \displaystyle{ f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \Sigma_2) = f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \boldsymbol{0}, \Sigma_2) = \frac{\Gamma\left( \frac{\nu_2+p}{2} \right) |\Sigma_2|^{-1/2}}{\Gamma\left( \frac{\nu_2}{2} \right) (\nu_2 \pi)^{p/2}} \left( 1 + \frac{2}{\nu_2} \mathbf{x}^T \Sigma_2^{-1} \mathbf{x} \right)^{-\frac{\nu_2+p}{2}} }
+$$
+
+The RD of order $\beta$ ($\beta >0$, $\beta \neq 1$) between $\mathbf{X}^1$ and $\mathbf{X}^2$ is:
+$$\begin{array}{lll}
+\displaystyle{D_R^{\beta}(\mathbf{X}^1 \Vert \mathbf{X}^2)} &   = &   \displaystyle{\frac{1}{\beta-1} \ln\left({E_{X^1}\left[ \left( \frac{f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \Sigma_1)}{f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \Sigma_2)} \right)^{\beta-1} \right]}\right)} \\
+\\
+& =   &    \displaystyle{\frac{1}{\beta-1} \ln\left( \int_{\mathbb{R}^p}{\left( \frac{f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \Sigma_1)}{f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \Sigma_2)} \right)^{\beta-1} f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \Sigma_1) d\mathbf{x}} \right)}
+\end{array}$${#eq-rd}
+
+Let $\lambda_1, \dots, \lambda_p$ be the eigenvalues of the square matrix $\Sigma_1 \Sigma_2^{-1}$ sorted in increasing order: $\lambda_1 < \dots < \lambda_p$. Let $\delta_1 = \frac{\nu_1+p}{2}\beta$ and $\delta_2 = \frac{\nu_2+p}{2}(1-\beta)$.
+
+@bouhlel23 shows that the RD of order $\beta$ between $\mathbf{X}^1$ and $\mathbf{X}^2$ is given by:
+
+$$\begin{array}{lll}
+\displaystyle{D_R^{\beta}(\mathbf{X}^1 \Vert \mathbf{X}^2)} &   = &   \displaystyle{\frac{1}{1-\beta} \left[ \beta \ln\left( \frac{\Gamma\left(\frac{\nu_1+p}{2}\right) \Gamma\left(\frac{\nu_2}{2}\right) \nu_2^\frac{p}{2}}{\Gamma\left(\frac{\nu_2+p}{2}\right) \Gamma\left(\frac{\nu_1}{2}\right) \nu_1^\frac{p}{2}} \right) + \ln\left( \frac{\Gamma\left(\frac{\nu_2+p}{2}\right)}{\Gamma\left(\frac{\nu_2}{2}\right)} \right) \right.} \\
+\\
+&&   \displaystyle{\left. + \ln\left( \frac{\Gamma\left(\delta_1 + \delta_2 - \frac{p}{2}\right)}{\Gamma(\delta_1 + \delta_2)} \right) - \frac{\beta}{2} \sum_{i=1}^p{\ln\lambda_i} + \ln F_D \right]}
+\end{array}$$ {#eq-rdmtd}
+
+where $F_D$ depends on the values of $\frac{\nu_1}{\nu_2}\lambda_1, \dots, \frac{\nu_1}{\nu_2}\lambda_p$:
+
+*   If $\frac{\nu_1}{\nu_2}\lambda_1 > 1$,
+
+$$
+\displaystyle{ F_D = F_D^{(p)}\bigg( \delta_1, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}}_p; \delta_1 + \delta_2; 1 - \frac{\nu_2}{\nu_1}\frac{1}{\lambda_1}, \dots, 1 - \frac{\nu_2}{\nu_1}\frac{1}{\lambda_p} \bigg) }
+$$
+
+*   If $\frac{\nu_1}{\nu_2}\lambda_p < 1$,
+
+$$
+\displaystyle{ F_D = \prod_{i=1}^p{\left(\frac{\nu_1}{\nu_2}\lambda_i\right)^\frac{1}{2}} F_D^{(p)}\bigg( \delta_2, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}}_p; \delta_1 + \delta_2; 1 - \frac{\nu_1}{\nu_2}\lambda_1, \dots, 1 - \frac{\nu_1}{\nu_2}\lambda_p \bigg) }
+$$
+
+*   If $\frac{\nu_1}{\nu_2}\lambda_1 < 1 < \frac{\nu1}{\nu_2}\lambda_p$,
+
+$$\begin{array}{lll}
+F_D &   = &   \displaystyle{ \left(\frac{\nu_2}{\nu_1}\frac{1}{\lambda_p}\right)^{\delta_2} \prod_{i=1}^p{\left(\frac{\nu_1}{\nu_2}\lambda_i\right)^\frac{1}{2}} } \\
+&&    \displaystyle{ \times F_D^{(p)}\bigg( \delta_2, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}, \delta_1 + \delta_2 - \frac{p}{2}}_p; \delta_1 + \delta_2; 1 - \frac{\lambda_1}{\lambda_p}, \dots, 1 - \frac{\lambda_{p-1}}{\lambda_p}, 1 - \frac{\nu_2}{\nu_1}\frac{1}{\lambda_p} \bigg) }
+\end{array}
+$$
+
+## Bhattacharyya and Hellinger divergences
+
+The Bhattacharyya divergence is computed from the RD of order $\beta = \frac{1}{2}$:
+$$
+D_B(\mathbf{X}^1 \Vert \mathbf{X}^2) = \frac{1}{2} D_R^\frac{1}{2}(\mathbf{X}^1 \Vert \mathbf{X}^2)
+$$ {#eq-bdmtd}
+
+And the Hellinger divergence:
+$$
+D_H(\mathbf{X}^1 \Vert \mathbf{X}^2) = 1 - \exp\left(-\frac{1}{2} D_R^\frac{1}{2}(\mathbf{X}^1 \Vert \mathbf{X}^2)\right)
+$$ {#eq-hdmtd}
+
+## Kullback-Leibler divergence {#sec-kldt}
+
+With the same notations, the KLD of $\mathbf{X}_1$ from $\mathbf{X}_2$ is given by:
+
+$$\begin{array}{lll}
+D_{KL}(\mathbf{X}^1 \Vert \mathbf{X}^2) &   = &   \displaystyle{ \ln\left( \frac{\Gamma\left(\frac{\nu_1+p}{2}\right) \Gamma\left(\frac{\nu_2}{2}\right) \nu_2^\frac{p}{2}}{\Gamma\left(\frac{\nu_2+p}{2}\right) \Gamma\left(\frac{\nu_1}{2}\right) \nu_1^\frac{p}{2}} \right) + \frac{\nu_2 - \nu_1}{2} \left( \psi\left(\frac{\nu_1+p}{2}\right) - \psi\left(\frac{\nu_1}{2}\right) \right) } \\
+&&    \displaystyle{ - \frac{1}{2}\sum_{i=p}^p{\ln\lambda_i} - \frac{\nu_2+p}{2} \times D }
+\end{array}
+$$ {#eq-klmtd}
+
+where $D$ depends on the values of $\frac{\nu_1}{\nu_2}\lambda_1, \dots, \frac{\nu_1}{\nu_2}\lambda_p$:
+
+*   If $\displaystyle{\frac{\nu_1}{\nu_2}\lambda_1 > 1}$,
+$$\begin{array}{lll}
+D &   = &   \displaystyle{ \prod_{i=1}^p{\left(\frac{\nu_2}{\nu_1}\frac{1}{\lambda_i}\right)^\frac{1}{2}} \frac{\partial}{\partial{a}}{ \bigg\{ F_D^{(p)}\bigg( \frac{\nu_1+p}{2}, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}}_p; a + \frac{\nu_1+p}{2}; 1 - \frac{\nu_2}{\nu_1}\frac{1}{\lambda_1}, \dots, 1 - \frac{\nu_2}{\nu_1}\frac{1}{\lambda_p} \bigg) \bigg\} } \bigg|_{a=0} } \\
+&   = &   \displaystyle{ \prod\limits_{i=1}^p\left(\frac{\nu_2}{\nu_1}\frac{1}{\lambda_i}\right)^{\frac{1}{2}}\sum\limits_{m_1\geq 0}...\sum\limits_{m_p\geq 0} \bigg(\frac{\nu_1+p}{2}\bigg)_{\sum m_i}\frac{\partial}{\partial a}\bigg\lbrace \frac{1}{\big(a+\frac{\nu_1+p}{2}\big)_{\sum m_i}}  \bigg\rbrace\bigg|_{a=0} } \\
+&&    \displaystyle{ \times \bigg(\frac{1}{2}\bigg)_{m_1}...\bigg(\frac{1}{2}\bigg)_{m_p} \frac{1}{m_1!}\bigg(1-\frac{\nu_2}{\nu_1}\frac{1}{\lambda_1}\bigg)^{m_1} \dots \frac{1}{m_p!}\bigg(1-\frac{\nu_2}{\nu_1}\frac{1}{\lambda_p}\bigg)^{m_p} }
+\end{array}$$ {#eq-klmtd1}
+    where:
+$$
+\displaystyle{\frac{\partial}{\partial a}\bigg\lbrace \frac{1}{\left(a+\frac{\nu_1+p}{2}\right)_{\sum_{i=1}^p m_i}}  \bigg\rbrace\bigg|_{a=0} = \frac{-1}{\big(\frac{\nu_1+p}{2}\big)_{\sum_{i=1}^pm_i}} \sum_{k=0}^{\sum m_i -1} \frac{1}{k+\frac{\nu_1+p}{2}}}
+$$
+
+*   If $\displaystyle{\frac{\nu_1}{\nu_2}\lambda_p < 1}$,
+$$\begin{array}{lll}
+D &   = &   \displaystyle{ \frac{\partial}{\partial{a}}{ \bigg\{ F_D^{(p)}\bigg( a, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}}_p; a + \frac{\nu_1+p}{2}; 1 - \frac{\nu_1}{\nu_2}\lambda_1, \dots, 1 - \frac{\nu_1}{\nu_2}\lambda_p \bigg) \bigg\} } \bigg|_{a=0} } \\
+&   = &   \displaystyle{ \sum_{m_1\geq 0} \dots \sum_{m_p\geq 0} \frac{\partial}{\partial a}\bigg\lbrace \frac{(a)_{\sum mi}}{\big(a+\frac{\nu_1+p}{2}\big)_{\sum m_i}}  \bigg\rbrace\bigg|_{a=0}  \bigg(\frac{1}{2}\bigg)_{m_1}...\bigg(\frac{1}{2}\bigg)_{m_p} } \\
+&&    \displaystyle{ \times \frac{1}{m_1!}\bigg(1-\frac{\nu_1}{\nu_2}\lambda_1\bigg)^{m_1} \dots \frac{1}{m_p!}\bigg(1-\frac{\nu_1}{\nu_2}\lambda_p\bigg)^{m_p} }
+\end{array}$$ {#eq-klmt2}
+where:
+$$
+\displaystyle{ \frac{\partial}{\partial a}\bigg\lbrace \frac{(a)_{\sum m_i}}{\big(a+\frac{\nu_1+p}{2}\big)_{\sum_{i=1}^p m_i}}  \bigg\rbrace\bigg|_{a=0} = \frac{(1)_{\sum m_i} }{\big(\frac{\nu_1+p}{2}\big)_{\sum m_i}}\frac{1}{\sum m_i} }
+$$
+
+*   If $\displaystyle{\frac{\nu_1}{\nu_2}\lambda_1 < 1 < \frac{\nu1}{\nu_2}\lambda_p}$,
+$$\begin{array}{lll}
+D &   = &   \displaystyle{ -\ln\left(\frac{\nu_1}{\nu_2}\lambda_p\right) } + \\
+&&    \displaystyle{ \frac{\partial}{\partial{a}}{ \bigg\{ F_D^{(p)}\bigg( a, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}, a + \frac{\nu_1}{2}}_p; a + \frac{\nu_1+p}{2}; 1 - \frac{\lambda_1}{\lambda_p}, \dots, 1 - \frac{\lambda_{p-1}}{\lambda_p}, 1 - \frac{\nu_2}{\nu_1}\frac{1}{\lambda_p} \bigg) \bigg\} } \bigg|_{a=0} } \\
+&   = &   \displaystyle{ -\ln\bigg(\frac{\nu_1}{\nu_2}\lambda_p\bigg) +\sum\limits_{m_1\geq 0} \dots \sum_{m_p\geq 0} \frac{\partial}{\partial a}\bigg\lbrace \frac{(a)_{\sum mi} (a+\frac{\nu_1}{2})_{m_p}}{\big(a+\frac{\nu_1+p}{2}\big)_{\sum m_i}}  \bigg\rbrace\bigg|_{a=0} } \\
+&&    \displaystyle{ \times \bigg(\frac{1}{2}\bigg)_{m_1} \dots \bigg(\frac{1}{2}\bigg)_{m_{p-1}} \frac{1}{m_1!}\left(1-\frac{\lambda_1}{\lambda_p}\right)^{m_1} \dots  \frac{1}{m_p!}\left(1-\frac{\nu_2}{\nu_1}\frac{1}{\lambda_p}\right)^{m_p} }
+\end{array}$$ {#eq-klmtd3}
+where:
+$$
+\displaystyle{ \frac{\partial}{\partial a}\bigg\lbrace \frac{(a)_{\sum m_i}(a+\frac{\nu_1}{2})_{m_p}}{\big(a+\frac{\nu_1+p}{2}\big)_{\sum_{i=1}^p m_i}}  \bigg\rbrace\bigg|_{a=0} = \frac{(1)_{\sum m_i} }{\big(\frac{\nu_1+p}{2}\big)_{\sum m_i}}\frac{(\frac{\nu_1}{2})_{m_p}}{\sum m_i} }
+$$
+
+# Other multivariate distributions
+
+## Multivariate Cauchy distribution
+
+Let $\mathbf{X}$ be a random vector of $\mathbb{R}^p$ from a multivariate Cauchy distribution (MCD) with location vector $\boldsymbol{\mu}$ and scale matrix $\Sigma$, which is a $p \times p$ symmetric, positive definite matrix. Its probability density function is given by:
+$$
+    \displaystyle{ f(\mathbf{x}|\boldsymbol{\mu}, \Sigma) = \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\Sigma|^\frac{1}{2} \left[ 1 + (\mathbf{x}-\boldsymbol{\mu})^T \Sigma^{-1} (\mathbf{x}-\boldsymbol{\mu}) \right]^\frac{1+p}{2}} }
+$$ {#eq-mcd}
+
+where $\Gamma(\cdot)$ is the gamma function
+
+The MCD is a particular case of the multivariate $t$-distribution with $\nu = 1$.
+Hence, a sample from a MCD with location parameter $\boldsymbol{\mu}$ and dispersion matrix $\Sigma$ can be generated using @eq-rmtd with $\nu = 1$:
+
+$$
+    \displaystyle{\mathbf{X} = \boldsymbol{\mu} + \frac{\mathbf{Y}}{\sqrt{u}}}
+$$ {#eq-rmcd}
+where $\mathbf{Y}$ is generated from a centered Gaussian distribution with covariance matrix $\Sigma$
+and $u$ is distributed according to a Chi-squared distribution with $\nu$ degrees of freedom.
+
+### Parameter estimation
+
+To estimate the parameters of a MCD, we use the same method as for the MTD (@sec-est_mtd) setting $\nu = 1$.
+Then the algorithm presented in @sec-est_mtd becomes:
+
+1.    Initialization of the parameters $\theta'=({\boldsymbol{\mu}}',{\Sigma}')$
+
+1.    **until** convergence **do**
+
+      *   Compute $\mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\}=\displaystyle{\frac{1+p}{1+(\mathbf{x}_i-\boldsymbol{\mu}')^T\Sigma'^{-1}(\mathbf{x}_i-\boldsymbol{\mu}')}}$
+      
+      *   Compute $\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\}=\psi(\frac{1+p}{2}) -\ln \frac{1}{2}\bigg[1+(\mathbf{x}_i-\boldsymbol{\mu}')^T\Sigma'^{-1}(\mathbf{x}_i-\boldsymbol{\mu}')\bigg]$
+      
+      *   Estimate $\hat{\boldsymbol{\mu}} = \frac{\sum_{i=1}^{N}\mathbf{x}_i\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}}{\sum_{i=1}^{N}\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}}$
+      
+      *   Estimate $\hat{\Sigma}=\frac{1}{N}\sum_{i=1}^{N}\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}(\mathbf{x}_i-\boldsymbol{\mu}')(\mathbf{x}_i-\boldsymbol{\mu}')^T$
+
+### Kullback-Leibler divergence
+
+Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of $\mathbb{R}^p$ from MCDs with probability density functions: 
+$$\displaystyle{ f_{\mathbf{X}^1}\left(\mathbf{x}|\Sigma_1\right) = f_{\mathbf{X}^1}\left(\mathbf{x}|\mathbf{0}, \Sigma_1\right) = \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\Sigma_1|^\frac{1}{2} \left[ 1 + \mathbf{x}^T \Sigma_1^{-1} \mathbf{x} \right]^\frac{1+p}{2}} }$$
+and
+$$\displaystyle{ f_{\mathbf{X}^2}\left(\mathbf{x}|\Sigma_2\right) = f_{\mathbf{X}^2}\left(\mathbf{x}|\mathbf{0}, \Sigma_2\right) =  \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\Sigma_2|^\frac{1}{2} \left[ 1 + \mathbf{x}^T \Sigma_2^{-1} \mathbf{x} \right]^\frac{1+p}{2}} }$$
+
+Let $\lambda_1, \dots, \lambda_p$ be the eigenvalues of the square matrix $\Sigma_1 \Sigma_2^{-1}$, sorted in increasing order: $\lambda_1 < \dots < \lambda_p$.
+
+From @sec-kldt, the KLD to $\mathbf{X}^1$ from $\mathbf{X}^2$ (@eq-kl) is given by (@bouhlel22):
+
+$$
+KL(X_1||X_2) = \displaystyle{-\frac{1}{2} \ln{ \prod_{i=1}^p{\lambda_i}} + \frac{1+p}{2} \times D}
+$$
+
+where $D$ depends on the values of $\lambda_1, \dots, \lambda_p$:
+
+*   If $\lambda_1 < 1$ and $\lambda_p > 1$:
+    $$
+    \begin{aligned}
+    D = & \displaystyle{ \bigg( \ln{\lambda_p} - } \\
+    & \displaystyle{ \frac{\partial}{\partial a} \bigg\{ F_D^{(p)} \bigg( a, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}, a + \frac{1}{2}}_p ; a + \frac{1+p}{2} ; 1 - \frac{\lambda_1}{\lambda_p}, \dots, 1 - \frac{\lambda_{p-1}}{\lambda_p}, 1 - \frac{1}{\lambda_p} \bigg) \bigg\}\bigg|_{a=0} \bigg) }
+    \end{aligned}
+    $$ {#eq-klmcd1}
+* If $\lambda_p < 1$:
+    $$
+    \displaystyle{ D = \frac{\partial}{\partial a} \bigg\{ F_D^{(p)} \bigg( a, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}}_p ; a + \frac{1+p}{2} ; 1 - \lambda_1, \dots, 1 - \lambda_p \bigg) \bigg\}\bigg|_{a=0} }
+    $$ {#eq-klmcd2}
+* If $\lambda_1 > 1$:
+    $$
+    \displaystyle{ D = \prod_{i=1}^p\frac{1}{\sqrt{\lambda_i}} \times \frac{\partial}{\partial a} \bigg\{ F_D^{(p)} \bigg( \frac{1+p}{2}, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}}_p ; a + \frac{1+p}{2} ; 1 - \frac{1}{\lambda_1}, \dots, 1 - \frac{1}{\lambda_p} \bigg) \bigg\}\bigg|_{a=0} }
+    $$ {#eq-klmcd3}
+
+## Multivariate generalized Gaussian distribution
+
+Let $\mathbf{X}$ a random vector of $\mathbb{R}^p$ from a Multivariate generalized Gaussian distribution (MGGD) with mean vector $\boldsymbol{\mu}$, dispersion matrix $\Sigma$ (symmetric, positive definite of dimension $p \times p$) and shape parameter $\beta > 0$.
+Its probability density function is given by [@gomez; @bouhlel19]:
+$$
+    \displaystyle{f_\mathbf{X}\left(\mathbf{x}|\boldsymbol{\mu}, \Sigma, \beta\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta}\right) 2^\frac{p}{2\beta}} \frac{\beta}{|\Sigma|^\frac{1}{2}} e^{-\frac{1}{2}\left[ (\mathbf{x}-\boldsymbol{\mu})^T \Sigma^{-1} (\mathbf{x}-\boldsymbol{\mu}) \right]^\beta}}
+$$ {#eq-mggd}
+
+where $\Gamma(\cdot)$ is the gamma function.
+
+<!-- Let $\mathbf{X}$ a random vector of $\mathbb{R}^p$ distributed according to a MGGD with mean vector $\boldsymbol{\mu} = \mathbf{0}$, dispersion matrix $\Sigma$ and shape parameter $\beta$. -->
+@gomez show that $\mathbf{X}$ has the same distribution as:
+$$
+    \displaystyle{\tau \Sigma^{1/2} \mathbf{U}}
+$$ {#eq-rggd}
+where $\mathbf{U}$ is a random vector uniformly distributed on the unit sphere in $\mathbb{R}^p$ and $\tau$ is such that $\tau^{2\beta}$ is a random variable distributed according to a Gamma distribution with shape parameter $\displaystyle{\frac{p}{2\beta}}$ and scale parameter $2$.
+We use this property to simulate a sample from a MGGD.
+
+### Parameter estimation
+
+Let $\left( \mathbf{x}_1, \dots, \mathbf{x}_n \right)$ be $n$ i.i.d. random vectors distributed according to a MGGD with parameters $\boldsymbol{\mu}$, $\Sigma$ and $\beta$.
+@pascal give a method to estimate these parameters.
+
+The dispersion matrix $\Sigma$ can be normalized as follows:
+$$
+\Sigma = m M
+$$ {#eq-normalizeSigma}
+$M$ being a symmetric, positive-definite matrix such that its trace is $tr(M) = p$ and $m \in \mathbb{R}$.
+
+Estimations of the parameters $\boldsymbol{\mu}$, $M$, $m$ and $\beta$ can be computed:
+
+* The mean vector $\boldsymbol{\mu}$ is estimated by calculating the mean of $\left( \mathbf{x}_1, \dots, \mathbf{x}_n \right)$.
+* If $\beta$ is known, $M$ and $m$ can be estimated by:
+    $$
+    M = \frac{1}{n} \sum_{i=1}^n{\frac{n p}{\mathbf{y}_i + \mathbf{y}_i^{1-\beta} \sum_{j \neq i}{\mathbf{y}_j^\beta}} \mathbf{x}_i \mathbf{x}_i^T}
+    $$ {#eq-estggdM}
+    and
+    $$
+    m = \left( \frac{\beta}{p n} \sum_{i=1}^n{{\mathbf{y}_i}^\beta} \right)^\frac{1}{\beta}
+    $$ {#eq-estggdm}
+    with $\mathbf{y}_i = \mathbf{x}_i^T M^{-1} \mathbf{x}_i$
+* When the shape parameter $\beta$ is unknown, it is given by the following relation:
+    $$
+    \displaystyle{\frac{p n}{2 \sum_{i=1}^n{\mathbf{y}_i^\beta}} \sum_{i=1}^n{\left( \mathbf{y}_i^\beta \ln{\mathbf{y}_i} \right)} - \frac{p n}{2\beta} \left( \Psi(\frac{p}{2\beta}) + \ln{2} \right) - n - \frac{p n}{2\beta} \ \ln{\left( \frac{\beta}{p n}\sum_{i=1}^n{\mathbf{y}_i^\beta} \right)} = 0}
+    $$ {#eq-estggdbeta}
+    where $\Psi$ is the digamma function:
+    $\displaystyle{\Psi(x) = \frac{d}{dx} \ln{\Gamma(x)} = \frac{\Gamma'(x)}{\Gamma(x)}}$
+
+Thus, an iterative algorithm is introduced by @pascal to estimate $M$, $m$ and $\beta$:
+
+1. Initialization of $\beta$ and $M$
+1. **until** convergence **do**
+    + Estimation of $M$ using one iteration of @eq-estggdM and normalization
+    + Estimation of $\beta$ using @eq-estggdbeta
+    
+   **end until**
+   
+1. Estimation of $m$ using @eq-estggdm
+
+### Kullback-Leibler divergence
+
+Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of $\mathbb{R}^p$ ($p > 1$) from centered MGGDs with probability density functions
+$$\displaystyle{f_{\mathbf{X}^1}(\mathbf{x}|\Sigma_1, \beta_1) = f_{\mathbf{X}^1}\left(\mathbf{x}|\mathbf{0}, \Sigma_1, \beta_1\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta_1}\right) 2^\frac{p}{2\beta_1}} \frac{\beta_1}{|\Sigma_1|^\frac{1}{2}} e^{-\frac{1}{2}\left[ \mathbf{x}^T \Sigma_1^{-1} \mathbf{x} \right]^{\beta_1}}}$$
+and
+$$\displaystyle{f_{\mathbf{X}^2}(\mathbf{x}|\Sigma_2, \beta_2) = f_{\mathbf{X}^2}\left(\mathbf{x}|\mathbf{0}, \Sigma_2, \beta_2\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta_2}\right) 2^\frac{p}{2\beta_2}} \frac{\beta_2}{|\Sigma_2|^\frac{1}{2}} e^{-\frac{1}{2}\left[ \mathbf{x}^T \Sigma_2^{-1} \mathbf{x} \right]^{\beta_2}}}$$
+
+The KLD of $\mathbf{X}^1$ from $\mathbf{X}^2$ is:
+$$
+    \begin{array}{ll}
+    \displaystyle{KL(\mathbf{X}^1||\mathbf{X}^2)} & \displaystyle{= E_{X^1}\left[\ln\left(\frac{f_{\mathbf{X}^1}(\mathbf{X})}{f_{\mathbf{X}^2}(\mathbf{X})}\right)\right]} \\
+    & \displaystyle{= \int_{\mathbb{R}^p}{\ln \left( \frac{f_{\mathbf{X}^1}(\mathbf{x}|\Sigma_1, \beta_1)}{f_{\mathbf{X}^2}(\mathbf{x}|\Sigma_2, \beta_2)} \right) f_{\mathbf{X}^1}(\mathbf{x}|\Sigma_1, \beta_1)d\mathbf{x}}}
+    \end{array}
+$$ {#eq-kl}
+
+Let $\lambda_1, \dots, \lambda_p$ be the eigenvalues of the square matrix $\Sigma_1 \Sigma_2^{-1}$ sorted in increasing order: $\lambda_1 < \dots < \lambda_{p-1} < \lambda_p$. @bouhlel19 present an analytical expression of the KLD to $\mathbf{X}^1$ from $\mathbf{X}^2$:
+
+$$
+    \begin{aligned}
+    KL(\mathbf{X}^1||\mathbf{X}^2) = & \displaystyle{\ln\left( \frac{\beta_1 |\Sigma_1|^{\frac{-1}{2}} \Gamma\left(\frac{p}{2\beta_2}\right)}{\beta_2 |\Sigma_2|^{\frac{-1}{2}} \Gamma\left(\frac{p}{2\beta_1}\right)} \right) + \frac{p}{2}\left(\frac{1}{\beta_2} - \frac{1}{\beta_1}\right) \ln{2} - \frac{p}{2\beta_2} + 2^{\frac{\beta_2}{\beta_1}-1} \ \frac{\Gamma\left(\frac{\beta_2}{\beta_1}+\frac{p}{\beta_1}\right)}{\Gamma\left(\frac{p}{2\beta_1}\right)}\ {\lambda_p}^{\beta_2}} \\
+    & \displaystyle{\times F_D^{(p-1)}\bigg(-\beta_2, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}}_{p-1}, \frac{p}{2}; 1-\frac{\lambda_{p-1}}{\lambda_p}, \dots, 1-\frac{\lambda_1}{\lambda_p}\bigg)}
+    \end{aligned}
+$$ {#eq-klggd}
+
+where $F_D^{(n)}$ is the Lauricella $D$-hypergeometric function defined by:
+$$
+    F_D^{(n)}\left(a; b_1, \dots, b_n; c; x_1, \dots, x_n\right) = \sum_{m_1=0}^\infty \dots \sum_{m_n=0}^\infty{\frac{(a)_{m_1+\dots+m_n} (b_1)_{m_1} \dots (b_n)_{m_n}}{(c)_{m_1+\dots+m_n}} \ \frac{{x_1}^{m_1}}{m_1!} \dots \frac{{x_n}^{m_n}}{m_n!}}
+$$ {#eq-lauric}
+and the Pochhammer symbol $(q)_i$, where $q$ is a real and $i$ is a non-negative integer, is given by:
+$$
+\displaystyle{ (q)_i = \frac{\Gamma(q+i)}{\Gamma(q)} =} \left\{ \begin{array}{ll}
+1 & \text{if } i = 0 \\
+\displaystyle{ q (q+1) \dots (q+i-1) } & \text{if } i \geq 1
+\end{array} \right.
+$$ {#eq-pochhammer}
+
+When $p = 1$ (univariate case):
+let $X^1$ and $X^2$ be two random variables distributed according to centered generalized Gaussian distributions with probability density functions:
+$$\displaystyle{f_{X^1}(x|\sigma_1, \beta_1) = f_{X^1}\left(x|0, \sigma_1, \beta_1\right) = \frac{\beta_1}{\Gamma\left(\frac{1}{2 \beta_1}\right) 2^\frac{1}{2\beta_1}\sqrt{\sigma_1}} e^{-\frac{1}{2}\left(\frac{x^2}{\sigma_1}\right)^\beta}}$$
+and
+$$\displaystyle{f_{X^2}(x|\sigma_2, \beta_2) = f_{X^2}\left(x|0, \sigma_2, \beta_2\right) = \frac{\beta_2}{\Gamma\left(\frac{2}{2 \beta_2}\right) 2^\frac{1}{2\beta_2}\sqrt{\sigma_2}} e^{-\frac{1}{2}\left(\frac{x^2}{\sigma_2}\right)^\beta}}$$
+
+the KLD is given by:
+$$
+    KL(X^1||X^2) = \displaystyle{\ln\left( \frac{\frac{\beta_1}{\sqrt{\sigma_1}} \Gamma\left(\frac{1}{2\beta_2}\right)}{\frac{\beta_2}{\sqrt{\sigma_2}} \Gamma\left(\frac{1}{2\beta_1}\right)} \right) + \frac{1}{2}\left(\frac{1}{\beta_2} - \frac{1}{\beta_1}\right) \ln{2} - \frac{1}{2\beta_2} + 2^{\frac{\beta_2}{\beta_1}-1} \ \frac{\Gamma\left(\frac{\beta_2}{\beta_1}+\frac{1}{\beta_1}\right)}{\Gamma\left(\frac{1}{2\beta_1}\right)}\ \left(\frac{\sigma_1}{\sigma_2}\right)^{\beta_2}}
+$$
+
+# The multvardiv package
+
+## Example dataset: simulation from a multivariate $t$ distribution
+
+As an example, we simulate two datasets.
+
+```{r}
+#| echo: true
+#| include: false
+#| eval: false
+nu1 <- 2
+Sigma1 <- rbind(c(2, 1.2, 0.4), c(1.2, 2, 0.6), c(0.4, 0.6, 2))
+nu2 <- 4
+Sigma2 <- rbind(c(1, 0.3, 0.1), c(0.3, 1, 0.4), c(0.1, 0.4, 1))
+Sigma1
+Sigma2
+```
+
+The `rmtd` function simulates a sample from a MTD:
+
+```{r}
+#| echo: true
+set.seed(1234)
+x1 <- rmtd(10000, nu = 2, mu = rep(0, 3), Sigma =
+             rbind(c(2, 1.2, 0.4), c(1.2, 2, 0.6), c(0.4, 0.6, 2)))
+head(x1)
+```
+
+```{r}
+#| echo: true
+set.seed(1234)
+x2 <- rmtd(10000, nu = 4, mu = rep(0, 3), Sigma =
+             rbind(c(1, 0.3, 0.1), c(0.3, 1, 0.4), c(0.1, 0.4, 1)))
+head(x2)
+```
+
+## Parameter estimation
+
+The `estparmtd` function allows to estimate the parameters of a MTD from the data. It returns the estimations of the parameters, as a list of three elements `$nu`, `$mu`, `$Sigma`:
+
+```{r}
+#| echo: true
+par1 <- estparmtd(x1)
+par1
+```
+
+```{r}
+#| echo: true
+par2 <- estparmtd(x2)
+par2
+```
+
+As the `estparmtd` function uses an iterative algorithm,
+the returned result has two attributes `attr(,"epsilon")` and `attr(,"k")`,
+which indicate the precision of the estimation of $\nu$
+and the number of iterations that are necessary to reach this precision.
+
+An optional argument `eps` (default $10^{-6}$) allows to give the desired precision for the estimation of the `$nu` parameter:
+
+```{r}
+#| echo: true
+estparmggd(x1, eps = 1e-4)
+```
+
+The precision `attr(,"epsilon")` is given by the `eps` argument.
+<!-- except when the convergence was too slow and the precision could not be reached -->
+<!-- (due to computational problems). -->
+<!-- In the latter case, the value of `attr(,"epsilon")` is the precision that could actually be reached. -->
+
+## Rényi, Bhattacharyya and Hellinger divergences
+
+The `diststudentd` function computes the RD, BD or HD between two MTDs with location parameter $\boldsymbol{\mu} = \mathbf{0}$.
+
+By default, the `diststudent` function computes the RD of order $\beta$.
+The order is given by the `bet` argument.
+
+```{r}
+#| echo: true
+nu1 <- par1$nu; Sigma1 = par1$Sigma
+nu2 <- par2$nu; Sigma2 = par2$Sigma
+```
+
+```{r}
+#| echo: true
+rd12 <- diststudent(nu1, Sigma1, nu2, Sigma2, bet = 0.5)
+```
+
+The calculation of the Lauricella $D$-hypergeometric function, involved in the calculation of the RD between two MTDs (see @eq-rmtd) uses an iterative algorithm. The optional `eps` argument (default `1e-6`) allows to indicate the desired precision for this calculation:
+
+```{r}
+#| echo: true
+#| eval: false
+rd12 <- diststudent(nu1, Sigma1, nu2, Sigma2, bet = 0.5, eps = 1e-06)
+```
+
+The returned result is the RD with two attributes `attr(,"epsilon")` (precision of the Lauricella function, given by the `eps` argument) and `attr(,"k")` (number of iterations):
+
+```{r}
+#| echo: true
+rd12
+```
+
+The optional `dist` argument allows to indicate the divergence:
+
+*   Rényi (default):
+    
+    ```{r}
+    #| echo: true
+    diststudent(nu1, Sigma1, nu2, Sigma2, dist = "renyi", bet = 0.5)
+    ```
+
+*   Bhattacharyya:
+    
+    ```{r}
+    #| echo: true
+    diststudent(nu1, Sigma1, nu2, Sigma2, dist = "bhattacharyya")
+    ```
+
+*   Hellinger:
+    
+    ```{r}
+    #| echo: true
+    diststudent(nu1, Sigma1, nu2, Sigma2, dist = "hellinger")
+    ```
+
+The `bet` argument is required for the RD. It is omitted for the BD or the HD.
+
+## Kullback-Leibler divergence
+
+The `kldstudent` function computes the KLD between two MTDs with location parameter $\boldsymbol{\mu} = \mathbf{0}$.
+
+We go on with the same example as for the Rényi divergence.
+The `kldstudent` function computes the KLD:
+
+```{r}
+#| echo: true
+kld12 <- kldstudent(nu1, Sigma1, nu2, Sigma2)
+```
+
+The calculation of the partial derivative of the Lauricella $D$-hypergeometric function, needed to calculate the KLD between two MTDs (see @eq-klmtd) uses an iterative algorithm.
+The optional `eps` argument (default `1e-6`) allows to indicate the desired precision for the calculation of this partial derivative:
+
+```{r}
+#| echo: true
+#| eval: false
+kld12 <- kldstudent(Sigma1, Sigma2, eps = 1e-06)
+```
+
+The returned result is the KLD with two attributes `attr(,"epsilon")` (precision of the partial derivative, given by the `eps` argument) and `attr(,"k")` (number of iterations):
+
+```{r}
+#| echo: true
+kld12
+```
+
+## Other probability distributions: Multivariate Cauchy distributions, Multivariate generalized Gaussian distributions
+
+The same tools (except the Rényi, Bhattacharyya and Hellinger divergences) are provided for the MCD and MGGD (@tbl-multvardiv). See the help pages of these functions.
+
+```{r}
+#| label: "tbl-multvardiv"
+#| echo: false
+#| eval: true
+#| output: asis
+tabfcts <- data.frame(
+  "Multivariate Distribution" = c("$t$", "Cauchy", "MGGD"),
+  "Probability density function" = c("`dmtd`", "`dmc`", "`dmggd`"),
+  "Simulation" = c("`rmtd`", "`rmc`", "`rmggd`"),
+  "Parameter estimation" = c("`estparmtd`", "`estparmc`", "`estparmggd`"),
+  "Rényi, Bhattacharyya or Hellinger divergence" = c("`dlstudent`", "", ""),
+  "Kullback-Leibler divergence" = c("`kldstudent`", "`kldcauchy`", "`kldggd`")
+)
+knitr::kable(tabfcts,
+             col.names = c("Multivariate Distribution", "Probability density function",
+                           "Simulation", "Parameter estimation",
+                           "Rényi, Bhattacharyya or Hellinger divergence",
+                           "Kullback-Leibler divergence"),
+             caption = "multvardiv package: the functions for MTD, MCD and MGGD")
+```
+
+Furthermore, two functions allow to plot the probability density of a bivariate $t$, Cauchy or generalized Gaussian distribution:
+
+*   `plotmvd`: 3D-plot
+*   `contourmvd`: contour plot
+
+# Some particular cases -- test of the results
+
+<!-- ## Package [`mggd`](https://CRAN.R-project.org/package=mggd), the `lauricella` function: some particular examples -->
+## The `lauricella` function: some particular examples
+
+The computation of the KLD between two MGGDs, as given by @eq-klggd,
+includes the $D$-hypergeometric Lauricella function (@eq-lauric).
+For some particular cases, a simpler calculation allows an exact computing of this expression.
+We used them in the `tests` directory of the [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package, to test the `lauricella` function used by `kldggd` (see [Divergence between multivariate generalized Gaussian distributions]).
+
+### Case $p = 2$, $\beta_2=1$
+
+When $\mathbf{X}^1$ and $\mathbf{X}^2$ are bivariate ($p = 2$), the $D$-hypergeometric Lauricella function in @eq-klggd becomes:
+$$
+\displaystyle{F_D^{(1)}\bigg(-\beta_2, \frac{1}{2}; 1; 1-\frac{\lambda_1}{\lambda_2}\bigg) = {_2F_1}\left(-\beta_2, \frac{1}{2}; 1; 1 - \frac{\lambda_1}{\lambda_2}\right)}
+$$ {#eq-lauric2}
+
+where ${_2F_1}$ is the Gauss hypergeometric function:
+$$
+\displaystyle{{_2F_1}(a, b; c; x) = \sum_{m=0}^{\infty}{\frac{(a)_m (b)_m}{(c)_m} \frac{x^m}{m!}}}
+$$ {#eq-lauric2next}
+
+So, here:
+$$
+\displaystyle{{_2F_1}\bigg(-1, \frac{1}{2}; 1; 1-\frac{\lambda_1}{\lambda_2}\bigg) = \frac{1}{2} \left(1 + \frac{\lambda_1}{\lambda_2}\right)}
+$$ {#eq-lauric2end}
+
+We use this result to test the result returned by the `lauricella` function in this particular situation.
+Let us fix $p=2$, $\beta_2 = 1$, $\lambda_1 = 1$, $\lambda_2 = 2$:
+
+```{r}
+#| echo: true
+p <- 2
+beta2 <- 1
+lambda <- c(1, 2)
+```
+
+Let us compute $F_D^{(p-1)}$ using the `lauricella` function. It returns:
+
+```{r}
+#| echo: true
+lauricella2 <- lauricella(-beta2, 0.5, p/2, 1 - lambda[1]/lambda[2], eps = 1e-15)
+lauricella2
+```
+
+and the value of the expression @eq-lauric2end is:
+
+```{r}
+#| echo: true
+lauric2control <- 1/2*(1 + lambda[1]/lambda[2])
+lauric2control
+```
+
+which is equal to `lauricella2`:
+
+```{r}
+#| echo: true
+lauricella2 == lauric2control
+```
+
+### Case $p = 3$, $\beta_2=1$, $\lambda_1 = \lambda_2$
+
+When $p = 3$, if $\beta_1 = 1$ and $\lambda_1 = \lambda_2$:
+If we note: $\lambda = \lambda_1 = \lambda_2$,
+the $D$-hypergeometric Lauricella function in @eq-klggd becomes:
+$$
+\displaystyle{F_D^{(2)}\bigg(-1, \frac{1}{2}, \frac{1}{2}; \frac{3}{2}; 1-\frac{\lambda_1}{\lambda_3}, 1-\frac{\lambda_2}{\lambda_3}\bigg) = {_2F_1}\left(-1, 1; \frac{3}{2}; 1 - \frac{\lambda}{\lambda_3}\right) = \frac{1}{3} \left( 1 + \frac{2\lambda}{\lambda_3} \right)}
+$$ {#eq-lauric3}
+
+Let $p=3$, $\beta_2 = 1$, $\lambda_1 = \lambda_2 = 1$, $\lambda_3 = 2$:
+
+```{r}
+#| echo: true
+p <- 3
+beta2 <- 1
+lambda <- c(1, 1, 2)
+```
+
+The calculation of $F_D^{(p-1)}$ using the `lauricella` function gives:
+
+```{r}
+#| echo: true
+lauricella3 <- lauricella(-beta2, rep(0.5, p-1), p/2, 1 - lambda[1:2]/lambda[3],
+                          eps = 1e-15)
+lauricella3
+```
+
+and the value of the expression given by @eq-lauric3 is:
+
+```{r}
+#| echo: true
+lauric3control <-1/3*(1 + 2*lambda[1]/lambda[3])
+lauric3control
+```
+
+The results are equal. To be more precise, their difference is less than $10^{-15}$:
+
+```{r}
+#| echo: true
+as.numeric(lauricella3) - lauric3control
+```
+
+### Case $p = 4$, $\beta_2=1$, $\lambda_1 = \lambda_2 = \lambda_3$
+
+We note : $\lambda = \lambda_1 = \lambda_2 = \lambda_3$.
+
+In this case, the $D$-hypergeometric Lauricella function in @eq-klggd becomes:
+$$
+\begin{array}{ll}
+\displaystyle{F_D^{(3)}\bigg(-1, \frac{1}{2}, \frac{1}{2}, \frac{1}{2}; 2; 1-\frac{\lambda_1}{\lambda_4}, 1-\frac{\lambda_2}{\lambda_4}, 1-\frac{\lambda_3}{\lambda_4}\bigg)} & = \displaystyle{{_2F_1}\left(-1, 3/2; 2; 1 - \frac{\lambda}{\lambda_p}\right)} \\
+& = \displaystyle{\frac{1}{4} \left( 1 + \frac{3\lambda}{\lambda_p} \right)}
+\end{array}
+$$ {#eq-lauric4}
+
+Let $p=4$, $\beta_2 = 1$, $\lambda_1 = \lambda_2 = \lambda_3 = 1$, $\lambda_4 = 2$:
+
+```{r}
+#| echo: true
+p <- 4
+beta2 <- 1
+lambda <- c(1, 1, 1, 2)
+```
+
+The calculation of $F_D^{(p-1)}$ using the `lauricella` function gives:
+
+```{r}
+#| echo: true
+lauricella4 <- lauricella(-beta2, rep(0.5, p-1), p/2, 1 - lambda[1:3]/lambda[4],
+                          eps = 1e-15)
+lauricella4
+```
+
+and the value of the expression given by @eq-lauric4 is:
+
+```{r}
+#| echo: true
+lauric4control <-1/4*(1 + 3*lambda[1]/lambda[4])
+lauric4control
+```
+
+The results are equal:
+
+```{r}
+#| echo: true
+lauricella4 == lauric4control
+```
+
+<!-- <!-- ## Package [`mcauchyd`](https://CRAN.R-project.org/package=mcauchyd), the `kldcauchy` function: some particular examples --> -->
+<!-- ## The `kldcauchy` function: some particular examples -->
+
+<!-- For some particular cases, @bouhlel22 show a simpler calculation of the KLD between two MCDs. -->
+<!-- We use the particular cases below to test the `kldcauchy` function presented in the section [Divergence between multivariate Cauchy distributions]. -->
+
+<!-- ### Case $p = 1$ -->
+
+<!-- When $X^1$ and $X^2$ are univariate, the KLD is [@bouhlel22]: -->
+<!-- $$ -->
+<!-- \displaystyle{KL(X^1||X^2) = \ln{\frac{\left( 1 + \sqrt{\lambda} \right)^2}{4 \sqrt{\lambda}} = KL(X^2||X^1)}} -->
+<!-- $$ {#eq-klcd1} -->
+
+<!-- Let $X^1$ be a random variable distributed according to a Cauchy distribution -->
+<!-- with parameters $\mu_1 = 0$ and $\Sigma_1 = \frac{1}{2}$ -->
+<!-- and $X^2$ a random variable distributed according to a Cauchy distribution -->
+<!-- with parameters $\mu_2 = 0$ and $\Sigma_2 = 1$: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- Sigma1 <- 0.5 -->
+<!-- Sigma2 <- 1 -->
+<!-- ``` -->
+
+<!-- Let us compute the KLD to $X^1$ from $X^2$, using `kldcauchy`: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- kl1_12 <- kldcauchy(Sigma1, Sigma2, eps = 1e-15) -->
+<!-- kl1_12 -->
+<!-- ``` -->
+
+<!-- and the KLD to $X^2$ from $X^1$: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- kl1_21 <- kldcauchy(Sigma2, Sigma1, eps = 1e-15) -->
+<!-- kl1_21 -->
+<!-- ``` -->
+
+<!-- Here, the $\lambda$ parameter is: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- lambda <- Sigma1/Sigma2 -->
+<!-- lambda -->
+<!-- ``` -->
+
+<!-- The value of the expression given by @eq-klcd1 is: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- kl1control <- log( (1 + sqrt(lambda))^2 / (4*sqrt(lambda)) ) -->
+<!-- kl1control -->
+<!-- ``` -->
+
+<!-- which is equal (to the precision $10^{-15}$) to `kl1_12` and `kl1_21`: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- as.numeric(kl1_12 - kl1control) -->
+<!-- as.numeric(kl1_21 - kl1control) -->
+<!-- ``` -->
+
+<!-- ### Case $p = 2$, $\lambda_1 = \lambda_2$ -->
+
+<!-- When $p=2$, if the eigenvalues of the matrix $\Sigma_1 \Sigma_2^{-1}$ are equal: -->
+<!-- $\lambda_1 = \lambda_2 = \lambda$, the KLD is given by @bouhlel22: -->
+<!-- $$ -->
+<!-- \displaystyle{KL(\mathbf{X}^1||\mathbf{X}^2) = -\ln{\lambda} + \frac{3}{\sqrt{1 - \frac{1}{\lambda}}} \ln{\left(\sqrt{\lambda} + \sqrt{\lambda - 1}\right) - 3}} -->
+<!-- $$ {#eq-kl12cd2} -->
+<!-- and: -->
+<!-- $$ -->
+<!-- \displaystyle{KL(\mathbf{X}^2||\mathbf{X}^1) = \ln{\lambda} + \frac{3}{\sqrt{1 - \lambda}} \ln{\left(\sqrt{\frac{1}{\lambda}} + \sqrt{\frac{1}{\lambda} - 1}\right) - 3}} -->
+<!-- $$ {#eq-kl21cd2} -->
+
+<!-- Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors distributed according to Cauchy distributions -->
+<!-- with parameters $(\boldsymbol{\mu}_1, \Sigma_1)$ and $(\boldsymbol{\mu}_2, \Sigma_2)$ -->
+<!-- such that $\boldsymbol{\mu}_1 = \boldsymbol{\mu}_2 = \mathbf{0}$ and $\Sigma_1$ and $\Sigma_2$ are given by: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- Sigma1 <- diag(0.5, nrow = 2) -->
+<!-- Sigma2 <- diag(1, nrow = 2) -->
+<!-- Sigma1 -->
+<!-- Sigma2 -->
+<!-- ``` -->
+
+<!-- Let us compute the KLD to $X^1$ from $X^2$, using `kldcauchy`: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- kl2_12 <- kldcauchy(Sigma1, Sigma2, eps = 1e-15) -->
+<!-- kl2_12 -->
+<!-- ``` -->
+
+<!-- Given the eigenvalues of $\Sigma_1 \Sigma_2^{-1}$: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- lambda <- eigen(Sigma1 %*% solve(Sigma2), only.values = TRUE)$value -->
+<!-- lambda -->
+<!-- lambda <- unique(lambda) -->
+<!-- ``` -->
+
+<!-- The value of @eq-kl12cd2 is: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- lambda <- as.complex(lambda) -->
+<!-- kl2control12 <- Re(-log(lambda) + -->
+<!--                      3/sqrt(1-1/lambda)*log(sqrt(lambda) + sqrt(lambda-1)) - 3) -->
+<!-- kl2control12 -->
+<!-- ``` -->
+
+<!-- which is equal (to the precision $10^{-15}$) to `kl2_12`: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- as.numeric(kl2_12 - kl2control12) -->
+<!-- ``` -->
+
+<!-- And the KLD to $X^2$ from $X^1$ is: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- kl2_21 <- kldcauchy(Sigma2, Sigma1, eps = 1e-15) -->
+<!-- kl2_21 -->
+<!-- ``` -->
+
+<!-- and the value of the expression @eq-kl21cd2 is: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- kl2control21 <- Re(log(lambda) + -->
+<!--                      3/sqrt(1-lambda)*log(sqrt(1/lambda) + sqrt(1/lambda-1)) - 3) -->
+<!-- kl2control21 -->
+<!-- ``` -->
+
+<!-- which is equal (to the precision `1e-14`) to `kl2_21`: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- as.numeric(kl2_21 - kl2control21) -->
+<!-- ``` -->
+
+<!-- ### Case $p = 2$, $\lambda_1 \neq 1$, $\lambda_2 = 1$ -->
+
+<!-- When $p = 2$ and either $\lambda_1 = 1$ and $\lambda_2 \neq 1$, or $\lambda_1 \neq 1$ and $\lambda_2 = 1$, @bouhlel22 show that if we note $\lambda_i$ the eigenvalue such that $\lambda_i \neq 1$: -->
+<!-- $$ -->
+<!-- KL(\mathbf{X}_1||\mathbf{X}_2) = \ln{\lambda_i} - \frac{3}{2} \frac{1}{\sqrt{1 - \lambda_i}} \ln{\left(\frac{1 - \sqrt{1 - \lambda_i}}{1 + \sqrt{1 - \lambda_i}}\right)} -->
+<!-- $$ {#eq-klcd2} -->
+
+<!-- Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors distributed according to Cauchy distributions -->
+<!-- with parameters $(\boldsymbol{\mu}_1, \Sigma_1)$ and $(\boldsymbol{\mu}_2, \Sigma_2)$ -->
+<!-- such that $\boldsymbol{\mu}_1 = \boldsymbol{\mu}_2 = \mathbf{0}$ and $\Sigma_1$ and $\Sigma_2$ are given by: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- Sigma1 <- matrix(c(0.5, 0, 0, 1), nrow = 2) -->
+<!-- Sigma2 <- diag(nrow = 2) -->
+<!-- Sigma1 -->
+<!-- Sigma2 -->
+<!-- ``` -->
+
+<!-- Let us compute the KLD to $X^1$ from $X^2$, using `kldcauchy`: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- kl2_ex2 <- kldcauchy(Sigma1, Sigma2, eps = 1e-17) -->
+<!-- kl2_ex2 -->
+<!-- ``` -->
+
+<!-- The eigenvalues of $\Sigma_1 \Sigma_2^{-1}$, sorted in increasing order, are: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- lambda <- sort(eigen(Sigma1 %*% solve(Sigma2), only.values = TRUE)$value) -->
+<!-- lambda -->
+<!-- lambdai <- lambda[1] -->
+<!-- ``` -->
+
+<!-- and the value of the expression @eq-klcd2 is: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- kl2control_ex2 <- log(lambdai) - -->
+<!--   3/2 * 1/sqrt(1-lambdai)*log((1 - sqrt(1-lambdai))/(1 + sqrt(1-lambdai))) - 3 -->
+<!-- kl2control_ex2 -->
+<!-- ``` -->
+
+<!-- which is equal (to the precision $10^{-15}$) to `kl2_ex2`: -->
+
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- as.numeric(kl2_ex2 - kl2control_ex2) -->
+<!-- ``` -->
+
+## The `kldstudent` function: some particular examples
+
+Some particular cases allow a simpler calculation of the KLD between two MTDs.
+we use these particular cases, showed hereafter, for some tests of the `kldstudent` function.
+
+### Case $p = 3$, $\lambda_1 = \lambda_2 = \lambda_3$
+
+When $p = 3$, if the eigenvalues of the matrix $\Sigma_1 \Sigma_2^{-1}$ are equal:
+$\lambda_1 = \lambda_2 = \lambda_3 = \lambda$,
+if $\lambda < 1$,
+we can get a simpler expression of the partial derivative in @eq-klmt2.
+
+Let:
+$$
+f(\lambda) = \displaystyle{ \frac{\partial}{\partial{a}}{ \bigg\{ F_D^{(p)}\bigg( a, \frac{1}{2}, \frac{1}{2}, \frac{1}{2}; a + \frac{\nu_1+p}{2}; 1 - \frac{\nu_1}{\nu_2}\lambda_1, 1 - \frac{\nu_1}{\nu_2}\lambda_2, 1 - \frac{\nu_1}{\nu_2}\lambda_3 \bigg) \bigg\} } \bigg|_{a=0} }
+$$ {#eq-kldmtdcase3}
+
+$$
+\begin{array}{lll}
+f(\lambda) &    = &   \displaystyle{ \frac{\partial}{\partial a}\left\lbrace
+_2 F_1 (a, \frac{3}{2},a+\frac{\nu_1+3}{2}, 1-\frac{\nu_1}{\nu_2}\lambda\right\rbrace\bigg|_{a=0} } \\
+&   = &   \displaystyle{ \sum\limits_{n=0}^\infty \frac{\partial}{\partial a}\left\lbrace \frac{(a)_n}{(a+\frac{\nu_1+3}{2})_n}\right\rbrace\bigg|_{a=0} \bigg(\frac{3}{2}\bigg)_n\frac{(1-\frac{\nu_1}{\nu_2}\lambda)^n}{n!} } \\
+&   = &   \displaystyle{ \sum\limits_{n=1}^\infty \frac{(1)_n}{(\frac{\nu_1+3}{2})_n} \frac{1}{n} \bigg(\frac{3}{2}\bigg)_n\frac{(1-\frac{\nu_1}{\nu_2}\lambda)^n}{n!} }
+\end{array}
+$$
+
+The multiplication of the derivative of $f$ with respect to $\lambda$ by $(1 -\frac{\nu_1}{\nu_2}\lambda)$ is given as follows:
+
+$$
+\begin{array}{lll}
+(1-\frac{\nu_1}{\nu_2}\lambda)\frac{\partial}{\partial \lambda} f(\lambda) &    = &    -\frac{\nu_1}{\nu_2}\sum\limits_{n=1}^\infty \frac{(1)_n}{(\frac{\nu_1+3}{2})_n} \bigg(\frac{3}{2}\bigg)_n\frac{(1-\frac{\nu_1}{\nu_2}\lambda)^n}{n!}\\
+&   = &   -\frac{\nu_1}{\nu_2}\left[ _2 F_1(1, \frac{3}{2}, \frac{\nu_1+3}{2}, 1-\frac{\nu_1}{\nu_2}\lambda) -1  \right]
+\end{array}
+$$
+
+If $\nu_1=1$, Knowing that
+
+$$_2 F_1(1, \frac{3}{2}, 2, 1-\frac{1}{\nu_2}\lambda) = \frac{2\nu_2}{\lambda+ \sqrt{\nu_2\lambda}}$$
+
+we can state that:
+
+$$\displaystyle{
+\frac{\partial}{\partial \lambda} f(\lambda) = - 2\frac{\nu_2}{(\lambda+ \sqrt{\nu_2\lambda})(\nu_2-\lambda)} +\frac{1}{\nu_2-\lambda}
+}$$
+
+Accordingly,
+
+$$\begin{array}{lll}
+f(\lambda)    & = &   \displaystyle{ -\ln \frac{(\nu_2-\lambda)(\nu_2+\sqrt{\nu_2\lambda})}{\sqrt{\nu_2\lambda}-\nu_2}+2\frac{\sqrt{\nu_2}}{\sqrt{\nu_2}+\sqrt{\lambda}} + K }   \\
+&   = &   \displaystyle{ -\ln \frac{\nu_2(1-\frac{\lambda}{\nu_2})(1+\sqrt{\frac{\lambda}{\nu_2}})}{\sqrt{\frac{\lambda}{\nu_2}}-1}+2\frac{\sqrt{\nu_2}}{\sqrt{\nu_2}+\sqrt{\lambda}} + K }    \\
+&   = &   \displaystyle{ -\ln - \nu_2 \left(1 + \sqrt{\frac{\lambda}{\nu_2}} \right)^2 + 2 \frac{\sqrt{\nu_2}}{\sqrt{\nu_2} + \sqrt{\lambda}} + K }
+\end{array}$$
+
+The constant $K$ can be determined by putting $f(\lambda=\frac{\nu_2}{\nu_1}) = 0$:
+
+$$
+-\ln\bigg[-\nu_2\left(1+\frac{1}{\sqrt{\nu_1}}\right)^2\bigg]+\frac{2}{1+\frac{1}{\sqrt{\nu_1}}} + K = 0
+$$
+
+Then
+
+$$
+K = \ln\bigg[-4\nu_2 \bigg]-1
+$$
+
+Accordingly,
+
+$$
+f(\lambda) = -2\ln \frac{(\nu_2+\sqrt{\nu_2\lambda})}{2\nu_2} + \frac{\sqrt{\nu_2}-\sqrt{\lambda}}{\sqrt{\nu_2}+\sqrt{\lambda}}
+$$ {#eq-kldmtdcase3exact}
+
+Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors distributed according to $t$ distributions with parameters $(\nu_1, \boldsymbol{\mu}_1, \Sigma_1)$ and $(\nu_2, \boldsymbol{\mu}_2, \Sigma_2)$ such that $\boldsymbol{\mu}_1 = \boldsymbol{\mu}_2 = 0$ and $\nu_1$, $\Sigma_1$, $\nu_2$ and $\Sigma_2$ are given by:
+
+```{r}
+nu1 <- 1
+Sigma1 <- diag(0.5, nrow = 3)
+Sigma1
+nu2 <- 2
+Sigma2 <- diag(1, nrow = 3)
+Sigma2
+```
+
+Let us compute the KLD to $\mathbf{X}^1$ from $\mathbf{X}^2$, using `kldstudent`:
+
+```{r}
+kl3pc <- kldstudent(nu1, Sigma1, nu2, Sigma2, eps = .Machine$double.eps)
+```
+
+Given the eigenvalues of $\Sigma_1 \Sigma_2^{-1}$:
+
+```{r}
+lambda <- eigen(Sigma1 %*% solve(Sigma2), only.values = TRUE)$value
+lambda
+```
+
+The value of @eq-kldmtdcase3exact is:
+
+```{r}
+lambda <- unique(lambda)
+d <- -2*log((nu2 + sqrt(nu2*lambda))/(2*nu2)) + (sqrt(nu2) - sqrt(lambda))/(sqrt(nu2) + sqrt(lambda))
+kl3control <- log( (gamma((nu1+3)/2) * gamma(nu2/2) * nu2^1.5) / (gamma((nu2+3)/2) * gamma(nu1/2) * nu1^1.5) ) +
+  (nu2 - nu1)/2 * ( digamma((nu1+3)/2) - digamma(nu1/2) ) - 0.5*3*(log(lambda)) -
+  (nu2 + 3)/2 * d
+kl3control
+
+```
+
+Which is equal (to the precision `.Machine$double.eps`) to `kl3pc`:
+
+```{r}
+as.numeric(kl3pc) - kl3control
+```
+
+### Case $p = 4$, $\lambda_1 = \lambda_2 = \lambda_3 = \lambda_4$
+
+Similarly, when $p = 4$, if the eigenvalues of the matrix $\Sigma_1 \Sigma_2^{-1}$ are equal:
+$\lambda_1 = \lambda_2 = \lambda_3 = \lambda_4 = \lambda$,
+if $\lambda < 1$,
+we can get a simpler expression of the partial derivative in @eq-klmt2.
+
+Let:
+$$
+f(\lambda) = \displaystyle{ \frac{\partial}{\partial{a}}{ \bigg\{ F_D^{(p)}\bigg( a, \frac{1}{2}, \frac{1}{2}, \frac{1}{2}, \frac{1}{2}; a + \frac{\nu_1+p}{2}; 1 - \frac{\nu_1}{\nu_2}\lambda_1, 1 - \frac{\nu_1}{\nu_2}\lambda_2, 1 - \frac{\nu_1}{\nu_2}\lambda_3, 1 - \frac{\nu_1}{\nu_2}\lambda_4 \bigg) \bigg\} } \bigg|_{a=0} }
+$$ {#eq-kldmtdcase4}
+
+$$\begin{array}{lll}
+f(\lambda   & =   & \displaystyle{ \frac{\partial}{\partial a}\left\lbrace F_D^{(4)}\left(a, \frac{1}{2}, \frac{1}{2},\frac{1}{2},\frac{1}{2};a+\frac{\nu_1+4}{2}; 1-\frac{\nu_1}{\nu_2}\lambda,1-\frac{\nu_1}{\nu_2}\lambda,1-\frac{\nu_1}{\nu_2}, 1-\frac{\nu_1}{\nu_2}\lambda\right) \right\rbrace\bigg|_{a=0} }  \\
+&   = &   \displaystyle{ \frac{\partial}{\partial a}\left\lbrace
+_2 F_1 (a, 2,a+\frac{\nu_1+4}{2}, 1-\frac{\nu_1}{\nu_2}\lambda\right\rbrace\bigg|_{a=0} }    \\
+&   = &   \displaystyle{ \sum\limits_{n=0}^\infty \frac{\partial}{\partial a}\left\lbrace \frac{(a)_n}{(a+\frac{\nu_1+4}{2})_n}\right\rbrace\bigg|_{a=0} (2)_n\frac{(1-\frac{\nu_1}{\nu_2}\lambda)^n}{n!} } \\
+&   = &   \displaystyle{ \sum\limits_{n=1}^\infty \frac{(1)_n}{(\frac{\nu_1+4}{2})_n} \frac{1}{n} (2)_n\frac{(1-\frac{\nu_1}{\nu_2}\lambda)^n}{n!} }
+\end{array}$$
+
+The multiplication of the derivative of $f$ with respect to $\lambda$ by $(1 -\frac{\nu_1}{\nu_2}\lambda)$ is given as follows:
+
+$$\begin{array}{lll}
+\displaystyle{ (1-\frac{\nu_1}{\nu_2}\lambda)\frac{\partial}{\partial \lambda} f(\lambda) } &   = &   \displaystyle{ -\frac{\nu_1}{\nu_2}\sum\limits_{n=1}^\infty \frac{(1)_n}{(\frac{\nu_1+4}{2})_n} (2)_n\frac{(1-\frac{\nu_1}{\nu_2}\lambda)^n}{n!} }    \\
+&   = &   \displaystyle{ -\frac{\nu_1}{\nu_2}\left[ _2 F_1(1, 2, \frac{\nu_1+4}{2}, 1-\frac{\nu_1}{\nu_2}\lambda) -1  \right] }
+\end{array}
+$$
+
+If $\nu_1=2$, Knowing that:
+
+$$
+\displaystyle{ _2 F_1(1, 2, 3, 1-\frac{2}{\nu_2}\lambda) = -\frac{2\nu_2(\nu_2-2\lambda+\nu_2\ln(\frac{2\lambda}{\nu_2}))}{(\nu_2-2\lambda)^2} }
+$$
+
+we can state that:
+
+$$\begin{array}{lll}
+\displaystyle{ \frac{\partial}{\partial \lambda} f(\lambda) } &    = &   \displaystyle{ -\frac{2}{\nu_2}\left[ -\frac{2\nu_2(\nu_2-2\lambda+\nu_2\ln(\frac{2\lambda}{\nu_2}))}{(\nu_2-2\lambda)^2(1-\frac{2}{\nu_2}\lambda)} -\frac{1}{1-\frac{2}{\nu_2}\lambda}  \right] }   \\
+&   = &   \displaystyle{ \frac{4\nu_2(\nu_2-2\lambda+ \nu_2\ln(\frac{2\lambda}{\nu_2}))} {(\nu_2-2\lambda)^3} + \frac{2}{\nu_2-2\lambda} }
+\end{array}$$
+
+Accordingly,
+
+$$
+\displaystyle{ f(\lambda) = \frac{\nu_2}{\nu_2-2\lambda}-\ln(\lambda)+\frac{\nu_2^2\ln(\frac{2\lambda}{\nu_2})}{(\nu_2-2\lambda)^2} + K }
+$$
+
+The constant $K$, can be determined by using Taylor series expansions of $f$:
+
+$$
+f(\lambda) = K -\frac{1}{2} - \ln(\frac{\nu_2}{2}) + \frac{4(\frac{\nu_2}{2} - \lambda)}{3\nu_2} + \frac{(\frac{\nu_2}{2} - \lambda)^2}{\nu_2^2} + \dots
+$$
+
+and then putting $f(\lambda = \frac{\nu_2}{2}) = 0$,
+
+$$
+K = \frac{1}{2}+\ln(\frac{\nu_2}{2})
+$$
+
+As a consequence:
+
+$$
+f(\lambda) = \frac{\nu_2}{\nu_2-2\lambda}-\ln(\frac{2\lambda}{\nu_2})+\frac{\nu_2^2\ln(\frac{2\lambda}{\nu_2})}{(\nu_2-2\lambda)^2} +\frac{1}{2}
+$$
+
+# Conclusion and perspectives
+
+The [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package provides tools for multivariate generalized Gaussian distributions, multivariate $t$ distributions and multivariate Cauchy distributions, the latter being a particular case of the $t$ distribution.
+Some of them are the Kullback-Leibler divergence and, for the MTD and MCD, the Rényi, Bhattacharyya and Hellinger divergences, based on analytical expressions given by @bouhlel19, @bouhlel22 and @bouhlel23.
+Using some particular cases which allow an exact calculation of the Lauricella function, we could test the `lauricella` function used by the `kldggd` function of the [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package.
+Similarly, we used some particular cases for the calculation of the KLD between MTDs or between MCDs to test the `kldtstudent` and `kldcauchy` function<!-- of the [`mcauchyd`](https://CRAN.R-project.org/package=mcauchyd) package -->.
+
+In a future version of the [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package, we will add other methods for the parameter estimation of a MGGD.
+In further works, we will extend these tools to complex multivariate distributions, and more generally to elliptical distributions.
+
+<!-- # Conclusion and perspectives -->
+
+<!-- # References {.unnumbered} -->
+
+<!-- ::: {#refs} -->
+<!-- ::: -->
