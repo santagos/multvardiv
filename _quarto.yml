@@ -1,7 +1,7 @@
 project:
   type: default
   render:
-    - template-computo-R.qmd
+    - santagostini_multvardiv.qmd
     - README.qmd
 
 title: "`multvardiv` package"
