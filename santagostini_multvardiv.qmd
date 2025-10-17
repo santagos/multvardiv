@@ -1,44 +1,14 @@
----
-title: "`multvardiv` package"
-subtitle: "Multivariate Generalized Gaussian Distribution, $t$ and Cauchy Distributions, Kullback-Leibler Divergence"
-author:
-  - name: Pierre Santagostini
-    corresponding: true
-    email: pierre.santagostini@institut-agro.fr
-    affiliations:
-      - name: Univ Angers, Institut Agro, INRAE, IRHS, SFR QUASAV, F-49000 Angers, France
-        url: https://www6.angers-nantes.inrae.fr/irhs
-  - name: Nizar Bouhlel
-    email: nizar.bouhlel@institut-agro.fr; nizar.bouhlel@inrae.fr
-    url: https://www.researchgate.net/profile/Nizar-Bouhlel
-    orcid: 0000-0002-4861-8550
-    affiliations:
-      - name: Univ Angers, Institut Agro, INRAE, IRHS, SFR QUASAV, F-49000 Angers, France
-        department: 
-        url: https://www6.angers-nantes.inrae.fr/irhs
-date: "`r Sys.Date()`"
-date-modified: "`r Sys.Date()`"
-description: |
-  The R package `multvardiv` provides functions to compute the Kullback-Leibler divergence between two multivariate $t$, Cauchy or generalized Gaussian distributions using analytic expressions of the divergence. For the $t$ and Cauchy distributions, the Rényi, Bhattacharyya and Hellinger divergences are also available. This package also gives tools for the manipulation of these distributions: probability density function, simulation of a random sample, estimation of the parameters, graph.
-abstract: >+
-  The R package `multvardiv` provides functions to compute the Kullback-Leibler divergence between two multivariate $t$, Cauchy or generalized Gaussian distributions using analytic expressions of the divergence. For the $t$ and Cauchy distributions, the Rényi, Bhattacharyya and Hellinger divergences are also available. This package also gives tools for the manipulation of these distributions: probability density function, simulation of a random sample, estimation of the parameters, graph.
-keywords: [multivariate generalized Gaussian distribution, multivariate t distribution, multivariate Cauchy distribution, Kullback-Leibler divergence]
-citation:
-  type: article-journal
-  container-title: "Computo"
-  doi: "xxxx"
-  url: https://computo.sfds.asso.fr/template-computo-quarto
-  publisher: "Société Française de Statistique"
-  issn: "2824-7795"
-bibliography: references.bib
-github-user: computorg
-repo: "template-computo-r"
-draft: true # set to false once the build is running
-published: false # will be set to true once accepted
-format:
-  computo-html: default
-  computo-pdf: default
----
+<!-- --- -->
+<!-- date: "`r Sys.Date()`" -->
+<!-- date-modified: "`r Sys.Date()`" -->
+<!-- citation: -->
+<!--   type: article-journal -->
+<!--   container-title: "Computo" -->
+<!--   doi: "xxxx" -->
+<!--   url: https://computo.sfds.asso.fr/template-computo-quarto -->
+<!--   publisher: "Société Française de Statistique" -->
+<!--   issn: "2824-7795" -->
+<!-- --- -->
 
 ```{r}
 #| include: false
