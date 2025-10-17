@@ -1,15 +1,3 @@
-<!-- --- -->
-<!-- date: "`r Sys.Date()`" -->
-<!-- date-modified: "`r Sys.Date()`" -->
-<!-- citation: -->
-<!--   type: article-journal -->
-<!--   container-title: "Computo" -->
-<!--   doi: "xxxx" -->
-<!--   url: https://computo.sfds.asso.fr/template-computo-quarto -->
-<!--   publisher: "Société Française de Statistique" -->
-<!--   issn: "2824-7795" -->
-<!-- --- -->
-
 ```{r}
 #| include: false
 library(multvardiv)
