@@ -39,6 +39,8 @@ template-computo-python.tex
 template-computo-julia.html
 template-computo-julia.pdf
 template-computo-julia.tex
+santagostini_multvardiv.html
+santagostini_multvardiv.pdf
 
 # Latex compilation files
 *.aux
