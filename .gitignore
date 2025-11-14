@@ -50,4 +50,7 @@ santagostini_multvardiv.pdf
 # Various system files
 DS_Store
 /.luarc.json
+
+# Miscellaneous
 variat_RenyiDiv.R
+curves_dist.png
