@@ -52,5 +52,6 @@ DS_Store
 /.luarc.json
 
 # Miscellaneous
-variat_RenyiDiv.R
-curves_dist.png
+variat_RenyiDiv*.*
+variat_Div*.*
+curves_dist*
