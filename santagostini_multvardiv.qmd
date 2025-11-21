@@ -100,20 +100,20 @@ results]).
 
 Let $\mathbf{X}$ be a random vector of $\mathbb{R}^p$ from a
 multivariate $t$-distribution (MTD) with degrees of freedom $\nu$, mean
-vector $\boldsymbol{\mu}$ and scale matrix $\mathbf\Sigma$, which is a
+vector $\boldsymbol{\mu}$ and scale matrix $\boldsymbol{\Sigma}$, which is a
 $p \times p$ symmetric, positive definite real matrix. Its probability
 density function is given by: $$
-    \displaystyle{ f_{\mathbf{X}}(\mathbf{x}|\nu, \boldsymbol{\mu}, \mathbf\Sigma) = \frac{\Gamma\left( \frac{\nu+p}{2} \right) |\mathbf{\Sigma}|^{-1/2}}{\Gamma\left( \frac{\nu}{2} \right) (\nu \pi)^{p/2}} \left( 1 + \frac{1}{\nu} (\mathbf{x}-\boldsymbol{\mu})^T \mathbf\Sigma^{-1} (\mathbf{x}-\boldsymbol{\mu}) \right)^{-\frac{\nu+p}{2}} }
+    \displaystyle{ f_{\mathbf{X}}(\mathbf{x}|\nu, \boldsymbol{\mu}, \boldsymbol{\Sigma}) = \frac{\Gamma\left( \frac{\nu+p}{2} \right) |\mathbf{\Sigma}|^{-1/2}}{\Gamma\left( \frac{\nu}{2} \right) (\nu \pi)^{p/2}} \left( 1 + \frac{1}{\nu} (\mathbf{x}-\boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x}-\boldsymbol{\mu}) \right)^{-\frac{\nu+p}{2}} }
 $$ {#eq-mcd}
 
 where $\Gamma(\cdot)$ is the gamma function.
 
 A sample from a multivariate $t$-distribution with location parameter
-$\boldsymbol{\mu}$, scale matrix $\mathbf\Sigma$ and $\nu$ degrees of freedom
+$\boldsymbol{\mu}$, scale matrix $\boldsymbol{\Sigma}$ and $\nu$ degrees of freedom
 can be generated using [@roth; @kotz]: $$
     \displaystyle{\mathbf{X} = \boldsymbol{\mu} + \frac{\mathbf{Y}}{\sqrt{u/\nu}}}
 $$ {#eq-rmtd} where $\mathbf{Y}$ is generated from a centered Gaussian
-distribution with covariance matrix $\mathbf\Sigma$, i.e. $\mathbf{Y}\sim \mathcal{N}^p(0,\mathbf{\Sigma})$ and $U$ is distributed
+distribution with covariance matrix $\boldsymbol{\Sigma}$, i.e. $\mathbf{Y}\sim \mathcal{N}^p(0,\mathbf{\Sigma})$ and $U$ is distributed
 according to a Chi-squared distribution with $\nu$ degrees of freedom, $U\sim \chi^2(\nu)$ and $U$ is independent of $\mathbf{Y}$. For convenience, we use the following new variable: $V=\frac{U}{\nu}$. As a consequence, $V$ follows a Gamma distribution with parameters $(\frac{\nu}{2},\frac{\nu}{2})$, i.e. $V\sim Gamma(\frac{\nu}{2},\frac{\nu}{2})$. 
 
 <!-- The MCD is a particular case of the multivariate $t$-distribution with $\nu = 1$. -->
@@ -128,7 +128,7 @@ a probability density function given by $f_{\mathbf{X}}(\mathbf{x})$. We
 assume that each random vector $\mathbf{x}_i$ is associated with a non-observed, hidden variable $V_i$. The sequence $\{V_i,i=1,\cdots,N\}$ is
 also assumed to be $iid$.
 The probability density of $\mathbf{X}$ depends on a set of unknown
-parameters $\theta = (\boldsymbol{\mu}, \mathbf\Sigma, \nu)$.
+parameters $\theta = (\boldsymbol{\mu}, \boldsymbol{\Sigma}, \nu)$.
 <!-- We know that $\displaystyle{\mathbf{X} = \boldsymbol{\mu} + \frac{\mathbf{Y}}{\sqrt{u/\nu}}}$ (@eq-rmtd), -->
 <!-- where $\Y\sim \mathcal{N}^p(0,\gSigma)$ is a $p$-variate normal random vector with mean 0 and covariance matrix $\gSigma$, $U$ is the chi-squared -->
 <!-- random variable with degrees of freedom $\nu$ and $U$ is independent of $\Y$. -->
@@ -147,7 +147,7 @@ estimation. The new expression is then given by: $$\begin{array}{lll}
 &   = &   \arg \max_{\theta} \sum\limits_{i=1}^N \mathbb{E}_{V|\mathbf{X}} \left\{ \ln f_{V,\mathbf{X}}(V_i, \mathbf{X}_i|\theta)\big|\mathbf{x}_i,\theta' \right\}
 \end{array}$$ {#eq-armax}
 
-Let $\theta_y=(\boldsymbol{\mu},\mathbf\Sigma)$ and $\theta_v=(\nu)$, using the
+Let $\theta_y=(\boldsymbol{\mu},\boldsymbol{\Sigma})$ and $\theta_v=(\nu)$, using the
 fact that
 $f_{V,\mathbf{X}}(v_i,\mathbf{x}_i|\theta)=f_{\mathbf{X}|V}(\mathbf{x}_i|v_i,\theta_y)f_{V}(v_i|\theta_{v})$,
 then @eq-armax can bee maximised separately from the parameters
@@ -161,17 +161,17 @@ $$
 \hat{\theta}_v = \arg \max_{\theta_y}\sum_{i=1}^N \mathbb{E}_{V|\mathbf{X}}\{\ln f_{V}(V_i|\theta_{v})\big|\mathbf{x}_i,\theta'\}
 $$ {#eq-lamda_x}
 
-### Estimation of $\theta_y=(\boldsymbol{\mu},\mathbf\Sigma)$ {.unnumbered .unlisted}
+### Estimation of $\theta_y=(\boldsymbol{\mu},\boldsymbol{\Sigma})$ {.unnumbered .unlisted}
 
 The probability density function of $\mathbf{X}$ knowing $v$ is given as follows 
 $$\begin{array}{lll}
 f_{\mathbf{X}|V}(\mathbf{x_i}|v_i, \theta_y) &    = &  \big|\frac{\partial \mathbf{Y}}{\partial \mathbf{X}}\big| f_{\mathbf{Y}}\left( (\mathbf{x_i}-\boldsymbol{\mu}) \sqrt{v_i}\right) \\
-&   = &  v_i^{\frac{p}{2}}\frac{1}{(2\pi)^{p/2}|\mathbf\Sigma|^{1/2}}\exp\big(-\frac{v_i}{2}(\mathbf{x_i}-\boldsymbol{\mu})^T\mathbf\Sigma^{-1}(\mathbf{x_i}-\boldsymbol{\mu})\big)  \\
-&   = & \frac{1}{(2\pi)^{p/2}|\frac{\mathbf\Sigma}{v_i}|^{1/2}}\exp\big(-\frac{v_i}{2}(\mathbf{x_i}-\boldsymbol{\mu})^T\mathbf\Sigma^{-1}(\mathbf{x_i}-\boldsymbol{\mu})\big)
+&   = &  v_i^{\frac{p}{2}}\frac{1}{(2\pi)^{p/2}|\boldsymbol{\Sigma}|^{1/2}}\exp\big(-\frac{v_i}{2}(\mathbf{x_i}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x_i}-\boldsymbol{\mu})\big)  \\
+&   = & \frac{1}{(2\pi)^{p/2}|\frac{\boldsymbol{\Sigma}}{v_i}|^{1/2}}\exp\big(-\frac{v_i}{2}(\mathbf{x_i}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x_i}-\boldsymbol{\mu})\big)
 \end{array}$${#eq-conditional_law}
 where $\big|\frac{\partial \mathbf{Y}}{\partial \mathbf{X}}\big|$ is the Jacobian determinant.
-It is clear that $\mathbf{X}|V\sim \mathcal{N}^p(\boldsymbol{\mu}, \frac{\mathbf\Sigma}{v})$. 
-Substituting the expression of the probability density function of $\mathbf{X}|V$ given by @eq-conditional_law into @eq-lamda_w, differentiating with respect to $\boldsymbol{\mu}$ and $\mathbf\Sigma$, and setting the result to zero gives:
+It is clear that $\mathbf{X}|V\sim \mathcal{N}^p(\boldsymbol{\mu}, \frac{\boldsymbol{\Sigma}}{v})$. 
+Substituting the expression of the probability density function of $\mathbf{X}|V$ given by @eq-conditional_law into @eq-lamda_w, differentiating with respect to $\boldsymbol{\mu}$ and $\boldsymbol{\Sigma}$, and setting the result to zero gives:
 <!-- Nous allons procéder autrement, soit $V=\frac{U}{\nu}$, nous allons alors déterminer $f_{\X|V}(x_i|v_i, \theta_y)$ et $f_{V}(v_i|\theta_{u})$.  -->
 
 <!-- Sachant que -->
@@ -251,7 +251,7 @@ $$
 $$ {#eq-EM_K1}
 
 $$
-\hat{\mathbf\Sigma} = \frac{1}{N}\sum_{i=1}^{N}\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}(\mathbf{x}_i-\boldsymbol{\mu})(\mathbf{x}_i-\boldsymbol{\mu})^T
+\hat{\boldsymbol{\Sigma}} = \frac{1}{N}\sum_{i=1}^{N}\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}(\mathbf{x}_i-\boldsymbol{\mu})(\mathbf{x}_i-\boldsymbol{\mu})^T
 $$ {#eq-EM_K2}
 
 where $\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}$ is the posterior expectation of V which depends on the values $\mathbf{x}_i$. The analytical expression is provided in the next subsection.
@@ -316,20 +316,20 @@ The posterior expectation $\mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\
 
 $$\begin{array}{lll}
 f_{V|\mathbf{X}}(v_i|\mathbf{x}_i) & = &\displaystyle{\frac{f_{\mathbf{X}|V}(\mathbf{x_i}|v_i, \theta_y)f_{V}(v_i|\theta_{v})}{f_{\mathbf{X}}(\mathbf{x_i}|\theta_y, \theta_v)}}\\
-&= & \displaystyle{\frac{v_i^{\frac{p+\nu}{2}-1}}{\Gamma(\frac{p+\nu}{2})} (\frac{1}{2})^{\frac{p+\nu}{2}}}\bigg[\nu+(\mathbf{x}_i-\boldsymbol{\mu})^T\mathbf\Sigma^{-1}(\mathbf{x}_i-\boldsymbol{\mu})\bigg]^{\frac{\nu+p}{2}} \exp-\frac{v_i}{2}\bigg[\nu+(\mathbf{x}_i-\boldsymbol{\mu})^T\mathbf\Sigma^{-1}(\mathbf{x}_i-\boldsymbol{\mu})\bigg]
+&= & \displaystyle{\frac{v_i^{\frac{p+\nu}{2}-1}}{\Gamma(\frac{p+\nu}{2})} (\frac{1}{2})^{\frac{p+\nu}{2}}}\bigg[\nu+(\mathbf{x}_i-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x}_i-\boldsymbol{\mu})\bigg]^{\frac{\nu+p}{2}} \exp-\frac{v_i}{2}\bigg[\nu+(\mathbf{x}_i-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x}_i-\boldsymbol{\mu})\bigg]
 \end{array}
 $$
-It is worth noticing that $V|\mathbf{X}\sim Gamma\left(\frac{p+\nu}{2},\nu+(\mathbf{x}_i-\boldsymbol{\mu})^T\mathbf\Sigma^{-1}(\mathbf{x}_i-\boldsymbol{\mu})\right)$.
+It is worth noticing that $V|\mathbf{X}\sim Gamma\left(\frac{p+\nu}{2},\nu+(\mathbf{x}_i-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x}_i-\boldsymbol{\mu})\right)$.
 Consequently, the posterior expectations are given by:
 
 $$
-\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\} = \frac{\nu+p}{\nu+(\mathbf{x}_i-\boldsymbol{\mu})^T\mathbf\Sigma^{-1}(\mathbf{x}_i-\boldsymbol{\mu})}
+\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\} = \frac{\nu+p}{\nu+(\mathbf{x}_i-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x}_i-\boldsymbol{\mu})}
 $$ {#eq-E1}
 
 and:
 
 $$
-\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\} = \psi(\frac{\nu+p}{2}) -\ln \frac{1}{2}\bigg[\nu+(\mathbf{x}_i-\boldsymbol{\mu})^T\mathbf\Sigma^{-1}(\mathbf{x}_i-\boldsymbol{\mu})\bigg]
+\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\} = \psi(\frac{\nu+p}{2}) -\ln \frac{1}{2}\bigg[\nu+(\mathbf{x}_i-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x}_i-\boldsymbol{\mu})\bigg]
 $$ {#eq-E2}
 
 <!-- \begin{tcolorbox}[arc=1ex, colback=yellow, colframe=yellow, left=3pt, right=3pt, top=2pt, bottom=2pt] -->
@@ -420,7 +420,7 @@ estimation:
 <!-- *   [**Initialisation:**]{.underline} -->
 
 1.  Initialization of the parameters
-    $\theta'=({\boldsymbol{\mu}}',{\mathbf\Sigma}',{\nu}')$
+    $\theta'=({\boldsymbol{\mu}}',{\boldsymbol{\Sigma}}',{\nu}')$
 
 2.  Repeat
 
@@ -430,13 +430,13 @@ estimation:
 
     -   Estimate $\hat{\boldsymbol{\mu}}$ using @eq-EM_K1
 
-    -   Estimate $\hat{\mathbf\Sigma}$ using @eq-EM_K2
+    -   Estimate $\hat{\boldsymbol{\Sigma}}$ using @eq-EM_K2
 
     -   Resolve @eq-EM_G_1 to estimate $\hat{\nu}$
     
     -   Compute the stop criterion: $D\leftarrow\Vert\hat{\theta}-\theta'\Vert$
     
-    -   Define the inputs for the next iteration: $\boldsymbol{\mu}',\mathbf\Sigma',\nu' \leftarrow\hat{\boldsymbol{\mu}},\hat{\mathbf\Sigma},\hat{\nu}$
+    -   Define the inputs for the next iteration: $\boldsymbol{\mu}',\boldsymbol{\Sigma}',\nu' \leftarrow\hat{\boldsymbol{\mu}},\hat{\boldsymbol{\Sigma}},\hat{\nu}$
     
     -   **Until** $D<\epsilon$
 
@@ -446,22 +446,22 @@ estimation:
 
 <!--     1.    **Until** $D<\epsilon$ -->
 
-3.   **Return** $(\hat{\boldsymbol{\mu}},\hat{\mathbf\Sigma},\hat{\nu})$ 
+3.   **Return** $(\hat{\boldsymbol{\mu}},\hat{\boldsymbol{\Sigma}},\hat{\nu})$ 
 
 ## Rényi divergence
 
 Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of
 $\mathbb{R}^p$ from MTDs with probability density functions given as follows: $$
-    \displaystyle{ f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \mathbf\Sigma_1) = f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \boldsymbol{0}, \mathbf\Sigma_1) = \frac{\Gamma\left( \frac{\nu_1+p}{2} \right) |\mathbf\Sigma_1|^{-1/2}}{\Gamma\left( \frac{\nu_1}{2} \right) (\nu_1 \pi)^{p/2}} \left( 1 + \frac{1}{\nu_1} \mathbf{x}^T \mathbf\Sigma_1^{-1} \mathbf{x} \right)^{-\frac{\nu_1+p}{2}} }
+    \displaystyle{ f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \boldsymbol{\Sigma}_1) = f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \boldsymbol{0}, \boldsymbol{\Sigma}_1) = \frac{\Gamma\left( \frac{\nu_1+p}{2} \right) |\boldsymbol{\Sigma}_1|^{-1/2}}{\Gamma\left( \frac{\nu_1}{2} \right) (\nu_1 \pi)^{p/2}} \left( 1 + \frac{1}{\nu_1} \mathbf{x}^T \boldsymbol{\Sigma}_1^{-1} \mathbf{x} \right)^{-\frac{\nu_1+p}{2}} }
 $$ and $$
-    \displaystyle{ f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \mathbf\Sigma_2) = f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \boldsymbol{0}, \mathbf\Sigma_2) = \frac{\Gamma\left( \frac{\nu_2+p}{2} \right) |\mathbf\Sigma_2|^{-1/2}}{\Gamma\left( \frac{\nu_2}{2} \right) (\nu_2 \pi)^{p/2}} \left( 1 + \frac{2}{\nu_2} \mathbf{x}^T \mathbf\Sigma_2^{-1} \mathbf{x} \right)^{-\frac{\nu_2+p}{2}} }
+    \displaystyle{ f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \boldsymbol{\Sigma}_2) = f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \boldsymbol{0}, \boldsymbol{\Sigma}_2) = \frac{\Gamma\left( \frac{\nu_2+p}{2} \right) |\boldsymbol{\Sigma}_2|^{-1/2}}{\Gamma\left( \frac{\nu_2}{2} \right) (\nu_2 \pi)^{p/2}} \left( 1 + \frac{2}{\nu_2} \mathbf{x}^T \boldsymbol{\Sigma}_2^{-1} \mathbf{x} \right)^{-\frac{\nu_2+p}{2}} }
 $$
 
 The Rényi divergence (RD) of order $\beta$ ($\beta >0$, $\beta \neq 1$) between
 $\mathbf{X}^1$ and $\mathbf{X}^2$ is: $$\begin{array}{lll}
-\displaystyle{D_R^{\beta}(\mathbf{X}^1 \Vert \mathbf{X}^2)} &   = &   \displaystyle{\frac{1}{\beta-1} \ln\left({\mathbb{E}_{X^1}\left[ \left( \frac{f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \mathbf\Sigma_1)}{f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \mathbf\Sigma_2)} \right)^{\beta-1} \right]}\right)} \\
+\displaystyle{D_R^{\beta}(\mathbf{X}^1 \Vert \mathbf{X}^2)} &   = &   \displaystyle{\frac{1}{\beta-1} \ln\left({\mathbb{E}_{X^1}\left[ \left( \frac{f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \boldsymbol{\Sigma}_1)}{f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \boldsymbol{\Sigma}_2)} \right)^{\beta-1} \right]}\right)} \\
 \\
-& =   &    \displaystyle{\frac{1}{\beta-1} \ln\left( \int_{\mathbb{R}^p}{\left( \frac{f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \mathbf\Sigma_1)}{f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \mathbf\Sigma_2)} \right)^{\beta-1} f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \mathbf\Sigma_1) \mathrm{d}\mathbf{x}} \right)}
+& =   &    \displaystyle{\frac{1}{\beta-1} \ln\left( \int_{\mathbb{R}^p}{\left( \frac{f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \boldsymbol{\Sigma}_1)}{f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \boldsymbol{\Sigma}_2)} \right)^{\beta-1} f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \boldsymbol{\Sigma}_1) \mathrm{d}\mathbf{x}} \right)}
 \end{array}$$ {#eq-rd}
 
 Let $\lambda_1, \dots, \lambda_p$ be the eigenvalues of the square
@@ -572,23 +572,23 @@ $\frac{\nu_1}{\nu_2}\lambda_1, \dots, \frac{\nu_1}{\nu_2}\lambda_p$:
 
 Let $\mathbf{X}$ be a random vector of $\mathbb{R}^p$ from a
 multivariate Cauchy distribution (MCD) with location vector
-$\boldsymbol{\mu}$ and scale matrix $\mathbf\Sigma$, which is a $p \times p$
+$\boldsymbol{\mu}$ and scale matrix $\boldsymbol{\Sigma}$, which is a $p \times p$
 symmetric, positive definite matrix. Its probability density function is
 given by: $$
-    \displaystyle{ f(\mathbf{x}|\boldsymbol{\mu}, \mathbf\Sigma) = \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\mathbf\Sigma|^\frac{1}{2} \left[ 1 + (\mathbf{x}-\boldsymbol{\mu})^T \mathbf\Sigma^{-1} (\mathbf{x}-\boldsymbol{\mu}) \right]^\frac{1+p}{2}} }
+    \displaystyle{ f(\mathbf{x}|\boldsymbol{\mu}, \boldsymbol{\Sigma}) = \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\boldsymbol{\Sigma}|^\frac{1}{2} \left[ 1 + (\mathbf{x}-\boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x}-\boldsymbol{\mu}) \right]^\frac{1+p}{2}} }
 $$
 
 where $\Gamma(\cdot)$ is the gamma function
 
 The MCD is a particular case of the multivariate $t$-distribution with
 $\nu = 1$. Hence, a sample from a MCD with location parameter
-$\boldsymbol{\mu}$ and dispersion matrix $\mathbf\Sigma$ can be generated using
+$\boldsymbol{\mu}$ and dispersion matrix $\boldsymbol{\Sigma}$ can be generated using
 @eq-rmtd with $\nu = 1$:
 
 $$
     \displaystyle{\mathbf{X} = \boldsymbol{\mu} + \frac{\mathbf{Y}}{\sqrt{u}}}
 $$ {#eq-rmcd} where $\mathbf{Y}$ is generated from a centered Gaussian
-distribution with covariance matrix $\mathbf\Sigma$ and $u$ is distributed
+distribution with covariance matrix $\boldsymbol{\Sigma}$ and $u$ is distributed
 according to a Chi-squared distribution with $\nu$ degrees of freedom.
 
 ## Parameter estimation
@@ -598,31 +598,31 @@ MTD (@sec-est_mtd) setting $\nu = 1$. Then the algorithm presented in
 @sec-est_mtd becomes:
 
 1.  Initialization of the parameters
-    $\theta'=({\boldsymbol{\mu}}',{\mathbf\Sigma}')$
+    $\theta'=({\boldsymbol{\mu}}',{\boldsymbol{\Sigma}}')$
 
 2.  **until** convergence **do**
 
     -   Compute
-        $\mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\}=\displaystyle{\frac{1+p}{1+(\mathbf{x}_i-\boldsymbol{\mu}')^T\mathbf\Sigma'^{-1}(\mathbf{x}_i-\boldsymbol{\mu}')}}$
+        $\mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\}=\displaystyle{\frac{1+p}{1+(\mathbf{x}_i-\boldsymbol{\mu}')^T\boldsymbol{\Sigma}'^{-1}(\mathbf{x}_i-\boldsymbol{\mu}')}}$
 
     -   Compute
-        $\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\}=\psi(\frac{1+p}{2}) -\ln \frac{1}{2}\bigg[1+(\mathbf{x}_i-\boldsymbol{\mu}')^T\mathbf\Sigma'^{-1}(\mathbf{x}_i-\boldsymbol{\mu}')\bigg]$
+        $\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\}=\psi(\frac{1+p}{2}) -\ln \frac{1}{2}\bigg[1+(\mathbf{x}_i-\boldsymbol{\mu}')^T\boldsymbol{\Sigma}'^{-1}(\mathbf{x}_i-\boldsymbol{\mu}')\bigg]$
 
     -   Estimate
         $\hat{\boldsymbol{\mu}} = \frac{\sum_{i=1}^{N}\mathbf{x}_i\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}}{\sum_{i=1}^{N}\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}}$
 
     -   Estimate
-        $\hat{\mathbf\Sigma}=\frac{1}{N}\sum_{i=1}^{N}\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}(\mathbf{x}_i-\boldsymbol{\mu}')(\mathbf{x}_i-\boldsymbol{\mu}')^T$
+        $\hat{\boldsymbol{\Sigma}}=\frac{1}{N}\sum_{i=1}^{N}\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}(\mathbf{x}_i-\boldsymbol{\mu}')(\mathbf{x}_i-\boldsymbol{\mu}')^T$
 
 ## Kullback-Leibler divergence
 
 Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of
 $\mathbb{R}^p$ from MCDs with probability density functions:
-$$\displaystyle{ f_{\mathbf{X}^1}\left(\mathbf{x}|\mathbf\Sigma_1\right) = f_{\mathbf{X}^1}\left(\mathbf{x}|\mathbf{0}, \mathbf\Sigma_1\right) = \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\mathbf\Sigma_1|^\frac{1}{2} \left[ 1 + \mathbf{x}^T \mathbf\Sigma_1^{-1} \mathbf{x} \right]^\frac{1+p}{2}} }$$
+$$\displaystyle{ f_{\mathbf{X}^1}\left(\mathbf{x}|\boldsymbol{\Sigma}_1\right) = f_{\mathbf{X}^1}\left(\mathbf{x}|\mathbf{0}, \boldsymbol{\Sigma}_1\right) = \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\boldsymbol{\Sigma}_1|^\frac{1}{2} \left[ 1 + \mathbf{x}^T \boldsymbol{\Sigma}_1^{-1} \mathbf{x} \right]^\frac{1+p}{2}} }$$
 and
-$$\displaystyle{ f_{\mathbf{X}^2}\left(\mathbf{x}|\mathbf\Sigma_2\right) = f_{\mathbf{X}^2}\left(\mathbf{x}|\mathbf{0}, \mathbf\Sigma_2\right) =  \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\mathbf\Sigma_2|^\frac{1}{2} \left[ 1 + \mathbf{x}^T \mathbf\Sigma_2^{-1} \mathbf{x} \right]^\frac{1+p}{2}} }$$
+$$\displaystyle{ f_{\mathbf{X}^2}\left(\mathbf{x}|\boldsymbol{\Sigma}_2\right) = f_{\mathbf{X}^2}\left(\mathbf{x}|\mathbf{0}, \boldsymbol{\Sigma}_2\right) =  \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\boldsymbol{\Sigma}_2|^\frac{1}{2} \left[ 1 + \mathbf{x}^T \boldsymbol{\Sigma}_2^{-1} \mathbf{x} \right]^\frac{1+p}{2}} }$$
 Let $\lambda_1, \dots, \lambda_p$ be the eigenvalues of the square
-matrix $\mathbf\Sigma_1 \mathbf\Sigma_2^{-1}$, sorted in increasing order:
+matrix $\boldsymbol{\Sigma}_1 \boldsymbol{\Sigma}_2^{-1}$, sorted in increasing order:
 $\lambda_1 < \dots < \lambda_p$.
 
 From @sec-kldt, the KLD to $\mathbf{X}^1$ from $\mathbf{X}^2$ (@eq-kl)
@@ -651,16 +651,16 @@ where $D$ depends on the values of $\lambda_1, \dots, \lambda_p$:
 
 Let $\mathbf{X}$ a random vector of $\mathbb{R}^p$ from a Multivariate
 generalized Gaussian distribution (MGGD) with mean vector
-$\boldsymbol{\mu}$, dispersion matrix $\mathbf\Sigma$ (symmetric, positive
+$\boldsymbol{\mu}$, dispersion matrix $\boldsymbol{\Sigma}$ (symmetric, positive
 definite of dimension $p \times p$) and shape parameter $\beta > 0$. Its
 probability density function is given by [@gomez; @bouhlel19]: $$
-    \displaystyle{f_\mathbf{X}\left(\mathbf{x}|\boldsymbol{\mu}, \mathbf\Sigma, \beta\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta}\right) 2^\frac{p}{2\beta}} \frac{\beta}{|\mathbf\Sigma|^\frac{1}{2}} e^{-\frac{1}{2}\left[ (\mathbf{x}-\boldsymbol{\mu})^T \mathbf\Sigma^{-1} (\mathbf{x}-\boldsymbol{\mu}) \right]^\beta}}
+    \displaystyle{f_\mathbf{X}\left(\mathbf{x}|\boldsymbol{\mu}, \boldsymbol{\Sigma}, \beta\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta}\right) 2^\frac{p}{2\beta}} \frac{\beta}{|\boldsymbol{\Sigma}|^\frac{1}{2}} e^{-\frac{1}{2}\left[ (\mathbf{x}-\boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x}-\boldsymbol{\mu}) \right]^\beta}}
 $$ {#eq-mggd}
 
 where $\Gamma(\cdot)$ is the gamma function.
 <!-- Let $\mathbf{X}$ a random vector of $\mathbb{R}^p$ distributed according to a MGGD with mean vector $\boldsymbol{\mu} = \mathbf{0}$, dispersion matrix $\Sigma$ and shape parameter $\beta$. -->
 @gomez show that $\mathbf{X}$ has the same distribution as: $$
-    \displaystyle{\mathbf{X} = \tau \mathbf\Sigma^{1/2} \mathbf{U}}
+    \displaystyle{\mathbf{X} = \tau \boldsymbol{\Sigma}^{1/2} \mathbf{U}}
 $$ {#eq-rggd} where $\mathbf{U}$ is a random vector uniformly
 distributed on the unit sphere in $\mathbb{R}^p$ and $\tau$ is such that
 $\tau^{2\beta}$ is a random variable distributed according to a Gamma
@@ -672,10 +672,10 @@ MGGD.
 
 Let $\left( \mathbf{x}_1, \dots, \mathbf{x}_n \right)$ be $n$ i.i.d.
 random vectors distributed according to a MGGD with parameters
-$\boldsymbol{\mu}$, $\mathbf\Sigma$ and $\beta$. @pascal give a method to
+$\boldsymbol{\mu}$, $\boldsymbol{\Sigma}$ and $\beta$. @pascal give a method to
 estimate these parameters.
 
-The dispersion matrix $\mathbf\Sigma$ can be normalized as follows: $$
+The dispersion matrix $\boldsymbol{\Sigma}$ can be normalized as follows: $$
 \boldsymbol{\Sigma} = m \mathbf M
 $$ {#eq-normalizeSigma} $\mathbf M$ being a symmetric, positive-definite matrix
 such that its trace is $tr(\mathbf M) = p$ and $m \in \mathbb{R}$.
@@ -717,25 +717,25 @@ $m$ and $\beta$:
 Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of
 $\mathbb{R}^p$ ($p > 1$) from centered MGGDs with probability density
 functions
-$$\displaystyle{f_{\mathbf{X}^1}(\mathbf{x}|\mathbf\Sigma_1, \beta_1) = f_{\mathbf{X}^1}\left(\mathbf{x}|\mathbf{0}, \mathbf\Sigma_1, \beta_1\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta_1}\right) 2^\frac{p}{2\beta_1}} \frac{\beta_1}{|\mathbf\Sigma_1|^\frac{1}{2}} e^{-\frac{1}{2}\left[ \mathbf{x}^T \mathbf\Sigma_1^{-1} \mathbf{x} \right]^{\beta_1}}}$$
+$$\displaystyle{f_{\mathbf{X}^1}(\mathbf{x}|\boldsymbol{\Sigma}_1, \beta_1) = f_{\mathbf{X}^1}\left(\mathbf{x}|\mathbf{0}, \boldsymbol{\Sigma}_1, \beta_1\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta_1}\right) 2^\frac{p}{2\beta_1}} \frac{\beta_1}{|\boldsymbol{\Sigma}_1|^\frac{1}{2}} e^{-\frac{1}{2}\left[ \mathbf{x}^T \boldsymbol{\Sigma}_1^{-1} \mathbf{x} \right]^{\beta_1}}}$$
 and
-$$\displaystyle{f_{\mathbf{X}^2}(\mathbf{x}|\mathbf\Sigma_2, \beta_2) = f_{\mathbf{X}^2}\left(\mathbf{x}|\mathbf{0}, \mathbf\Sigma_2, \beta_2\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta_2}\right) 2^\frac{p}{2\beta_2}} \frac{\beta_2}{|\mathbf\Sigma_2|^\frac{1}{2}} e^{-\frac{1}{2}\left[ \mathbf{x}^T \mathbf\Sigma_2^{-1} \mathbf{x} \right]^{\beta_2}}}$$
+$$\displaystyle{f_{\mathbf{X}^2}(\mathbf{x}|\boldsymbol{\Sigma}_2, \beta_2) = f_{\mathbf{X}^2}\left(\mathbf{x}|\mathbf{0}, \boldsymbol{\Sigma}_2, \beta_2\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta_2}\right) 2^\frac{p}{2\beta_2}} \frac{\beta_2}{|\boldsymbol{\Sigma}_2|^\frac{1}{2}} e^{-\frac{1}{2}\left[ \mathbf{x}^T \boldsymbol{\Sigma}_2^{-1} \mathbf{x} \right]^{\beta_2}}}$$
 
 The KLD of $\mathbf{X}^1$ from $\mathbf{X}^2$ is: $$
     \begin{array}{ll}
     \displaystyle{KL(\mathbf{X}^1||\mathbf{X}^2)} & \displaystyle{= \mathbb{E}_{X^1}\left[\ln\left(\frac{f_{\mathbf{X}^1}(\mathbf{X})}{f_{\mathbf{X}^2}(\mathbf{X})}\right)\right]} \\
-    & \displaystyle{= \int_{\mathbb{R}^p}{\ln \left( \frac{f_{\mathbf{X}^1}(\mathbf{x}|\mathbf\Sigma_1, \beta_1)}{f_{\mathbf{X}^2}(\mathbf{x}|\mathbf\Sigma_2, \beta_2)} \right) f_{\mathbf{X}^1}(\mathbf{x}|\mathbf\Sigma_1, \beta_1)\mathrm{d}\mathbf{x}}}
+    & \displaystyle{= \int_{\mathbb{R}^p}{\ln \left( \frac{f_{\mathbf{X}^1}(\mathbf{x}|\boldsymbol{\Sigma}_1, \beta_1)}{f_{\mathbf{X}^2}(\mathbf{x}|\boldsymbol{\Sigma}_2, \beta_2)} \right) f_{\mathbf{X}^1}(\mathbf{x}|\boldsymbol{\Sigma}_1, \beta_1)\mathrm{d}\mathbf{x}}}
     \end{array}
 $$ {#eq-kl}
 
 Let $\lambda_1, \dots, \lambda_p$ be the eigenvalues of the square
-matrix $\mathbf\Sigma_1 \mathbf\Sigma_2^{-1}$ sorted in increasing order:
+matrix $\boldsymbol{\Sigma}_1 \boldsymbol{\Sigma}_2^{-1}$ sorted in increasing order:
 $\lambda_1 < \dots < \lambda_{p-1} < \lambda_p$. @bouhlel19 present an
 analytical expression of the KLD to $\mathbf{X}^1$ from $\mathbf{X}^2$:
 
 $$
     \begin{aligned}
-    KL(\mathbf{X}^1||\mathbf{X}^2) = & \displaystyle{\ln\left( \frac{\beta_1 |\mathbf\Sigma_1|^{\frac{-1}{2}} \Gamma\left(\frac{p}{2\beta_2}\right)}{\beta_2 |\mathbf\Sigma_2|^{\frac{-1}{2}} \Gamma\left(\frac{p}{2\beta_1}\right)} \right) + \frac{p}{2}\left(\frac{1}{\beta_2} - \frac{1}{\beta_1}\right) \ln{2} - \frac{p}{2\beta_2} + 2^{\frac{\beta_2}{\beta_1}-1} \ \frac{\Gamma\left(\frac{\beta_2}{\beta_1}+\frac{p}{\beta_1}\right)}{\Gamma\left(\frac{p}{2\beta_1}\right)}\ {\lambda_p}^{\beta_2}} \\
+    KL(\mathbf{X}^1||\mathbf{X}^2) = & \displaystyle{\ln\left( \frac{\beta_1 |\boldsymbol{\Sigma}_1|^{\frac{-1}{2}} \Gamma\left(\frac{p}{2\beta_2}\right)}{\beta_2 |\boldsymbol{\Sigma}_2|^{\frac{-1}{2}} \Gamma\left(\frac{p}{2\beta_1}\right)} \right) + \frac{p}{2}\left(\frac{1}{\beta_2} - \frac{1}{\beta_1}\right) \ln{2} - \frac{p}{2\beta_2} + 2^{\frac{\beta_2}{\beta_1}-1} \ \frac{\Gamma\left(\frac{\beta_2}{\beta_1}+\frac{p}{\beta_1}\right)}{\Gamma\left(\frac{p}{2\beta_1}\right)}\ {\lambda_p}^{\beta_2}} \\
     & \displaystyle{\times F_D^{(p-1)}\bigg(-\beta_2, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}}_{p-1}, \frac{p}{2}; 1-\frac{\lambda_{p-1}}{\lambda_p}, \dots, 1-\frac{\lambda_1}{\lambda_p}\bigg)}
     \end{aligned}
 $$ {#eq-klggd}
@@ -1498,10 +1498,10 @@ $$ {#eq-kldmtdcase3exact}
 
 Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors distributed
 according to $t$ distributions with parameters
-$(\nu_1, \boldsymbol{\mu}_1, \mathbf\Sigma_1)$ and
-$(\nu_2, \boldsymbol{\mu}_2, \mathbf\Sigma_2)$ such that
-$\boldsymbol{\mu}_1 = \boldsymbol{\mu}_2 = 0$ and $\nu_1$, $\mathbf\Sigma_1$,
-$\nu_2$ and $\mathbf\Sigma_2$ are given by:
+$(\nu_1, \boldsymbol{\mu}_1, \boldsymbol{\Sigma}_1)$ and
+$(\nu_2, \boldsymbol{\mu}_2, \boldsymbol{\Sigma}_2)$ such that
+$\boldsymbol{\mu}_1 = \boldsymbol{\mu}_2 = 0$ and $\nu_1$, $\boldsymbol{\Sigma}_1$,
+$\nu_2$ and $\boldsymbol{\Sigma}_2$ are given by:
 
 ```{r}
 nu1 <- 1
@@ -1519,7 +1519,7 @@ Let us compute the KLD to $\mathbf{X}^1$ from $\mathbf{X}^2$, using
 kl3pc <- kldstudent(nu1, Sigma1, nu2, Sigma2, eps = .Machine$double.eps)
 ```
 
-Given the eigenvalues of $\mathbf\Sigma_1 \mathbf\Sigma_2^{-1}$:
+Given the eigenvalues of $\boldsymbol{\Sigma}_1 \boldsymbol{\Sigma}_2^{-1}$:
 
 ```{r}
 lambda <- eigen(Sigma1 %*% solve(Sigma2), only.values = TRUE)$value
@@ -1547,7 +1547,7 @@ as.numeric(kl3pc) - kl3control
 ### Case $p = 4$, $\lambda_1 = \lambda_2 = \lambda_3 = \lambda_4$
 
 Similarly, when $p = 4$, if the eigenvalues of the matrix
-$\mathbf\Sigma_1 \mathbf\Sigma_2^{-1}$ are equal:
+$\boldsymbol{\Sigma}_1 \boldsymbol{\Sigma}_2^{-1}$ are equal:
 $\lambda_1 = \lambda_2 = \lambda_3 = \lambda_4 = \lambda$, if
 $\lambda < 1$, we can get a simpler expression of the partial derivative
 in @eq-klmt2.
