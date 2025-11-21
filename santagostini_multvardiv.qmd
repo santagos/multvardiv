@@ -125,7 +125,7 @@ $\boldsymbol{\mu}$, $\mathbf\Sigma$ and $\beta$. @pascal give a method to
 estimate these parameters.
 
 The dispersion matrix $\mathbf\Sigma$ can be normalized as follows: $$
-\mathbf\Sigma = m \mathbf M
+\boldsymbol{\Sigma} = m \mathbf M
 $$ {#eq-normalizeSigma} $\mathbf M$ being a symmetric, positive-definite matrix
 such that its trace is $tr(\mathbf M) = p$ and $m \in \mathbb{R}$.
 
