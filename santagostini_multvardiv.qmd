@@ -479,7 +479,7 @@ $$\begin{array}{lll}
 \end{array}$$ {#eq-rdmtd}
 
 where $F_D$ depends on the values of
-$\frac{\nu_1}{\nu_2}\lambda_1, \dots, \frac{\nu_1}{\nu_2}\lambda_p$:
+$\frac{\nu_1}{\nu_2}\lambda_1, \dots, \frac{\nu_1}{\nu_2}\lambda_p$ :
 
 -   If $\frac{\nu_1}{\nu_2}\lambda_1 > 1$,
 
@@ -500,6 +500,17 @@ F_D &   = &   \displaystyle{ \left(\frac{\nu_2}{\nu_1}\frac{1}{\lambda_p}\right)
 &&    \displaystyle{ \times F_D^{(p)}\bigg( \delta_2, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}, \delta_1 + \delta_2 - \frac{p}{2}}_p; \delta_1 + \delta_2; 1 - \frac{\lambda_1}{\lambda_p}, \dots, 1 - \frac{\lambda_{p-1}}{\lambda_p}, 1 - \frac{\nu_2}{\nu_1}\frac{1}{\lambda_p} \bigg) }
 \end{array}
 $$
+
+where $F_D^{(n)}$ is the Lauricella $D$-hypergeometric function defined
+by: $$
+    F_D^{(n)}\left(a; b_1, \dots, b_n; c; x_1, \dots, x_n\right) = \sum_{m_1=0}^\infty \dots \sum_{m_n=0}^\infty{\frac{(a)_{m_1+\dots+m_n} (b_1)_{m_1} \dots (b_n)_{m_n}}{(c)_{m_1+\dots+m_n}} \ \frac{{x_1}^{m_1}}{m_1!} \dots \frac{{x_n}^{m_n}}{m_n!}}
+$$ {#eq-lauric} and the Pochhammer symbol $(q)_i$, where $q$ is a real
+and $i$ is a non-negative integer, is given by: $$
+\displaystyle{ (q)_i = \frac{\Gamma(q+i)}{\Gamma(q)} =} \left\{ \begin{array}{ll}
+1 & \text{if } i = 0 \\
+\displaystyle{ q (q+1) \dots (q+i-1) } & \text{if } i \geq 1
+\end{array} \right.
+$$ {#eq-pochhammer}
 
 ## Bhattacharyya and Hellinger divergences
 
@@ -729,16 +740,16 @@ $$
     \end{aligned}
 $$ {#eq-klggd}
 
-where $F_D^{(n)}$ is the Lauricella $D$-hypergeometric function defined
-by: $$
-    F_D^{(n)}\left(a; b_1, \dots, b_n; c; x_1, \dots, x_n\right) = \sum_{m_1=0}^\infty \dots \sum_{m_n=0}^\infty{\frac{(a)_{m_1+\dots+m_n} (b_1)_{m_1} \dots (b_n)_{m_n}}{(c)_{m_1+\dots+m_n}} \ \frac{{x_1}^{m_1}}{m_1!} \dots \frac{{x_n}^{m_n}}{m_n!}}
-$$ {#eq-lauric} and the Pochhammer symbol $(q)_i$, where $q$ is a real
-and $i$ is a non-negative integer, is given by: $$
-\displaystyle{ (q)_i = \frac{\Gamma(q+i)}{\Gamma(q)} =} \left\{ \begin{array}{ll}
-1 & \text{if } i = 0 \\
-\displaystyle{ q (q+1) \dots (q+i-1) } & \text{if } i \geq 1
-\end{array} \right.
-$$ {#eq-pochhammer}
+<!-- where $F_D^{(n)}$ is the Lauricella $D$-hypergeometric function defined -->
+<!-- by: $$ -->
+<!--     F_D^{(n)}\left(a; b_1, \dots, b_n; c; x_1, \dots, x_n\right) = \sum_{m_1=0}^\infty \dots \sum_{m_n=0}^\infty{\frac{(a)_{m_1+\dots+m_n} (b_1)_{m_1} \dots (b_n)_{m_n}}{(c)_{m_1+\dots+m_n}} \ \frac{{x_1}^{m_1}}{m_1!} \dots \frac{{x_n}^{m_n}}{m_n!}} -->
+<!-- $$ {#eq-lauric} and the Pochhammer symbol $(q)_i$, where $q$ is a real -->
+<!-- and $i$ is a non-negative integer, is given by: $$ -->
+<!-- \displaystyle{ (q)_i = \frac{\Gamma(q+i)}{\Gamma(q)} =} \left\{ \begin{array}{ll} -->
+<!-- 1 & \text{if } i = 0 \\ -->
+<!-- \displaystyle{ q (q+1) \dots (q+i-1) } & \text{if } i \geq 1 -->
+<!-- \end{array} \right. -->
+<!-- $$ {#eq-pochhammer} -->
 
 ### Univariate case : $p=1$
 Let $X^1$ and $X^2$ be two random
