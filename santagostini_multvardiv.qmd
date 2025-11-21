@@ -96,126 +96,6 @@ Some particular cases provide interesting results. We use these
 particular cases to test the computation of the statistical divergence ([Some particular cases -- test of the
 results]).
 
-# Multivariate generalized Gaussian distribution
-
-Let $\mathbf{X}$ a random vector of $\mathbb{R}^p$ from a Multivariate
-generalized Gaussian distribution (MGGD) with mean vector
-$\boldsymbol{\mu}$, dispersion matrix $\mathbf\Sigma$ (symmetric, positive
-definite of dimension $p \times p$) and shape parameter $\beta > 0$. Its
-probability density function is given by [@gomez; @bouhlel19]: $$
-    \displaystyle{f_\mathbf{X}\left(\mathbf{x}|\boldsymbol{\mu}, \mathbf\Sigma, \beta\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta}\right) 2^\frac{p}{2\beta}} \frac{\beta}{|\mathbf\Sigma|^\frac{1}{2}} e^{-\frac{1}{2}\left[ (\mathbf{x}-\boldsymbol{\mu})^T \mathbf\Sigma^{-1} (\mathbf{x}-\boldsymbol{\mu}) \right]^\beta}}
-$$ {#eq-mggd}
-
-where $\Gamma(\cdot)$ is the gamma function.
-<!-- Let $\mathbf{X}$ a random vector of $\mathbb{R}^p$ distributed according to a MGGD with mean vector $\boldsymbol{\mu} = \mathbf{0}$, dispersion matrix $\Sigma$ and shape parameter $\beta$. -->
-@gomez show that $\mathbf{X}$ has the same distribution as: $$
-    \displaystyle{\mathbf{X} = \tau \mathbf\Sigma^{1/2} \mathbf{U}}
-$$ {#eq-rggd} where $\mathbf{U}$ is a random vector uniformly
-distributed on the unit sphere in $\mathbb{R}^p$ and $\tau$ is such that
-$\tau^{2\beta}$ is a random variable distributed according to a Gamma
-distribution with shape parameter $\displaystyle{\frac{p}{2\beta}}$ and
-scale parameter $2$. We use this property to simulate a sample from a
-MGGD.
-
-## Parameter estimation
-
-Let $\left( \mathbf{x}_1, \dots, \mathbf{x}_n \right)$ be $n$ i.i.d.
-random vectors distributed according to a MGGD with parameters
-$\boldsymbol{\mu}$, $\mathbf\Sigma$ and $\beta$. @pascal give a method to
-estimate these parameters.
-
-The dispersion matrix $\mathbf\Sigma$ can be normalized as follows: $$
-\boldsymbol{\Sigma} = m \mathbf M
-$$ {#eq-normalizeSigma} $\mathbf M$ being a symmetric, positive-definite matrix
-such that its trace is $tr(\mathbf M) = p$ and $m \in \mathbb{R}$.
-
-The estimations of the parameters $(\boldsymbol{\mu}, \mathbf M, m, \beta)$
-can be computed as follows:
-
--   The mean vector $\boldsymbol{\mu}$ is estimated by calculating the
-    mean of $\left( \mathbf{x}_1, \dots, \mathbf{x}_n \right)$.
--   If $\beta$ is known, $\mathbf M$ and $m$ can be estimated by: $$
-      \mathbf M = \frac{1}{n} \sum_{i=1}^n{\frac{n p}{\mathbf{y}_i + \mathbf{y}_i^{1-\beta} \sum_{j \neq i}{\mathbf{y}_j^\beta}} \mathbf{x}_i \mathbf{x}_i^T}
-      $$ {#eq-estggdM} and $$
-      m = \left( \frac{\beta}{p n} \sum_{i=1}^n{{\mathbf{y}_i}^\beta} \right)^\frac{1}{\beta}
-      $$ {#eq-estggdm} with
-    $\mathbf{y}_i = \mathbf{x}_i^T \mathbf M^{-1} \mathbf{x}_i$
--   When the shape parameter $\beta$ is unknown, it is estimated using the
-    following relation: $$
-      \displaystyle{\frac{p n}{2 \sum_{i=1}^n{\mathbf{y}_i^\beta}} \sum_{i=1}^n{\left( \mathbf{y}_i^\beta \ln{\mathbf{y}_i} \right)} - \frac{p n}{2\beta} \left( \Psi(\frac{p}{2\beta}) + \ln{2} \right) - n - \frac{p n}{2\beta} \ \ln{\left( \frac{\beta}{p n}\sum_{i=1}^n{\mathbf{y}_i^\beta} \right)} = 0}
-      $$ {#eq-estggdbeta} where $\Psi$ is the digamma function:
-    $\displaystyle{\Psi(x) = \frac{d}{dx} \ln{\Gamma(x)} = \frac{\Gamma'(x)}{\Gamma(x)}}$
-
-Thus, an iterative algorithm is introduced by @pascal to estimate $\mathbf M$,
-$m$ and $\beta$:
-
-1.  Initialization of $\beta$ and $\mathbf M$
-
-2.  **until** convergence **do**
-
-    -   Estimation of $\mathbf M$ using one iteration of @eq-estggdM and
-        normalization
-    -   Estimation of $\beta$ using @eq-estggdbeta
-
-    **end until**
-
-3.  Estimation of $m$ using @eq-estggdm
-
-## Kullback-Leibler divergence
-
-Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of
-$\mathbb{R}^p$ ($p > 1$) from centered MGGDs with probability density
-functions
-$$\displaystyle{f_{\mathbf{X}^1}(\mathbf{x}|\mathbf\Sigma_1, \beta_1) = f_{\mathbf{X}^1}\left(\mathbf{x}|\mathbf{0}, \mathbf\Sigma_1, \beta_1\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta_1}\right) 2^\frac{p}{2\beta_1}} \frac{\beta_1}{|\mathbf\Sigma_1|^\frac{1}{2}} e^{-\frac{1}{2}\left[ \mathbf{x}^T \mathbf\Sigma_1^{-1} \mathbf{x} \right]^{\beta_1}}}$$
-and
-$$\displaystyle{f_{\mathbf{X}^2}(\mathbf{x}|\mathbf\Sigma_2, \beta_2) = f_{\mathbf{X}^2}\left(\mathbf{x}|\mathbf{0}, \mathbf\Sigma_2, \beta_2\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta_2}\right) 2^\frac{p}{2\beta_2}} \frac{\beta_2}{|\mathbf\Sigma_2|^\frac{1}{2}} e^{-\frac{1}{2}\left[ \mathbf{x}^T \mathbf\Sigma_2^{-1} \mathbf{x} \right]^{\beta_2}}}$$
-
-The KLD of $\mathbf{X}^1$ from $\mathbf{X}^2$ is: $$
-    \begin{array}{ll}
-    \displaystyle{KL(\mathbf{X}^1||\mathbf{X}^2)} & \displaystyle{= \mathbb{E}_{X^1}\left[\ln\left(\frac{f_{\mathbf{X}^1}(\mathbf{X})}{f_{\mathbf{X}^2}(\mathbf{X})}\right)\right]} \\
-    & \displaystyle{= \int_{\mathbb{R}^p}{\ln \left( \frac{f_{\mathbf{X}^1}(\mathbf{x}|\mathbf\Sigma_1, \beta_1)}{f_{\mathbf{X}^2}(\mathbf{x}|\mathbf\Sigma_2, \beta_2)} \right) f_{\mathbf{X}^1}(\mathbf{x}|\mathbf\Sigma_1, \beta_1)\mathrm{d}\mathbf{x}}}
-    \end{array}
-$$ {#eq-kl}
-
-Let $\lambda_1, \dots, \lambda_p$ be the eigenvalues of the square
-matrix $\mathbf\Sigma_1 \mathbf\Sigma_2^{-1}$ sorted in increasing order:
-$\lambda_1 < \dots < \lambda_{p-1} < \lambda_p$. @bouhlel19 present an
-analytical expression of the KLD to $\mathbf{X}^1$ from $\mathbf{X}^2$:
-
-$$
-    \begin{aligned}
-    KL(\mathbf{X}^1||\mathbf{X}^2) = & \displaystyle{\ln\left( \frac{\beta_1 |\mathbf\Sigma_1|^{\frac{-1}{2}} \Gamma\left(\frac{p}{2\beta_2}\right)}{\beta_2 |\mathbf\Sigma_2|^{\frac{-1}{2}} \Gamma\left(\frac{p}{2\beta_1}\right)} \right) + \frac{p}{2}\left(\frac{1}{\beta_2} - \frac{1}{\beta_1}\right) \ln{2} - \frac{p}{2\beta_2} + 2^{\frac{\beta_2}{\beta_1}-1} \ \frac{\Gamma\left(\frac{\beta_2}{\beta_1}+\frac{p}{\beta_1}\right)}{\Gamma\left(\frac{p}{2\beta_1}\right)}\ {\lambda_p}^{\beta_2}} \\
-    & \displaystyle{\times F_D^{(p-1)}\bigg(-\beta_2, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}}_{p-1}, \frac{p}{2}; 1-\frac{\lambda_{p-1}}{\lambda_p}, \dots, 1-\frac{\lambda_1}{\lambda_p}\bigg)}
-    \end{aligned}
-$$ {#eq-klggd}
-
-where $F_D^{(n)}$ is the Lauricella $D$-hypergeometric function defined
-by: $$
-    F_D^{(n)}\left(a; b_1, \dots, b_n; c; x_1, \dots, x_n\right) = \sum_{m_1=0}^\infty \dots \sum_{m_n=0}^\infty{\frac{(a)_{m_1+\dots+m_n} (b_1)_{m_1} \dots (b_n)_{m_n}}{(c)_{m_1+\dots+m_n}} \ \frac{{x_1}^{m_1}}{m_1!} \dots \frac{{x_n}^{m_n}}{m_n!}}
-$$ {#eq-lauric} and the Pochhammer symbol $(q)_i$, where $q$ is a real
-and $i$ is a non-negative integer, is given by: $$
-\displaystyle{ (q)_i = \frac{\Gamma(q+i)}{\Gamma(q)} =} \left\{ \begin{array}{ll}
-1 & \text{if } i = 0 \\
-\displaystyle{ q (q+1) \dots (q+i-1) } & \text{if } i \geq 1
-\end{array} \right.
-$$ {#eq-pochhammer}
-
-### Univariate case : $p=1$
-Let $X^1$ and $X^2$ be two random
-variables distributed according to centered generalized Gaussian
-distributions with probability density functions:
-$$\displaystyle{f_{X^1}(x|\sigma_1, \beta_1) = f_{X^1}\left(x|0, \sigma_1, \beta_1\right) = \frac{\beta_1}{\Gamma\left(\frac{1}{2 \beta_1}\right) 2^\frac{1}{2\beta_1}\sqrt{\sigma_1}} e^{-\frac{1}{2}\left(\frac{x^2}{\sigma_1}\right)^\beta}}$$
-and
-$$\displaystyle{f_{X^2}(x|\sigma_2, \beta_2) = f_{X^2}\left(x|0, \sigma_2, \beta_2\right) = \frac{\beta_2}{\Gamma\left(\frac{2}{2 \beta_2}\right) 2^\frac{1}{2\beta_2}\sqrt{\sigma_2}} e^{-\frac{1}{2}\left(\frac{x^2}{\sigma_2}\right)^\beta}}$$
-
-the KLD is given by: $$
-    KL(X^1||X^2) = \displaystyle{\ln\left( \frac{\frac{\beta_1}{\sqrt{\sigma_1}} \Gamma\left(\frac{1}{2\beta_2}\right)}{\frac{\beta_2}{\sqrt{\sigma_2}} \Gamma\left(\frac{1}{2\beta_1}\right)} \right) + \frac{1}{2}\left(\frac{1}{\beta_2} - \frac{1}{\beta_1}\right) \ln{2} - \frac{1}{2\beta_2} + 2^{\frac{\beta_2}{\beta_1}-1} \ \frac{\Gamma\left(\frac{\beta_2}{\beta_1}+\frac{1}{\beta_1}\right)}{\Gamma\left(\frac{1}{2\beta_1}\right)}\ \left(\frac{\sigma_1}{\sigma_2}\right)^{\beta_2}}
-$$
-
-
-
-
-
 # Multivariate $t$-distribution
 
 Let $\mathbf{X}$ be a random vector of $\mathbb{R}^p$ from a
@@ -756,6 +636,121 @@ where $D$ depends on the values of $\lambda_1, \dots, \lambda_p$:
       \displaystyle{ D = \prod_{i=1}^p\frac{1}{\sqrt{\lambda_i}} \times \frac{\partial}{\partial a} \bigg\{ F_D^{(p)} \bigg( \frac{1+p}{2}, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}}_p ; a + \frac{1+p}{2} ; 1 - \frac{1}{\lambda_1}, \dots, 1 - \frac{1}{\lambda_p} \bigg) \bigg\}\bigg|_{a=0} }
       $$ {#eq-klmcd3}
 
+# Multivariate generalized Gaussian distribution
+
+Let $\mathbf{X}$ a random vector of $\mathbb{R}^p$ from a Multivariate
+generalized Gaussian distribution (MGGD) with mean vector
+$\boldsymbol{\mu}$, dispersion matrix $\mathbf\Sigma$ (symmetric, positive
+definite of dimension $p \times p$) and shape parameter $\beta > 0$. Its
+probability density function is given by [@gomez; @bouhlel19]: $$
+    \displaystyle{f_\mathbf{X}\left(\mathbf{x}|\boldsymbol{\mu}, \mathbf\Sigma, \beta\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta}\right) 2^\frac{p}{2\beta}} \frac{\beta}{|\mathbf\Sigma|^\frac{1}{2}} e^{-\frac{1}{2}\left[ (\mathbf{x}-\boldsymbol{\mu})^T \mathbf\Sigma^{-1} (\mathbf{x}-\boldsymbol{\mu}) \right]^\beta}}
+$$ {#eq-mggd}
+
+where $\Gamma(\cdot)$ is the gamma function.
+<!-- Let $\mathbf{X}$ a random vector of $\mathbb{R}^p$ distributed according to a MGGD with mean vector $\boldsymbol{\mu} = \mathbf{0}$, dispersion matrix $\Sigma$ and shape parameter $\beta$. -->
+@gomez show that $\mathbf{X}$ has the same distribution as: $$
+    \displaystyle{\mathbf{X} = \tau \mathbf\Sigma^{1/2} \mathbf{U}}
+$$ {#eq-rggd} where $\mathbf{U}$ is a random vector uniformly
+distributed on the unit sphere in $\mathbb{R}^p$ and $\tau$ is such that
+$\tau^{2\beta}$ is a random variable distributed according to a Gamma
+distribution with shape parameter $\displaystyle{\frac{p}{2\beta}}$ and
+scale parameter $2$. We use this property to simulate a sample from a
+MGGD.
+
+## Parameter estimation
+
+Let $\left( \mathbf{x}_1, \dots, \mathbf{x}_n \right)$ be $n$ i.i.d.
+random vectors distributed according to a MGGD with parameters
+$\boldsymbol{\mu}$, $\mathbf\Sigma$ and $\beta$. @pascal give a method to
+estimate these parameters.
+
+The dispersion matrix $\mathbf\Sigma$ can be normalized as follows: $$
+\boldsymbol{\Sigma} = m \mathbf M
+$$ {#eq-normalizeSigma} $\mathbf M$ being a symmetric, positive-definite matrix
+such that its trace is $tr(\mathbf M) = p$ and $m \in \mathbb{R}$.
+
+The estimations of the parameters $(\boldsymbol{\mu}, \mathbf M, m, \beta)$
+can be computed as follows:
+
+-   The mean vector $\boldsymbol{\mu}$ is estimated by calculating the
+    mean of $\left( \mathbf{x}_1, \dots, \mathbf{x}_n \right)$.
+-   If $\beta$ is known, $\mathbf M$ and $m$ can be estimated by: $$
+      \mathbf M = \frac{1}{n} \sum_{i=1}^n{\frac{n p}{\mathbf{y}_i + \mathbf{y}_i^{1-\beta} \sum_{j \neq i}{\mathbf{y}_j^\beta}} \mathbf{x}_i \mathbf{x}_i^T}
+      $$ {#eq-estggdM} and $$
+      m = \left( \frac{\beta}{p n} \sum_{i=1}^n{{\mathbf{y}_i}^\beta} \right)^\frac{1}{\beta}
+      $$ {#eq-estggdm} with
+    $\mathbf{y}_i = \mathbf{x}_i^T \mathbf M^{-1} \mathbf{x}_i$
+-   When the shape parameter $\beta$ is unknown, it is estimated using the
+    following relation: $$
+      \displaystyle{\frac{p n}{2 \sum_{i=1}^n{\mathbf{y}_i^\beta}} \sum_{i=1}^n{\left( \mathbf{y}_i^\beta \ln{\mathbf{y}_i} \right)} - \frac{p n}{2\beta} \left( \Psi(\frac{p}{2\beta}) + \ln{2} \right) - n - \frac{p n}{2\beta} \ \ln{\left( \frac{\beta}{p n}\sum_{i=1}^n{\mathbf{y}_i^\beta} \right)} = 0}
+      $$ {#eq-estggdbeta} where $\Psi$ is the digamma function:
+    $\displaystyle{\Psi(x) = \frac{d}{dx} \ln{\Gamma(x)} = \frac{\Gamma'(x)}{\Gamma(x)}}$
+
+Thus, an iterative algorithm is introduced by @pascal to estimate $\mathbf M$,
+$m$ and $\beta$:
+
+1.  Initialization of $\beta$ and $\mathbf M$
+
+2.  **until** convergence **do**
+
+    -   Estimation of $\mathbf M$ using one iteration of @eq-estggdM and
+        normalization
+    -   Estimation of $\beta$ using @eq-estggdbeta
+
+    **end until**
+
+3.  Estimation of $m$ using @eq-estggdm
+
+## Kullback-Leibler divergence
+
+Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of
+$\mathbb{R}^p$ ($p > 1$) from centered MGGDs with probability density
+functions
+$$\displaystyle{f_{\mathbf{X}^1}(\mathbf{x}|\mathbf\Sigma_1, \beta_1) = f_{\mathbf{X}^1}\left(\mathbf{x}|\mathbf{0}, \mathbf\Sigma_1, \beta_1\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta_1}\right) 2^\frac{p}{2\beta_1}} \frac{\beta_1}{|\mathbf\Sigma_1|^\frac{1}{2}} e^{-\frac{1}{2}\left[ \mathbf{x}^T \mathbf\Sigma_1^{-1} \mathbf{x} \right]^{\beta_1}}}$$
+and
+$$\displaystyle{f_{\mathbf{X}^2}(\mathbf{x}|\mathbf\Sigma_2, \beta_2) = f_{\mathbf{X}^2}\left(\mathbf{x}|\mathbf{0}, \mathbf\Sigma_2, \beta_2\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta_2}\right) 2^\frac{p}{2\beta_2}} \frac{\beta_2}{|\mathbf\Sigma_2|^\frac{1}{2}} e^{-\frac{1}{2}\left[ \mathbf{x}^T \mathbf\Sigma_2^{-1} \mathbf{x} \right]^{\beta_2}}}$$
+
+The KLD of $\mathbf{X}^1$ from $\mathbf{X}^2$ is: $$
+    \begin{array}{ll}
+    \displaystyle{KL(\mathbf{X}^1||\mathbf{X}^2)} & \displaystyle{= \mathbb{E}_{X^1}\left[\ln\left(\frac{f_{\mathbf{X}^1}(\mathbf{X})}{f_{\mathbf{X}^2}(\mathbf{X})}\right)\right]} \\
+    & \displaystyle{= \int_{\mathbb{R}^p}{\ln \left( \frac{f_{\mathbf{X}^1}(\mathbf{x}|\mathbf\Sigma_1, \beta_1)}{f_{\mathbf{X}^2}(\mathbf{x}|\mathbf\Sigma_2, \beta_2)} \right) f_{\mathbf{X}^1}(\mathbf{x}|\mathbf\Sigma_1, \beta_1)\mathrm{d}\mathbf{x}}}
+    \end{array}
+$$ {#eq-kl}
+
+Let $\lambda_1, \dots, \lambda_p$ be the eigenvalues of the square
+matrix $\mathbf\Sigma_1 \mathbf\Sigma_2^{-1}$ sorted in increasing order:
+$\lambda_1 < \dots < \lambda_{p-1} < \lambda_p$. @bouhlel19 present an
+analytical expression of the KLD to $\mathbf{X}^1$ from $\mathbf{X}^2$:
+
+$$
+    \begin{aligned}
+    KL(\mathbf{X}^1||\mathbf{X}^2) = & \displaystyle{\ln\left( \frac{\beta_1 |\mathbf\Sigma_1|^{\frac{-1}{2}} \Gamma\left(\frac{p}{2\beta_2}\right)}{\beta_2 |\mathbf\Sigma_2|^{\frac{-1}{2}} \Gamma\left(\frac{p}{2\beta_1}\right)} \right) + \frac{p}{2}\left(\frac{1}{\beta_2} - \frac{1}{\beta_1}\right) \ln{2} - \frac{p}{2\beta_2} + 2^{\frac{\beta_2}{\beta_1}-1} \ \frac{\Gamma\left(\frac{\beta_2}{\beta_1}+\frac{p}{\beta_1}\right)}{\Gamma\left(\frac{p}{2\beta_1}\right)}\ {\lambda_p}^{\beta_2}} \\
+    & \displaystyle{\times F_D^{(p-1)}\bigg(-\beta_2, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}}_{p-1}, \frac{p}{2}; 1-\frac{\lambda_{p-1}}{\lambda_p}, \dots, 1-\frac{\lambda_1}{\lambda_p}\bigg)}
+    \end{aligned}
+$$ {#eq-klggd}
+
+where $F_D^{(n)}$ is the Lauricella $D$-hypergeometric function defined
+by: $$
+    F_D^{(n)}\left(a; b_1, \dots, b_n; c; x_1, \dots, x_n\right) = \sum_{m_1=0}^\infty \dots \sum_{m_n=0}^\infty{\frac{(a)_{m_1+\dots+m_n} (b_1)_{m_1} \dots (b_n)_{m_n}}{(c)_{m_1+\dots+m_n}} \ \frac{{x_1}^{m_1}}{m_1!} \dots \frac{{x_n}^{m_n}}{m_n!}}
+$$ {#eq-lauric} and the Pochhammer symbol $(q)_i$, where $q$ is a real
+and $i$ is a non-negative integer, is given by: $$
+\displaystyle{ (q)_i = \frac{\Gamma(q+i)}{\Gamma(q)} =} \left\{ \begin{array}{ll}
+1 & \text{if } i = 0 \\
+\displaystyle{ q (q+1) \dots (q+i-1) } & \text{if } i \geq 1
+\end{array} \right.
+$$ {#eq-pochhammer}
+
+### Univariate case : $p=1$
+Let $X^1$ and $X^2$ be two random
+variables distributed according to centered generalized Gaussian
+distributions with probability density functions:
+$$\displaystyle{f_{X^1}(x|\sigma_1, \beta_1) = f_{X^1}\left(x|0, \sigma_1, \beta_1\right) = \frac{\beta_1}{\Gamma\left(\frac{1}{2 \beta_1}\right) 2^\frac{1}{2\beta_1}\sqrt{\sigma_1}} e^{-\frac{1}{2}\left(\frac{x^2}{\sigma_1}\right)^\beta}}$$
+and
+$$\displaystyle{f_{X^2}(x|\sigma_2, \beta_2) = f_{X^2}\left(x|0, \sigma_2, \beta_2\right) = \frac{\beta_2}{\Gamma\left(\frac{2}{2 \beta_2}\right) 2^\frac{1}{2\beta_2}\sqrt{\sigma_2}} e^{-\frac{1}{2}\left(\frac{x^2}{\sigma_2}\right)^\beta}}$$
+
+the KLD is given by: $$
+    KL(X^1||X^2) = \displaystyle{\ln\left( \frac{\frac{\beta_1}{\sqrt{\sigma_1}} \Gamma\left(\frac{1}{2\beta_2}\right)}{\frac{\beta_2}{\sqrt{\sigma_2}} \Gamma\left(\frac{1}{2\beta_1}\right)} \right) + \frac{1}{2}\left(\frac{1}{\beta_2} - \frac{1}{\beta_1}\right) \ln{2} - \frac{1}{2\beta_2} + 2^{\frac{\beta_2}{\beta_1}-1} \ \frac{\Gamma\left(\frac{\beta_2}{\beta_1}+\frac{1}{\beta_1}\right)}{\Gamma\left(\frac{1}{2\beta_1}\right)}\ \left(\frac{\sigma_1}{\sigma_2}\right)^{\beta_2}}
+$$
 
 # The multvardiv package
 
