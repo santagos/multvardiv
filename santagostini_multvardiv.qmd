@@ -751,7 +751,7 @@ $$ {#eq-klggd}
 <!-- \end{array} \right. -->
 <!-- $$ {#eq-pochhammer} -->
 
-### Univariate case : $p=1$
+### Univariate case : $p=1$ {.unnumbered .unlisted}
 Let $X^1$ and $X^2$ be two random
 variables distributed according to centered generalized Gaussian
 distributions with probability density functions:
