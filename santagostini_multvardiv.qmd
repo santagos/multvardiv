@@ -566,6 +566,247 @@ $\frac{\nu_1}{\nu_2}\lambda_1, \dots, \frac{\nu_1}{\nu_2}\lambda_p$:
     \displaystyle{ \frac{\partial}{\partial a}\bigg\lbrace \frac{(a)_{\sum m_i}(a+\frac{\nu_1}{2})_{m_p}}{\big(a+\frac{\nu_1+p}{2}\big)_{\sum_{i=1}^p m_i}}  \bigg\rbrace\bigg|_{a=0} = \frac{(1)_{\sum m_i} }{\big(\frac{\nu_1+p}{2}\big)_{\sum m_i}}\frac{(\frac{\nu_1}{2})_{m_p}}{\sum m_i} }
     $$
 
+## Study of the divergence
+
+The divergence between two multivariate $t$ distributions
+$\mathbf{X}^1 \sim f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \boldsymbol{0}, \boldsymbol{\Sigma}_1)$
+and
+$\mathbf{X}^2 \sim f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \boldsymbol{0}, \boldsymbol{\Sigma}_2)$
+depends on the values of the parameters of these distributions.
+
+In the examples below, the divergences between $\mathbf{X}^1$ and $\mathbf{X}^2$
+are computed using the functions `dlstudent` and `kld` from the
+[`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package.
+
+### Among the degrees of freedom
+
+Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma})$
+and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu_2, \boldsymbol{\Sigma})$
+
+where $\nu_1$ take values in $[0.1 ; 30]$, $\nu_2 = 5$, and
+$\Sigma = \left(\begin{array}{cc}
+1 & 0.3 \\
+0.3 & 1
+\end{array}\right)$.
+
+The results are given by @fig-divnu1.
+
+```{r}
+#| cache: true
+
+nu <- 5
+
+# Values of nu1
+nu1 <- c(seq(0.1, nu, by = 0.1), seq(nu+1, 30, by = 1))
+
+# Fixed values of the other parameters
+nu2 <- nu
+Sigma <- matrix(c(1, 0.3, 0.3, 1), nrow = 2)
+
+# Values of lambda*nu1/nu2
+nulambda <- nu1/nu2
+
+# Rényi divergence, beta = 0.25
+b <- 0.25
+renyi_0_25 <- sapply(nu1, function(nu) {
+  diststudent(nu1 = nu, Sigma1 = Sigma,
+              nu2 = nu2, Sigma2 = Sigma,
+              dist = "renyi", bet = b)
+})
+
+# Rényi divergence, beta = 1.5
+b <- 1.5
+renyi_1_5 <- sapply(nu1, function(nu) {
+  diststudent(nu1 = nu, Sigma1 = Sigma,
+              nu2 = nu2, Sigma2 = Sigma,
+              dist = "renyi", bet = b)
+})
+
+# Battacharyya divergence
+bhattacharyya <- sapply(nu1, function(nu) {
+  diststudent(nu1 = nu, Sigma1 = Sigma,
+              nu2 = nu2, Sigma2 = Sigma,
+              dist = "bhattacharyya")
+})
+
+# Hellinger divergence
+hellinger <- sapply(nu1, function(nu) {
+  diststudent(nu1 = nu, Sigma1 = Sigma,
+              nu2 = nu2, Sigma2 = Sigma,
+              dist = "hellinger")
+})
+
+# Kullback-Leibler divergence
+kullback_leibler <- sapply(nu1, function(nu) {
+  kld(Sigma1 = Sigma, Sigma2 = Sigma,
+      nu1 = nu, nu2 = nu2,
+      distribution = "mtd")
+})
+
+# Table of the results
+divnu <- data.frame(
+  nu1 = nu1,
+  nulambda = nulambda,
+  renyi_0_25 = renyi_0_25,
+  renyi_1_5 = renyi_1_5,
+  bhattacharyya = bhattacharyya,
+  hellinger = hellinger,
+  kullback_leibler = kullback_leibler
+)
+```
+
+<!-- $\mathbf{X}^1$ et $\mathbf{X}^2$ -->
+
+```{r}
+#| label: fig-divnu1
+#| fig-cap: "Divergence between the distributions $\\mathbf{X}^1$ et $\\mathbf{X}^2$"
+#| fig-subcap:
+#|    - "Renyi ($\\beta = 0.25$)"
+#|    - "Renyi ($\\beta = 1.5$)"
+#|    - ""
+#|    - "Bhattacharyya"
+#|    - "Hellinger"
+#|    - "Kullback-Leibler"
+#| layout-ncol: 3
+#| layout-nrow: 2
+plot(renyi_0_25~nu1, data = divnu, type = "b", pch = 16,
+     xlab = substitute(nu[1]), ylab = "Divergence")
+plot(renyi_1_5~nu1, data = divnu, type = "b", pch = 16,
+     xlab = substitute(nu[1]), ylab = "Divergence")
+plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "")
+plot(bhattacharyya~nu1, data = divnu, type = "b", pch = 16,
+     xlab = substitute(nu[1]), ylab = "Divergence")
+plot(hellinger~nu1, data = divnu, type = "b", pch = 16,
+     xlab = substitute(nu[1]), ylab = "Divergence")
+plot(kullback_leibler~nu1, data = divnu, type = "b", pch = 16,
+     xlab = substitute(nu[1]), ylab = "Divergence")
+```
+
+### Among the cale matrix: first situation
+
+Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_1)$
+and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_2)$
+
+where $\nu = 1$,
+$\Sigma_2 = \left(\begin{array}{cc}
+3 & 0.3 \\
+0.3 & 1
+\end{array}\right)$  
+and $\Sigma_1 = \left(\begin{array}{cc}
+s_1 & 0.3 \\
+0.3 & 1
+\end{array}\right)$, $s_1 \in [0.05 ; 30]$.
+
+The results are given by @fig-divsigma1.
+
+Valeurs successives de $\Sigma_{1,1}$ :
+
+```{r}
+#| cache: true
+
+s <- 3
+
+# Values of Sigma1[1, 1]
+s1 <- c(seq(0.1, s, by = 0.05), seq(s+1, 30, by = 1))
+
+# The other parameters
+nu <- 1
+Sigma1 <- Sigma2 <- matrix(c(s, 0.3, 0.3, 1), nrow = 2)
+Sigma1[1, 1] <- NA
+
+# Values of lambda*nu1/nu2
+invS2 <- solve(Sigma2)
+lambdanu <- sapply(s1, function(s) {
+  Sigma1[1, 1] <- s
+  sort(eigen(Sigma1 %*% invS2, only.values = TRUE)$values, decreasing = FALSE)
+})
+ln1 <- lambdanu[1, ]
+lnp <- lambdanu[2, ]
+
+# Renyi divergence, beta = 0.25
+b <- 0.25
+renyi_0_25 <- sapply(s1, function(s1) {
+  Sigma1[1, 1] <- s1
+  diststudent(nu1 = nu, Sigma1 = Sigma1, nu2 = nu, Sigma2 = Sigma2,
+              dist = "renyi", bet = b)
+})
+
+# Renyi divergence, beta = 1.5
+b <- 1.5
+renyi_1_5 <- sapply(s1, function(s1) {
+  Sigma1[1, 1] <- s1
+  diststudent(nu1 = nu, Sigma1 = Sigma1, nu2 = nu, Sigma2 = Sigma2,
+              dist = "renyi", bet = b)
+})
+
+# Battacharyya divergence
+bhattacharyya <- sapply(s1, function(s1) {
+  Sigma1[1, 1] <- s1
+  diststudent(nu1 = nu, Sigma1 = Sigma1, nu2 = nu, Sigma2 = Sigma2,
+              dist = "bhattacharyya")
+})
+
+# Hellinger divergence
+hellinger <- sapply(s1, function(s1) {
+  Sigma1[1, 1] <- s1
+  diststudent(nu1 = nu, Sigma1 = Sigma1, nu2 = nu, Sigma2 = Sigma2,
+              dist = "hellinger")
+})
+
+# Kullback-Leibler divergence
+kullback_leibler <- sapply(s1, function(s1) {
+  Sigma1[1, 1] <- s1
+  kld(Sigma1 = Sigma1, Sigma2 = Sigma2, nu1 = nu, nu2 = nu,
+      distribution = "mtd")
+})
+
+# Table of the results
+divS1 <- data.frame(
+  s1 = s1, ln1 = ln1, lnp = lnp,
+  renyi_0_25 = renyi_0_25,
+  renyi_1_5 = renyi_1_5,
+  bhattacharyya = bhattacharyya,
+  hellinger = hellinger,
+  kullback_leibler = kullback_leibler
+)
+```
+
+<!-- $\mathbf{X}^1$ et $\mathbf{X}^2$ -->
+
+```{r}
+#| label: fig-divsigma1
+#| fig-cap: "Divergence between the distributions $\\mathbf{X}^1$ et $\\mathbf{X}^2$"
+#| fig-subcap:
+#|    - "$\\lambda_1 \\frac{\\nu_1}{\\nu_2}$"
+#|    - "$\\lambda_p \\frac{\\nu_1}{\\nu_2}$"
+#|    - ""
+#|    - "Renyi ($\\beta = 0.25$)"
+#|    - "Renyi ($\\beta = 1.5$)"
+#|    - ""
+#|    - "Bhattacharyya"
+#|    - "Hellinger"
+#|    - "Kullback-Leibler"
+#| layout-ncol: 3
+#| layout-nrow: 2
+
+plot(ln1~s1, data = divS1, type = "b", pch = 16,
+     xlab = substitute(Sigma[1][1]), ylab = "lambda1 * nu1/nu2")
+plot(lnp~s1, data = divS1, type = "b", pch = 16,
+     xlab = substitute(Sigma[1][1]), ylab = "lambdap * nu1/nu2")
+plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "")
+plot(renyi_0_25~s1, data = divS1, type = "b", pch = 16,
+     xlab = substitute(Sigma[1][1]), ylab = "Divergence")
+plot(renyi_1_5~s1, data = divS1, type = "b", pch = 16,
+     xlab = substitute(Sigma[1][1]), ylab = "Divergence")
+plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "")
+plot(bhattacharyya~s1, data = divS1, type = "b", pch = 16,
+     xlab = substitute(Sigma[1][1]), ylab = "Divergence")
+plot(hellinger~s1, data = divS1, type = "b", pch = 16,
+     xlab = substitute(Sigma[1][1]), ylab = "Divergence")
+plot(kullback_leibler~s1, data = divS1, type = "b", pch = 16,
+     xlab = substitute(Sigma[1][1]), ylab = "Divergence")
+```
+
 <!-- # Other multivariate distributions  -->
 
 # Multivariate Cauchy distribution
