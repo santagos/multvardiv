@@ -1144,10 +1144,11 @@ $$
 <!-- ## Other probability distributions: Multivariate Cauchy distributions, Multivariate generalized Gaussian distributions -->
 
 The [`multvardiv`](https://forge.inrae.fr/imhorphen/multvardiv) package
-provides functions to compute the divergence between two multivariate
-$t$ distributions. This section presents these functions, with an example.
+(@tbl-multvardiv) provides functions to compute the divergence between two
+multivariate $t$ distributions. This section presents these functions,
+with an example.
 There are also functions to compute the divergence between two Cauchy or
-generalized Gaussian distributions (@tbl-multvardiv).
+generalized Gaussian distributions.
 
 ```{r}
 #| label: "tbl-multvardiv"
