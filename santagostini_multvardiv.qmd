@@ -1141,7 +1141,7 @@ $$
 
 # The multvardiv package
 
-## Other probability distributions: Multivariate Cauchy distributions, Multivariate generalized Gaussian distributions
+<!-- ## Other probability distributions: Multivariate Cauchy distributions, Multivariate generalized Gaussian distributions -->
 
 The same tools (except the Rényi, Bhattacharyya and Hellinger
 divergences) are provided for the MCD and MGGD (@tbl-multvardiv). See
