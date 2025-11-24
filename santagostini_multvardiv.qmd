@@ -1141,6 +1141,39 @@ $$
 
 # The multvardiv package
 
+## Other probability distributions: Multivariate Cauchy distributions, Multivariate generalized Gaussian distributions
+
+The same tools (except the Rényi, Bhattacharyya and Hellinger
+divergences) are provided for the MCD and MGGD (@tbl-multvardiv). See
+the help pages of these functions.
+
+```{r}
+#| label: "tbl-multvardiv"
+#| echo: false
+#| eval: true
+#| output: asis
+tabfcts <- data.frame(
+  "Multivariate Distribution" = c("$t$", "Cauchy", "MGGD"),
+  "Probability density function" = c("`dmtd`", "`dmc`", "`dmggd`"),
+  "Simulation" = c("`rmtd`", "`rmc`", "`rmggd`"),
+  "Parameter estimation" = c("`estparmtd`", "`estparmc`", "`estparmggd`"),
+  "Rényi, Bhattacharyya or Hellinger divergence" = c("`dlstudent`", "", ""),
+  "Kullback-Leibler divergence" = c("`kldstudent`", "`kldcauchy`", "`kldggd`")
+)
+knitr::kable(tabfcts,
+             col.names = c("Multivariate Distribution", "Probability density function",
+                           "Simulation", "Parameter estimation",
+                           "Rényi, Bhattacharyya or Hellinger divergence",
+                           "Kullback-Leibler divergence"),
+             caption = "multvardiv package: the functions for MTD, MCD and MGGD")
+```
+
+Furthermore, two functions allow to plot the probability density of a
+bivariate $t$, Cauchy or generalized Gaussian distribution:
+
+-   `plotmvd`: 3D-plot
+-   `contourmvd`: contour plot
+
 ## Example dataset: simulation from a multivariate $t$ distribution
 
 As an example, we simulate two datasets.
@@ -1309,39 +1342,6 @@ The returned result is the KLD with two attributes `attr(,"epsilon")`
 #| echo: true
 kld12
 ```
-
-## Other probability distributions: Multivariate Cauchy distributions, Multivariate generalized Gaussian distributions
-
-The same tools (except the Rényi, Bhattacharyya and Hellinger
-divergences) are provided for the MCD and MGGD (@tbl-multvardiv). See
-the help pages of these functions.
-
-```{r}
-#| label: "tbl-multvardiv"
-#| echo: false
-#| eval: true
-#| output: asis
-tabfcts <- data.frame(
-  "Multivariate Distribution" = c("$t$", "Cauchy", "MGGD"),
-  "Probability density function" = c("`dmtd`", "`dmc`", "`dmggd`"),
-  "Simulation" = c("`rmtd`", "`rmc`", "`rmggd`"),
-  "Parameter estimation" = c("`estparmtd`", "`estparmc`", "`estparmggd`"),
-  "Rényi, Bhattacharyya or Hellinger divergence" = c("`dlstudent`", "", ""),
-  "Kullback-Leibler divergence" = c("`kldstudent`", "`kldcauchy`", "`kldggd`")
-)
-knitr::kable(tabfcts,
-             col.names = c("Multivariate Distribution", "Probability density function",
-                           "Simulation", "Parameter estimation",
-                           "Rényi, Bhattacharyya or Hellinger divergence",
-                           "Kullback-Leibler divergence"),
-             caption = "multvardiv package: the functions for MTD, MCD and MGGD")
-```
-
-Furthermore, two functions allow to plot the probability density of a
-bivariate $t$, Cauchy or generalized Gaussian distribution:
-
--   `plotmvd`: 3D-plot
--   `contourmvd`: contour plot
 
 # Some particular cases -- test of the results
 
