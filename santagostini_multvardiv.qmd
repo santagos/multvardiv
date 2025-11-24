@@ -590,6 +590,11 @@ $\Sigma = \left(\begin{array}{cc}
 \end{array}\right)$.
 
 The results are given by @fig-divnu1.
+Obviously, for each of these divergences,
+$D(X^1 \parallel X^2) = 0$ when $\nu_1 = \nu_2$.
+For $\nu_1 \in ]0; \nu_2]$, the divergence decreases quickly to 0,
+then for $\nu_1 \in ]\nu_2; +\infty]$, it increases slowly and converges
+to a limit.
 
 ```{r}
 #| cache: true
