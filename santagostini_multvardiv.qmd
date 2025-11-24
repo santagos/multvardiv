@@ -602,7 +602,7 @@ to a limit.
 nu <- 2#5
 
 # Values of nu1
-nu1 <- c(seq(0.1, nu, by = 0.1), seq(nu+1, 70, by = 2))
+nu1 <- c(seq(0.1, nu, by = 0.1), seq(nu+1, 50, by = 2))
 
 # Fixed values of the other parameters
 nu2 <- nu
@@ -699,30 +699,32 @@ axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5)
 
 ### Among the scale matrix: first situation
 
-Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_1)$
-and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_2)$
+Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}^1)$
+and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}^2)$
 
 where $\nu = 1$,
-$\Sigma_2 = \left(\begin{array}{cc}
+$\Sigma^2 = \left(\begin{array}{cc}
 3 & 0.3 \\
 0.3 & 1
 \end{array}\right)$  
-and $\Sigma_1 = \left(\begin{array}{cc}
+and $\Sigma^1 = \left(\begin{array}{cc}
 s_1 & 0.3 \\
 0.3 & 1
-\end{array}\right)$, $s_1 \in ]0 ; 30]$.
+\end{array}\right)$, $s_1 \in ]0 ; 50]$.
 
 The results are given by @fig-divsigma11.
-
-Valeurs successives de $\Sigma_{1,1}$ :
+For each of these divergences,
+$D(X^1 \parallel X^2) = 0$ when $s_1 = \Sigma^2_{1, 1}$.
+For $s_1 \in ]0; \Sigma^2_{1, 1}]$, the divergence decreases quickly to 0,
+then for $s_1 > \Sigma^2_{1, 1}$, it increases slowly and converges.
 
 ```{r}
-#| cache: true
+#| cache: false
 
 s <- 3
 
 # Values of Sigma1[1, 1]
-s1 <- c(seq(0.1, s, by = 0.05), seq(s+1, 30, by = 1))
+s1 <- c(seq(0.1, s, by = 0.05), seq(s+1, 70, by = 1))
 
 # The other parameters
 nu <- 1
@@ -845,7 +847,7 @@ $\boldsymbol{\Sigma}_2 = \left(\begin{array}{cc}
 1 & 0.3 \\
 0.3 & 1
 \end{array}\right)$  
-and $\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$, $s \in ]0 ; 35]$.
+and $\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$, $s \in ]0 ; 50]$.
 
 The results are given by @fig-divsigma12.
 
@@ -857,7 +859,7 @@ nu <- 1
 Sigma <- matrix(c(1, 0.3, 0.3, 1), nrow = 2)
 
 # Values of the proportionality coefficient
-s <- c(seq(0.05, 1, by = 0.05), seq(2, 35, by = 1))
+s <- c(seq(0.05, 1, by = 0.05), seq(2, 50, by = 2))
 
 # Renyi divergence, beta = 0.25
 b <- 0.25
