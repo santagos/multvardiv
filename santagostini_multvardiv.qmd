@@ -692,7 +692,7 @@ plot(kullback_leibler~nu1, data = divnu, type = "b", pch = 16,
 axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5)
 ```
 
-### Among the cale matrix: first situation
+### Among the scale matrix: first situation
 
 Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_1)$
 and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_2)$
