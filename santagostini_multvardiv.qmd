@@ -1362,60 +1362,64 @@ kld12
 nu1 <- 2
 nu2 <- 4
 
+times <- iter <- numeric(4)
+
 # Dim 1
 Sigma1 <- 0.2
 Sigma2 <- 0.3
-t1 <- system.time(
-  diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
+times[1] <- system.time(
+  d <- diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
               dist = "renyi", bet = 0.25)
-)
+)["elapsed"]
+iter[1] <- attr(d, "k")
 
 # Dim 2
 Sigma1 = rbind(c(1, 0.2), c(0.2, 1))
 Sigma2 = rbind(c(1, 0.3), c(0.3, 1))
-t2 <- system.time(
-  diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
+times[2] <- system.time(
+  d <- diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
               dist = "renyi", bet = 0.25)
-)
+)["elapsed"]
+iter[2] <- attr(d, "k")
 
 # Dim 3
 Sigma1 = rbind(c(1, 0.6, 0.2), c(0.6, 1, 0.3), c(0.2, 0.3, 1))
 Sigma2 = rbind(c(1, 0.3, 0.1), c(0.3, 1, 0.4), c(0.1, 0.4, 1))
-t3 <- system.time(
-  diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
+times[3] <- system.time(
+  d <- diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
               dist = "renyi", bet = 0.25)
-)
+)["elapsed"]
+iter[3] <- attr(d, "k")
 
 # Dim 4
 Sigma1 = rbind(c(1, 0.6, 0.2, 0), c(0.6, 1, 0.3, 0),
                c(0.2, 0.3, 1, 0), c(0, 0, 0, 1))
 Sigma2 = rbind(c(1, 0.3, 0.1, 0), c(0.3, 1, 0.4, 0),
                c(0.1, 0.4, 1, 0), c(0, 0, 0, 1))
-t4 <- system.time(
-  diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
+times[4] <- system.time(
+  d <- diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
               dist = "renyi", bet = 0.25)
-)
+)["elapsed"]
+iter[4] <- attr(d, "k")
 
-# Dim 5
-Sigma1 = rbind(c(1, 0.6, 0.2, 0, 0), c(0.6, 1, 0.3, 0, 0),
-               c(0.2, 0.3, 1, 0, 0), c(0, 0, 0, 1, 0),
-               c(0, 0, 0, 0, 1))
-Sigma2 = rbind(c(1, 0.3, 0.1, 0, 0), c(0.3, 1, 0.4, 0, 0),
-               c(0.1, 0.4, 1, 0, 0), c(0, 0, 0, 1, 0),
-               c(0, 0, 0, 0, 1))
-t5 <- system.time(
-  diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
-              dist = "renyi", bet = 0.25)
-)
+# # Dim 5
+# Sigma1 = rbind(c(1, 0.6, 0.2, 0, 0), c(0.6, 1, 0.3, 0, 0),
+#                c(0.2, 0.3, 1, 0, 0), c(0, 0, 0, 1, 0),
+#                c(0, 0, 0, 0, 1))
+# Sigma2 = rbind(c(1, 0.3, 0.1, 0, 0), c(0.3, 1, 0.4, 0, 0),
+#                c(0.1, 0.4, 1, 0, 0), c(0, 0, 0, 1, 0),
+#                c(0, 0, 0, 0, 1))
+# t5 <- system.time(
+#   diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
+#               dist = "renyi", bet = 0.25)
+# )
 ```
 
 ```{r}
-exetime <- data.frame(Dim1 = t1["elapsed"],
-                      Dim2 = t1["elapsed"],
-                      Dim3 = t1["elapsed"],
-                      Dim4 = t1["elapsed"],
-                      Dim5 = t1["elapsed"])
-knitr::kable(exetime, row.names = paste("Dimension", 1:5))
+exetime <- data.frame(dim = 1:4, iter = iter, exetime = times)
+knitr::kable(exetime,
+             col.names = c("Dimension p", "Number of iterations", "Execution time"),
+             caption = "Execution time among the dimension $p$ of the distributions, for the Rényi divergence with $\\beta = 0.25$.")
 ```
 
 # Some particular cases -- test of the results
