@@ -1354,7 +1354,7 @@ kld12
 
 ## Execution time
 
-### `diststudent`
+### Among the dimension of the distributions
 
 ```{r}
 #| cache: true
@@ -1416,10 +1416,144 @@ iter[4] <- attr(d, "k")
 ```
 
 ```{r}
-exetime <- data.frame(dim = 1:4, iter = iter, exetime = times)
-knitr::kable(exetime,
-             col.names = c("Dimension p", "Number of iterations", "Execution time"),
-             caption = "Execution time among the dimension $p$ of the distributions, for the Rényi divergence with $\\beta = 0.25$.")
+renyi_exetime <- data.frame(dim = 1:4, iter = iter, exetime = times)
+# knitr::kable(renyi_exetime,
+#              col.names = c("Dimension p", "Number of iterations", "Execution time"),
+#              caption = "Execution time among the dimension $p$ of the distributions, for the Rényi divergence with $\\beta = 0.25$.")
+```
+
+```{r}
+#| cache: true
+
+nu1 <- 2
+nu2 <- 4
+
+times <- iter <- numeric(4)
+
+# Dim 1
+Sigma1 <- 0.2
+Sigma2 <- 0.3
+times[1] <- system.time(
+  d <- kld(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
+           distribution = "mtd")
+)["elapsed"]
+iter[1] <- attr(d, "k")
+
+# Dim 2
+Sigma1 = rbind(c(1, 0.2), c(0.2, 1))
+Sigma2 = rbind(c(1, 0.3), c(0.3, 1))
+times[2] <- system.time(
+  d <- kld(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
+           distribution = "mtd")
+)["elapsed"]
+iter[2] <- attr(d, "k")
+
+# Dim 3
+Sigma1 = rbind(c(1, 0.6, 0.2), c(0.6, 1, 0.3), c(0.2, 0.3, 1))
+Sigma2 = rbind(c(1, 0.3, 0.1), c(0.3, 1, 0.4), c(0.1, 0.4, 1))
+times[3] <- system.time(
+  d <- kld(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
+           distribution = "mtd")
+)["elapsed"]
+iter[3] <- attr(d, "k")
+
+# Dim 4
+Sigma1 = rbind(c(1, 0.6, 0.2, 0), c(0.6, 1, 0.3, 0),
+               c(0.2, 0.3, 1, 0), c(0, 0, 0, 1))
+Sigma2 = rbind(c(1, 0.3, 0.1, 0), c(0.3, 1, 0.4, 0),
+               c(0.1, 0.4, 1, 0), c(0, 0, 0, 1))
+times[4] <- system.time(
+  d <- kld(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
+           distribution = "mtd")
+)["elapsed"]
+iter[4] <- attr(d, "k")
+
+# # Dim 5
+# Sigma1 = rbind(c(1, 0.6, 0.2, 0, 0), c(0.6, 1, 0.3, 0, 0),
+#                c(0.2, 0.3, 1, 0, 0), c(0, 0, 0, 1, 0),
+#                c(0, 0, 0, 0, 1))
+# Sigma2 = rbind(c(1, 0.3, 0.1, 0, 0), c(0.3, 1, 0.4, 0, 0),
+#                c(0.1, 0.4, 1, 0, 0), c(0, 0, 0, 1, 0),
+#                c(0, 0, 0, 0, 1))
+# t5 <- system.time(
+#   diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
+#               dist = "renyi", bet = 0.25)
+# )
+```
+
+```{r}
+kl_exetime <- data.frame(dim = 1:4, iter = iter, exetime = times)
+# knitr::kable(kl_exetime,
+#              col.names = c("Dimension p", "Number of iterations", "Execution time"),
+#              caption = "Execution time among the dimension $p$ of the distributions, for the Kullback-Leibler divergence.")
+```
+
+```{r}
+library(kableExtra)
+data.frame(renyi_exetime$dim, renyi_exetime[2:3], kl_exetime[2:3]) %>%
+  kbl(col.names = c("Dimension", "Number of iterations", "Execution time", "Number of iterations", "Execution time")) %>%
+  add_header_above(c(" " = 1, "Rényi divergence" = 2, "Kullback-Leibler divergence" = 2))
+```
+
+### Among the divergence
+
+```{r}
+#| cache: true
+
+# Degrees of freedom
+nu <- 2
+Sigma2 <- matrix(c(1, 0.3, 0.1, 0.3, 1, 0.4, 0.1, 0.4, 1), nrow = 3)
+
+# Values of the proportionality coefficient
+S <- c(seq(0.1, 1, by = 0.1), seq(2, 70, by = 2))
+
+# Rényi divergence
+times <- iter <- numeric(length = length(S))
+for (i in 1:length(S)) {
+  s <- S[i]
+  times[i] <- system.time(
+    d <- diststudent(nu1 = nu, Sigma1 = s*Sigma, nu2 = nu, Sigma2 = Sigma,
+                     dist = "renyi", bet = 0.25)
+  )["elapsed"]
+  iter[i] <- attr(d, "k")
+}
+
+```
+
+```{r}
+renyi_exetime <- data.frame(s = S, iter = iter, exetime = times)
+plot(exetime~s, data = renyi_exetime, type = "b", pch = 16,
+     xlab = "s", ylab = "Divergence")
+axis(side = 1, at = 1, labels = 1, cex.axis = 1.5)
+```
+
+```{r}
+#| cache: true
+
+# Degrees of freedom
+nu <- 2
+Sigma2 <- matrix(c(1, 0.3, 0.1, 0.3, 1, 0.4, 0.1, 0.4, 1), nrow = 3)
+
+# Values of the proportionality coefficient
+S <- c(seq(0.1, 1, by = 0.1), seq(2, 50, by = 2))
+
+# Kullback-Leibler divergence
+times <- iter <- numeric(length = length(S))
+for (i in 1:length(S)) {
+  s <- S[i]
+  times[i] <- system.time(
+    d <- kld(nu1 = nu, Sigma1 = s*Sigma, nu2 = nu, Sigma2 = Sigma,
+             distribution = "mtd")
+  )["elapsed"]
+  iter[i] <- attr(d, "k")
+}
+```
+
+```{r}
+kl_exetime <- data.frame(s = S, iter = iter, exetime = times)
+plot(exetime~s, data = kl_exetime, type = "b", pch = 16,
+     xlab = "s", ylab = "Execution time")
+axis(side = 1, at = 1, labels = 1, cex.axis = 1.5)
 ```
 
 # Some particular cases -- test of the results
