@@ -463,7 +463,7 @@ $\mathbf{X}^1$ and $\mathbf{X}^2$ is: $$\begin{array}{lll}
 \end{array}$$ {#eq-rd}
 
 Let $\lambda_1, \dots, \lambda_p$ be the eigenvalues of the square
-matrix $\Sigma_1 \Sigma_2^{-1}$ sorted in increasing order:
+matrix $\boldsymbol{\Sigma}_1 \boldsymbol{\Sigma}_2^{-1}$ sorted in increasing order:
 $\lambda_1 < \dots < \lambda_p$. Let $\delta_1 = \frac{\nu_1+p}{2}\beta$
 and $\delta_2 = \frac{\nu_2+p}{2}(1-\beta)$.
 
@@ -582,7 +582,7 @@ Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma})$
 and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu_2, \boldsymbol{\Sigma})$
 
 where $\nu_1$ take values in $]0 ; 30]$, $\nu_2 = 2$, and
-$\Sigma = \left(\begin{array}{cc}
+$\boldsymbol{\Sigma} = \left(\begin{array}{cc}
 1 & 0.3 \\
 0.3 & 1
 \end{array}\right)$.
@@ -702,20 +702,20 @@ Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}^1)$
 and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}^2)$
 
 where $\nu = 1$,
-$\Sigma^2 = \left(\begin{array}{cc}
+$\boldsymbol{\Sigma}^2 = \left(\begin{array}{cc}
 3 & 0.3 \\
 0.3 & 1
 \end{array}\right)$  
-and $\Sigma^1 = \left(\begin{array}{cc}
+and $\boldsymbol{\Sigma}^1 = \left(\begin{array}{cc}
 s_1 & 0.3 \\
 0.3 & 1
 \end{array}\right)$, $s_1 \in ]0 ; 50]$.
 
 The results are showed in @fig-divsigma11.
 For each of these divergences,
-$D(X^1 \parallel X^2) = 0$ when $s_1 = \Sigma^2_{1, 1}$.
-For $s_1 \in ]0; \Sigma^2_{1, 1}]$, the divergence decreases quickly to 0,
-then for $s_1 > \Sigma^2_{1, 1}$, it increases slowly and converges.
+$D(X^1 \parallel X^2) = 0$ when $s_1 = \boldsymbol{\Sigma}^2_{1, 1}$.
+For $s_1 \in ]0; \boldsymbol{\Sigma}^2_{1, 1}]$, the divergence decreases quickly to 0,
+then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges.
 
 ```{r}
 #| cache: true
