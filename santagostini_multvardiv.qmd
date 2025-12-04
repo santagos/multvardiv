@@ -57,15 +57,7 @@ which allow the computation of statistical divergence in discrete case [@philent
 <!-- probability distributions [@philentropy; @FNN; @dlookr; @LaplacesDemon]. -->
 
 
-In this paper, we will focus on three multivariate distributions: MGGD, MTD and MCD.  
-The MGGD belongs to the family of elliptic distributions [@pascal]. MGGD is used in several
-signal and image processing applications [@bouhlel19]. In particular, it
-is widely used to accurately model the magnitudes of wavelet detail
-coefficients to capture inter-band dependencies or/and intra-band in a
-wide-sense (multi-scale, multi-channel, spatial dependencies, etc) [@Bouhlel2022]. 
-Application examples include, but are not limited to: image denoising
-[@sendur; @dongwook05; @dongwook09], texture image retrieving and
-classification [@verdoolaege09; @verdoolaege11; @berthoumieu].  
+In this paper, we will focus on three multivariate distributions: MTD, MCD and MGGD.  
 The MTD belongs to the elliptical symmetric distributions [@kotz; @bouhlel23]. Such distribution has been deployed in several signal and image processing applications where
 heavy-tailed distribution is weel-suited.  
 The MCD is a special case of the multivariate $t$-distribution [@bouhlel22]. MCD
@@ -73,28 +65,34 @@ has been recently used in several signal and image processing
 applications for which non-Gaussian models are needed. These
 applications include speckle denoising [@sahu; @ranjani], color image
 denoising [@sadreazami16], watermarking [@sadreazami14], speech
-enhancement [@fontaine].
+enhancement [@fontaine].  
+The MGGD belongs to the family of elliptic distributions [@pascal]. MGGD is used in several signal and image processing applications [@bouhlel19]. In particular, it
+is widely used to accurately model the magnitudes of wavelet detail
+coefficients to capture inter-band dependencies or/and intra-band in a
+wide-sense (multi-scale, multi-channel, spatial dependencies, etc) [@Bouhlel2022]. 
+Application examples include, but are not limited to: image denoising
+[@sendur; @dongwook05; @dongwook09], texture image retrieving and
+classification [@verdoolaege09; @verdoolaege11; @berthoumieu].
 
-In what follows, we first present the MGGD, the MTD and the MCD
-(sections [Multivariate Generalized Gaussian Distribution],
-[Multivariate $t$-Distribution] and [Multivariate Cauchy
-Distribution]). For each of these distributions, some results are
-presented, and analytic expressions of the statistical divergences are exposed. All of
-these results are used in the
+In what follows, we first present the MTD, the MCD and the MGGD
+(sections [Multivariate $t$-Distribution], [Multivariate Cauchy Distribution]
+and [Multivariate Generalized Gaussian Distribution]).
+For each of these distributions, some results are presented,
+and analytic expressions of the statistical divergences are exposed.
+All of these results are used in the
 [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package.  
 Then we present the tools available in the
 [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package
 for these distributions ([The multvardiv package]).
-We first present some functions for the MGGD
-([Multivariate generalized Gaussian distribution]): probability
-density function, simulation, parameter estimation and graphical
-representations. Then we present the numerical computation of statistical divergence between MGGDs with diffrent level of precisions. 
+We first present some functions for the MTDs ([Multivariate $t$-Distribution]): probability density function, simulation, parameter estimation and graphical
+representations. Then we present the numerical computation of statistical
+divergence between MTDs with diffrent level of precisions.
 The [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package
-provides the same tools for the MTDs ([Multivariate $t$-Distribution])
-and MCDs ([Multivariate Cauchy Distribution]).
+provides the same tools for the MCD ([Multivariate Cauchy Distribution])
+and  MGGD ([Multivariate generalized Gaussian distribution]).
 Some particular cases provide interesting results. We use these
-particular cases to test the computation of the statistical divergence ([Some particular cases -- test of the
-results]).
+particular cases to test the computation of the statistical divergence
+([Some particular cases -- test of the results]).
 
 # Multivariate $t$-distribution
 
