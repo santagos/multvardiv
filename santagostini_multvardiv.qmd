@@ -587,7 +587,7 @@ $\Sigma = \left(\begin{array}{cc}
 0.3 & 1
 \end{array}\right)$.
 
-The results are given by @fig-divnu1.
+The results are showed in @fig-divnu1.
 Obviously, for each of these divergences,
 $D(X^1 \parallel X^2) = 0$ when $\nu_1 = \nu_2$.
 For $\nu_1 \in ]0; \nu_2]$, the divergence decreases quickly to 0,
@@ -596,6 +596,7 @@ to a limit.
 
 ```{r}
 #| cache: true
+#| warning: false
 
 nu <- 2#5
 
@@ -710,7 +711,7 @@ s_1 & 0.3 \\
 0.3 & 1
 \end{array}\right)$, $s_1 \in ]0 ; 50]$.
 
-The results are given by @fig-divsigma11.
+The results are showed in @fig-divsigma11.
 For each of these divergences,
 $D(X^1 \parallel X^2) = 0$ when $s_1 = \Sigma^2_{1, 1}$.
 For $s_1 \in ]0; \Sigma^2_{1, 1}]$, the divergence decreases quickly to 0,
@@ -847,7 +848,7 @@ $\boldsymbol{\Sigma}_2 = \left(\begin{array}{cc}
 \end{array}\right)$  
 and $\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$, $s \in ]0 ; 70]$.
 
-The results are given by @fig-divsigma12.
+The results are showed in @fig-divsigma12.
 
 ```{r}
 #| cache: true
