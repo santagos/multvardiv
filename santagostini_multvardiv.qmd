@@ -1433,6 +1433,49 @@ data.frame(renyi_exetime$eps, renyi_exetime[2:3], kl_exetime[2:3]) %>%
 
 ### Among the dimension of the distributions
 
+We consider the distributions:
+$X^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma_1})$ and
+$X^2 \sim MTD(\mathbf{0}, \nu_2, \boldsymbol{\Sigma_2})$
+
+with $\nu_1 = 2$ and $\nu_2 = 4$,
+and we vary the dimension of the distributions, taking successive values of
+$\boldsymbol{\Sigma}_1$ and $\boldsymbol{\Sigma}_2$ :
+
+1.  $\boldsymbol{\Sigma}_1 = 0.2$, $\boldsymbol{\Sigma}_2 = 0.3$
+
+1.  $\boldsymbol{\Sigma}_1 = \left(\begin{array}{cc}
+      1 & 0.2 \\
+      0.2 & 1
+    \end{array}\right)$,
+    $\boldsymbol{\Sigma}_2 = \left(\begin{array}{cc}
+      1 & 0.3 \\
+      0.3 & 1
+    \end{array}\right)$
+
+1.  $\boldsymbol{\Sigma}_1 = \left(\begin{array}{ccc}
+      1 & 0.6 & 0.2 \\
+      0.6 & 1 & 0.3 \\
+      0.2 & 0.3 & 1
+    \end{array}\right)$,
+    $\boldsymbol{\Sigma}_2 = \left(\begin{array}{ccc}
+      1 & 0.3 & 0.1 \\
+      0.3 & 1 & 0.4 \\
+      0.1 & 0.4 & 1
+    \end{array}\right)$
+
+1.  $\boldsymbol{\Sigma}_1 = \left(\begin{array}{cccc}
+      1 & 0.6 & 0.2 & 0 \\
+      0.6 & 1 & 0.3 & 0 \\
+      0.2 & 0.3 & 1 & 0 \\
+      0 & 0 & 0 & 1
+    \end{array}\right)$,
+    $\boldsymbol{\Sigma}_2 = \left(\begin{array}{cccc}
+      1 & 0.3 & 0.1 & 0 \\
+      0.3 & 1 & 0.4 & 0 \\
+      0.1 & 0.4 & 1 & 0 \\
+      0 & 0 &  0 & 1
+    \end{array}\right)$
+    
 We fix the wanted precision: $\epsilon = 10^{-6}$.
 
 ```{r}
@@ -1576,12 +1619,27 @@ data.frame(renyi_exetime$dim, renyi_exetime[2:3], kl_exetime[2:3]) %>%
 
 ### Among the divergence
 
+We consider the distributions:
+$X^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma_1})$ and
+$X^2 \sim MTD(\mathbf{0}, \nu_2, \boldsymbol{\Sigma_2})$
+
+with $\nu_1 = \nu_2 = 2$,
+$\boldsymbol{\Sigma}_2 = \left(\begin{array}{ccc}
+  1 & 0.3 & 0.1 \\
+  0.3 & 1 & 0.4 \\
+  0.1 & 0.4 & 1
+\end{array}\right)$,
+and $\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$,
+$s \in [0.1; 70]$.
+
+We fix the wanted precision: $\epsilon = 10^{-6}$.
+
 ```{r}
 #| cache: true
 
 # Degrees of freedom
 nu <- 2
-Sigma2 <- matrix(c(1, 0.3, 0.1, 0.3, 1, 0.4, 0.1, 0.4, 1), nrow = 3)
+Sigma2 <- rbind(c(1, 0.3, 0.1), c(0.3, 1, 0.4), c(0.1, 0.4, 1))
 
 # Values of the proportionality coefficient
 S <- c(seq(0.1, 1, by = 0.1), seq(2, 70, by = 2))
