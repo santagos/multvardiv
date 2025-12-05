@@ -583,7 +583,7 @@ are computed using the functions `dlstudent` and `kld` from the
 Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma})$
 and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu_2, \boldsymbol{\Sigma})$
 
-where $\nu_1$ take values in $]0 ; 30]$, $\nu_2 = 2$, and
+where $\nu_1$ take values in $]0 ; 50]$, $\nu_2 = 2$, and
 $\boldsymbol{\Sigma} = \left(\begin{array}{cc}
 1 & 0.3 \\
 0.3 & 1
