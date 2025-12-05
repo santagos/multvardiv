@@ -133,7 +133,7 @@ parameters $\theta = (\boldsymbol{\mu}, \boldsymbol{\Sigma}, \nu)$.
 <!-- where $\Y\sim \mathcal{N}^p(0,\gSigma)$ is a $p$-variate normal random vector with mean 0 and covariance matrix $\gSigma$, $U$ is the chi-squared -->
 <!-- random variable with degrees of freedom $\nu$ and $U$ is independent of $\Y$. -->
 
-The ML estimator $\hat{\theta}$ of the parameters $\theta$ of the
+The maximum likelihood (ML) estimator $\hat{\theta}$ of the parameters $\theta$ of the
 compound distribution $f_{\mathbf{X}}(\mathbf{x})$ is given by: $$
 \hat{\theta}_{ML} = \arg \max_{\theta} f_{\mathbf{X}}(\mathbf{x}|\theta) = \arg \max_{\theta}\prod_{i=1}^N f_{\mathbf{X}}(\mathbf{x}_i|\theta)
 $$ {#eq-MV}
