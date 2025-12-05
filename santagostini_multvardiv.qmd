@@ -94,7 +94,9 @@ Some particular cases provide interesting results. We use these
 particular cases to test the computation of the statistical divergence
 ([Some particular cases -- test of the results]).
 
-# Multivariate $t$-distribution
+# Multivariate elliptical distributions and divergence
+
+## Multivariate $t$-distribution
 
 Let $\mathbf{X}$ be a random vector of $\mathbb{R}^p$ from a
 multivariate $t$-distribution (MTD) with degrees of freedom $\nu$, mean
@@ -118,7 +120,7 @@ according to a Chi-squared distribution with $\nu$ degrees of freedom, $U\sim \c
 
 <!-- Hence, a sample from a MCD with location parameter $\boldsymbol{\mu}$ and dispersion matrix $\Sigma$ can be generated using @eq-rmtd with $\nu = 1$. -->
 
-## Parameter estimation by the EM method {#sec-est_mtd}
+### Parameter estimation by the EM method {#sec-est_mtd}
 
 We use the Expectation-Maximization (EM) method to estimate the parameters of a multivariate $t$-distribution.
 Let $\{ \mathbf{x}_1, \dots, \mathbf{x}_n \}$ be $n$ observations from an MTD with
@@ -159,7 +161,7 @@ $$
 \hat{\theta}_v = \arg \max_{\theta_y}\sum_{i=1}^N \mathbb{E}_{V|\mathbf{X}}\{\ln f_{V}(V_i|\theta_{v})\big|\mathbf{x}_i,\theta'\}
 $$ {#eq-lamda_x}
 
-### Estimation of $\theta_y=(\boldsymbol{\mu},\boldsymbol{\Sigma})$ {.unnumbered .unlisted}
+#### Estimation of $\theta_y=(\boldsymbol{\mu},\boldsymbol{\Sigma})$ {.unnumbered .unlisted}
 
 The probability density function of $\mathbf{X}$ knowing $v$ is given as follows 
 $$\begin{array}{lll}
@@ -254,7 +256,7 @@ $$ {#eq-EM_K2}
 
 where $\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}$ is the posterior expectation of V which depends on the values $\mathbf{x}_i$. The analytical expression is provided in the next subsection.
 
-### Estimation of $\theta_v=(\nu)$ {.unnumbered .unlisted}
+#### Estimation of $\theta_v=(\nu)$ {.unnumbered .unlisted}
 
 The probability density function of $V$ is given by 
 $$
@@ -308,7 +310,7 @@ $$
 1+\ln \frac{\hat{\nu}}{2}-\psi(\frac{\hat{\nu}}{2})=\frac{1}{N}\sum_{i=1}^N \mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\} -\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\}
 $$ {#eq-EM_G_1}
 
-### Expression of $\mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\}$ and $\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\}$ {.unnumbered .unlisted}
+#### Expression of $\mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\}$ and $\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\}$ {.unnumbered .unlisted}
 
 The posterior expectation $\mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\}$ and $\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\}$ depend on the posterior distribution $f_{V|\mathbf{X}}(v_i|\mathbf{x}_i)$ expressed as follows  
 
@@ -398,7 +400,7 @@ $$ {#eq-E2}
 
 <!-- \toprule -->
 
-### Algorithm {#sec-mtd_algo .unnumbered .unlisted}
+#### Algorithm {#sec-mtd_algo .unnumbered .unlisted}
 
 From these expressions, we can build an algorithm for the parameter
 estimation:
@@ -446,7 +448,7 @@ estimation:
 
 3.   **Return** $(\hat{\boldsymbol{\mu}},\hat{\boldsymbol{\Sigma}},\hat{\nu})$ 
 
-## Rényi divergence
+### Rényi divergence
 
 Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of
 $\mathbb{R}^p$ from MTDs with probability density functions given as follows: $$
@@ -510,7 +512,7 @@ and $i$ is a non-negative integer, is given by: $$
 \end{array} \right.
 $$ {#eq-pochhammer}
 
-## Bhattacharyya and Hellinger divergences
+### Bhattacharyya and Hellinger divergences
 
 The Bhattacharyya divergence is computed from the RD of order
 $\beta = \frac{1}{2}$: $$
@@ -521,7 +523,7 @@ And the Hellinger divergence: $$
 D_H(\mathbf{X}^1 \Vert \mathbf{X}^2) = 1 - \exp\left(-\frac{1}{2} D_R^\frac{1}{2}(\mathbf{X}^1 \Vert \mathbf{X}^2)\right)
 $$ {#eq-hdmtd}
 
-## Kullback-Leibler divergence {#sec-kldt}
+### Kullback-Leibler divergence {#sec-kldt}
 
 With the same notations, the KLD of $\mathbf{X}_1$ from $\mathbf{X}_2$
 is given by:
@@ -564,7 +566,7 @@ $\frac{\nu_1}{\nu_2}\lambda_1, \dots, \frac{\nu_1}{\nu_2}\lambda_p$:
     \displaystyle{ \frac{\partial}{\partial a}\bigg\lbrace \frac{(a)_{\sum m_i}(a+\frac{\nu_1}{2})_{m_p}}{\big(a+\frac{\nu_1+p}{2}\big)_{\sum_{i=1}^p m_i}}  \bigg\rbrace\bigg|_{a=0} = \frac{(1)_{\sum m_i} }{\big(\frac{\nu_1+p}{2}\big)_{\sum m_i}}\frac{(\frac{\nu_1}{2})_{m_p}}{\sum m_i} }
     $$
 
-## Study of the divergence
+### Study of the divergence
 
 The divergence between two multivariate $t$ distributions
 $\mathbf{X}^1 \sim f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \boldsymbol{0}, \boldsymbol{\Sigma}_1)$
@@ -576,7 +578,7 @@ In the examples below, the divergences between $\mathbf{X}^1$ and $\mathbf{X}^2$
 are computed using the functions `dlstudent` and `kld` from the
 [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package.
 
-### Among the degrees of freedom
+#### Among the degrees of freedom
 
 Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma})$
 and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu_2, \boldsymbol{\Sigma})$
@@ -696,7 +698,7 @@ plot(kullback_leibler~nu1, data = divnu, type = "b", pch = 16,
 axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5)
 ```
 
-### Among the scale matrix: first situation
+#### Among the scale matrix: first situation
 
 Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}^1)$
 and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}^2)$
@@ -836,7 +838,7 @@ plot(kullback_leibler~s1, data = divS1, type = "b", pch = 16,
 axis(side = 1, at = Sigma2[1, 1], labels = substitute(Sigma[1][1]), cex.axis = 1.5)
 ```
 
-### Among the scale matrix: second situation
+#### Among the scale matrix: second situation
 
 Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_1)$
 and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_2)$
@@ -943,7 +945,7 @@ axis(side = 1, at = 1, labels = 1, cex.axis = 1.5)
 
 <!-- # Other multivariate distributions  -->
 
-# Multivariate Cauchy distribution
+## Multivariate Cauchy distribution
 
 Let $\mathbf{X}$ be a random vector of $\mathbb{R}^p$ from a
 multivariate Cauchy distribution (MCD) with location vector
@@ -966,7 +968,7 @@ $$ {#eq-rmcd} where $\mathbf{Y}$ is generated from a centered Gaussian
 distribution with covariance matrix $\boldsymbol{\Sigma}$ and $u$ is distributed
 according to a Chi-squared distribution with $\nu$ degrees of freedom.
 
-## Parameter estimation
+### Parameter estimation
 
 To estimate the parameters of a MCD, we use the same method as for the
 MTD (@sec-est_mtd) setting $\nu = 1$. Then the algorithm presented in
@@ -989,7 +991,7 @@ MTD (@sec-est_mtd) setting $\nu = 1$. Then the algorithm presented in
     -   Estimate
         $\hat{\boldsymbol{\Sigma}}=\frac{1}{N}\sum_{i=1}^{N}\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}(\mathbf{x}_i-\boldsymbol{\mu}')(\mathbf{x}_i-\boldsymbol{\mu}')^T$
 
-## Kullback-Leibler divergence
+### Kullback-Leibler divergence
 
 Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of
 $\mathbb{R}^p$ from MCDs with probability density functions:
@@ -1022,7 +1024,7 @@ where $D$ depends on the values of $\lambda_1, \dots, \lambda_p$:
       \displaystyle{ D = \prod_{i=1}^p\frac{1}{\sqrt{\lambda_i}} \times \frac{\partial}{\partial a} \bigg\{ F_D^{(p)} \bigg( \frac{1+p}{2}, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}}_p ; a + \frac{1+p}{2} ; 1 - \frac{1}{\lambda_1}, \dots, 1 - \frac{1}{\lambda_p} \bigg) \bigg\}\bigg|_{a=0} }
       $$ {#eq-klmcd3}
 
-# Multivariate generalized Gaussian distribution
+## Multivariate generalized Gaussian distribution
 
 Let $\mathbf{X}$ a random vector of $\mathbb{R}^p$ from a Multivariate
 generalized Gaussian distribution (MGGD) with mean vector
@@ -1043,7 +1045,7 @@ distribution with shape parameter $\displaystyle{\frac{p}{2\beta}}$ and
 scale parameter $2$. We use this property to simulate a sample from a
 MGGD.
 
-## Parameter estimation
+### Parameter estimation
 
 Let $\left( \mathbf{x}_1, \dots, \mathbf{x}_n \right)$ be $n$ i.i.d.
 random vectors distributed according to a MGGD with parameters
@@ -1087,7 +1089,7 @@ $m$ and $\beta$:
 
 3.  Estimation of $m$ using @eq-estggdm
 
-## Kullback-Leibler divergence
+### Kullback-Leibler divergence
 
 Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of
 $\mathbb{R}^p$ ($p > 1$) from centered MGGDs with probability density
@@ -1126,7 +1128,7 @@ $$ {#eq-klggd}
 <!-- \end{array} \right. -->
 <!-- $$ {#eq-pochhammer} -->
 
-### Univariate case : $p=1$ {.unnumbered .unlisted}
+#### Univariate case : $p=1$ {.unnumbered .unlisted}
 Let $X^1$ and $X^2$ be two random
 variables distributed according to centered generalized Gaussian
 distributions with probability density functions:
