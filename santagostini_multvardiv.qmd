@@ -111,7 +111,7 @@ where $\Gamma(\cdot)$ is the gamma function.
 A sample from a multivariate $t$-distribution with location parameter
 $\boldsymbol{\mu}$, scale matrix $\boldsymbol{\Sigma}$ and $\nu$ degrees of freedom
 can be generated using [@roth; @kotz]: $$
-    \displaystyle{\mathbf{X} = \boldsymbol{\mu} + \frac{\mathbf{Y}}{\sqrt{u/\nu}}}
+    \displaystyle{\mathbf{X} = \boldsymbol{\mu} + \frac{\mathbf{Y}}{\sqrt{U/\nu}}}
 $$ {#eq-rmtd} where $\mathbf{Y}$ is generated from a centered Gaussian
 distribution with covariance matrix $\boldsymbol{\Sigma}$, i.e. $\mathbf{Y}\sim \mathcal{N}^p(0,\mathbf{\Sigma})$ and $U$ is distributed
 according to a Chi-squared distribution with $\nu$ degrees of freedom, $U\sim \chi^2(\nu)$ and $U$ is independent of $\mathbf{Y}$. For convenience, we use the following new variable: $V=\frac{U}{\nu}$. As a consequence, $V$ follows a Gamma distribution with parameters $(\frac{\nu}{2},\frac{\nu}{2})$, i.e. $V\sim Gamma(\frac{\nu}{2},\frac{\nu}{2})$. 
@@ -963,9 +963,9 @@ $\boldsymbol{\mu}$ and dispersion matrix $\boldsymbol{\Sigma}$ can be generated 
 @eq-rmtd with $\nu = 1$:
 
 $$
-    \displaystyle{\mathbf{X} = \boldsymbol{\mu} + \frac{\mathbf{Y}}{\sqrt{u}}}
+    \displaystyle{\mathbf{X} = \boldsymbol{\mu} + \frac{\mathbf{Y}}{\sqrt{U}}}
 $$ {#eq-rmcd} where $\mathbf{Y}$ is generated from a centered Gaussian
-distribution with covariance matrix $\boldsymbol{\Sigma}$ and $u$ is distributed
+distribution with covariance matrix $\boldsymbol{\Sigma}$ and $U$ is distributed
 according to a Chi-squared distribution with $\nu$ degrees of freedom.
 
 ### Parameter estimation
