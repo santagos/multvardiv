@@ -598,7 +598,7 @@ to a limit.
 
 ```{r}
 #| cache: true
-#| warning: false
+#| warning: true
 
 nu <- 2#5
 
