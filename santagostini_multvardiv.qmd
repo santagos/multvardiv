@@ -580,7 +580,7 @@ are computed using the functions `dlstudent` and `kld` from the
 
 The R codes which produce these graphics are given in @sec-appendix
 
-#### Among the degrees of freedom {.unnumbered}
+#### Among the degrees of freedom {.unnumbered .unlisted}
 
 Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma})$
 and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu_2, \boldsymbol{\Sigma})$
@@ -614,7 +614,7 @@ to a limit.
 {{< include _append_1_1.R >}}
 ```
 
-#### Among the scale matrix: first situation {.unnumbered}
+#### Among the scale matrix: first situation {.unnumbered .unlisted}
 
 Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}^1)$
 and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}^2)$
@@ -650,7 +650,7 @@ then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges
 {{< include _append_1_2.R >}}
 ```
 
-#### Among the scale matrix: second situation {.unnumbered}
+#### Among the scale matrix: second situation {.unnumbered .unlisted}
 
 Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_1)$
 and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_2)$
@@ -2119,31 +2119,34 @@ distributions, and more generally to elliptical distributions.
 
 ### Multivariate $t$ distribution
 
-#### Among the degrees of freedom {.unnumbered}
+#### Among the degrees of freedom {.unnumbered .unlisted}
 
 ```{r}
 #| label: code-divnu1
 #| eval: false
+#| code-fold: show
 #| warning: true
 
 {{< include _append_1_1.R >}}
 ```
 
-#### Among the scale matrix: first situation {.unnumbered}
+#### Among the scale matrix: first situation {.unnumbered .unlisted}
 
 ```{r}
 #| label: code-divsigma11
 #| eval: false
+#| code-fold: show
 #| warning: true
 
 {{< include _append_1_2.R >}}
 ```
 
-#### Among the scale matrix: second situation {.unnumbered}
+#### Among the scale matrix: second situation {.unnumbered .unlisted}
 
 ```{r}
 #| label: code-divsigma12
 #| eval: false
+#| code-fold: show
 #| warning: true
 
 {{< include _append_1_2.R >}}
