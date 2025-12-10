@@ -578,6 +578,8 @@ In the examples below, the divergences between $\mathbf{X}^1$ and $\mathbf{X}^2$
 are computed using the functions `dlstudent` and `kld` from the
 [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package.
 
+The R codes which produce these graphics are given in @sec-appendix
+
 #### Among the degrees of freedom
 
 Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma})$
@@ -597,106 +599,121 @@ then for $\nu_1 \in ]\nu_2; +\infty]$, it increases slowly and converges
 to a limit.
 
 ```{r}
-#| cache: true
-#| warning: true
-
-nu <- 2#5
-
-# Values of nu1
-nu1 <- c(seq(0.1, nu, by = 0.1), seq(nu+1, 50, by = 2))
-
-# Fixed values of the other parameters
-nu2 <- nu
-Sigma <- matrix(c(1, 0.3, 0.3, 1), nrow = 2)
-
-# Values of lambda*nu1/nu2
-nulambda <- nu1/nu2
-
-# Rényi divergence, beta = 0.25
-b <- 0.25
-renyi_0_25 <- sapply(nu1, function(nu) {
-  diststudent(nu1 = nu, Sigma1 = Sigma,
-              nu2 = nu2, Sigma2 = Sigma,
-              dist = "renyi", bet = b)
-})
-
-# Rényi divergence, beta = 1.5
-b <- 1.5
-renyi_1_5 <- sapply(nu1, function(nu) {
-  diststudent(nu1 = nu, Sigma1 = Sigma,
-              nu2 = nu2, Sigma2 = Sigma,
-              dist = "renyi", bet = b)
-})
-
-# Battacharyya divergence
-bhattacharyya <- sapply(nu1, function(nu) {
-  diststudent(nu1 = nu, Sigma1 = Sigma,
-              nu2 = nu2, Sigma2 = Sigma,
-              dist = "bhattacharyya")
-})
-
-# Hellinger divergence
-hellinger <- sapply(nu1, function(nu) {
-  diststudent(nu1 = nu, Sigma1 = Sigma,
-              nu2 = nu2, Sigma2 = Sigma,
-              dist = "hellinger")
-})
-
-# Kullback-Leibler divergence
-kullback_leibler <- sapply(nu1, function(nu) {
-  kld(Sigma1 = Sigma, Sigma2 = Sigma,
-      nu1 = nu, nu2 = nu2,
-      distribution = "mtd")
-})
-
-# Table of the results
-divnu <- data.frame(
-  nu1 = nu1,
-  nulambda = nulambda,
-  renyi_0_25 = renyi_0_25,
-  renyi_1_5 = renyi_1_5,
-  bhattacharyya = bhattacharyya,
-  hellinger = hellinger,
-  kullback_leibler = kullback_leibler
-)
-```
-
-<!-- $\mathbf{X}^1$ et $\mathbf{X}^2$ -->
-
-```{r}
+#| echo: false
 #| label: fig-divnu1
 #| fig-cap: "Divergence between the distributions $\\mathbf{X}^1$ et $\\mathbf{X}^2$"
 #| fig-subcap:
 #|    - "Renyi ($\\beta = 0.25$)"
 #|    - "Renyi ($\\beta = 1.5$)"
-#|    - ""
 #|    - "Bhattacharyya"
 #|    - "Hellinger"
 #|    - "Kullback-Leibler"
-#| layout-ncol: 3
-#| layout-nrow: 2
-plot(renyi_0_25~nu1, data = divnu, type = "b", pch = 16,
-     xlab = substitute(nu[1]), ylab = "Divergence")
-axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5)
-
-plot(renyi_1_5~nu1, data = divnu, type = "b", pch = 16,
-     xlab = substitute(nu[1]), ylab = "Divergence")
-axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5)
-
-plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "")
-
-plot(bhattacharyya~nu1, data = divnu, type = "b", pch = 16,
-     xlab = substitute(nu[1]), ylab = "Divergence")
-axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5)
-
-plot(hellinger~nu1, data = divnu, type = "b", pch = 16,
-     xlab = substitute(nu[1]), ylab = "Divergence")
-axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5)
-
-plot(kullback_leibler~nu1, data = divnu, type = "b", pch = 16,
-     xlab = substitute(nu[1]), ylab = "Divergence")
-axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5)
+#| layout-ncol: 2
+#| cache: true
+{{< include _append_1_1.R >}}
 ```
+
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| cache: true -->
+<!-- #| warning: true -->
+
+<!-- nu <- 2#5 -->
+
+<!-- # Values of nu1 -->
+<!-- nu1 <- c(seq(0.1, nu, by = 0.1), seq(nu+1, 50, by = 2)) -->
+
+<!-- # Fixed values of the other parameters -->
+<!-- nu2 <- nu -->
+<!-- Sigma <- matrix(c(1, 0.3, 0.3, 1), nrow = 2) -->
+
+<!-- # Values of lambda*nu1/nu2 -->
+<!-- nulambda <- nu1/nu2 -->
+
+<!-- # Rényi divergence, beta = 0.25 -->
+<!-- b <- 0.25 -->
+<!-- renyi_0_25 <- sapply(nu1, function(nu) { -->
+<!--   diststudent(nu1 = nu, Sigma1 = Sigma, -->
+<!--               nu2 = nu2, Sigma2 = Sigma, -->
+<!--               dist = "renyi", bet = b) -->
+<!-- }) -->
+
+<!-- # Rényi divergence, beta = 1.5 -->
+<!-- b <- 1.5 -->
+<!-- renyi_1_5 <- sapply(nu1, function(nu) { -->
+<!--   diststudent(nu1 = nu, Sigma1 = Sigma, -->
+<!--               nu2 = nu2, Sigma2 = Sigma, -->
+<!--               dist = "renyi", bet = b) -->
+<!-- }) -->
+
+<!-- # Battacharyya divergence -->
+<!-- bhattacharyya <- sapply(nu1, function(nu) { -->
+<!--   diststudent(nu1 = nu, Sigma1 = Sigma, -->
+<!--               nu2 = nu2, Sigma2 = Sigma, -->
+<!--               dist = "bhattacharyya") -->
+<!-- }) -->
+
+<!-- # Hellinger divergence -->
+<!-- hellinger <- sapply(nu1, function(nu) { -->
+<!--   diststudent(nu1 = nu, Sigma1 = Sigma, -->
+<!--               nu2 = nu2, Sigma2 = Sigma, -->
+<!--               dist = "hellinger") -->
+<!-- }) -->
+
+<!-- # Kullback-Leibler divergence -->
+<!-- kullback_leibler <- sapply(nu1, function(nu) { -->
+<!--   kld(Sigma1 = Sigma, Sigma2 = Sigma, -->
+<!--       nu1 = nu, nu2 = nu2, -->
+<!--       distribution = "mtd") -->
+<!-- }) -->
+
+<!-- # Table of the results -->
+<!-- divnu <- data.frame( -->
+<!--   nu1 = nu1, -->
+<!--   nulambda = nulambda, -->
+<!--   renyi_0_25 = renyi_0_25, -->
+<!--   renyi_1_5 = renyi_1_5, -->
+<!--   bhattacharyya = bhattacharyya, -->
+<!--   hellinger = hellinger, -->
+<!--   kullback_leibler = kullback_leibler -->
+<!-- ) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| label: fig-divnu1 -->
+<!-- #| fig-cap: "Divergence between the distributions $\\mathbf{X}^1$ et $\\mathbf{X}^2$" -->
+<!-- #| fig-subcap: -->
+<!-- #|    - "Renyi ($\\beta = 0.25$)" -->
+<!-- #|    - "Renyi ($\\beta = 1.5$)" -->
+<!-- #|    - "" -->
+<!-- #|    - "Bhattacharyya" -->
+<!-- #|    - "Hellinger" -->
+<!-- #|    - "Kullback-Leibler" -->
+<!-- #| layout-ncol: 3 -->
+<!-- #| layout-nrow: 2 -->
+<!-- plot(renyi_0_25~nu1, data = divnu, type = "b", pch = 16, -->
+<!--      xlab = substitute(nu[1]), ylab = "Divergence") -->
+<!-- axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5) -->
+
+<!-- plot(renyi_1_5~nu1, data = divnu, type = "b", pch = 16, -->
+<!--      xlab = substitute(nu[1]), ylab = "Divergence") -->
+<!-- axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5) -->
+
+<!-- plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "") -->
+
+<!-- plot(bhattacharyya~nu1, data = divnu, type = "b", pch = 16, -->
+<!--      xlab = substitute(nu[1]), ylab = "Divergence") -->
+<!-- axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5) -->
+
+<!-- plot(hellinger~nu1, data = divnu, type = "b", pch = 16, -->
+<!--      xlab = substitute(nu[1]), ylab = "Divergence") -->
+<!-- axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5) -->
+
+<!-- plot(kullback_leibler~nu1, data = divnu, type = "b", pch = 16, -->
+<!--      xlab = substitute(nu[1]), ylab = "Divergence") -->
+<!-- axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5) -->
+<!-- ``` -->
 
 #### Among the scale matrix: first situation
 
@@ -720,78 +737,6 @@ For $s_1 \in ]0; \boldsymbol{\Sigma}^2_{1, 1}]$, the divergence decreases quickl
 then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges.
 
 ```{r}
-#| cache: true
-
-s <- 3
-
-# Values of Sigma1[1, 1]
-s1 <- c(seq(0.1, s, by = 0.05), seq(s+1, 70, by = 1))
-
-# The other parameters
-nu <- 1
-Sigma1 <- Sigma2 <- matrix(c(s, 0.3, 0.3, 1), nrow = 2)
-Sigma1[1, 1] <- NA
-
-# Values of lambda*nu1/nu2
-invS2 <- solve(Sigma2)
-lambdanu <- sapply(s1, function(s) {
-  Sigma1[1, 1] <- s
-  sort(eigen(Sigma1 %*% invS2, only.values = TRUE)$values, decreasing = FALSE)
-})
-ln1 <- lambdanu[1, ]
-lnp <- lambdanu[2, ]
-
-# Renyi divergence, beta = 0.25
-b <- 0.25
-renyi_0_25 <- sapply(s1, function(s1) {
-  Sigma1[1, 1] <- s1
-  diststudent(nu1 = nu, Sigma1 = Sigma1, nu2 = nu, Sigma2 = Sigma2,
-              dist = "renyi", bet = b)
-})
-
-# Renyi divergence, beta = 1.5
-b <- 1.5
-renyi_1_5 <- sapply(s1, function(s1) {
-  Sigma1[1, 1] <- s1
-  diststudent(nu1 = nu, Sigma1 = Sigma1, nu2 = nu, Sigma2 = Sigma2,
-              dist = "renyi", bet = b)
-})
-
-# Battacharyya divergence
-bhattacharyya <- sapply(s1, function(s1) {
-  Sigma1[1, 1] <- s1
-  diststudent(nu1 = nu, Sigma1 = Sigma1, nu2 = nu, Sigma2 = Sigma2,
-              dist = "bhattacharyya")
-})
-
-# Hellinger divergence
-hellinger <- sapply(s1, function(s1) {
-  Sigma1[1, 1] <- s1
-  diststudent(nu1 = nu, Sigma1 = Sigma1, nu2 = nu, Sigma2 = Sigma2,
-              dist = "hellinger")
-})
-
-# Kullback-Leibler divergence
-kullback_leibler <- sapply(s1, function(s1) {
-  Sigma1[1, 1] <- s1
-  kld(Sigma1 = Sigma1, Sigma2 = Sigma2, nu1 = nu, nu2 = nu,
-      distribution = "mtd")
-})
-
-# Table of the results
-divS1 <- data.frame(
-  s1 = s1, ln1 = ln1, lnp = lnp,
-  renyi_0_25 = renyi_0_25,
-  renyi_1_5 = renyi_1_5,
-  bhattacharyya = bhattacharyya,
-  hellinger = hellinger,
-  kullback_leibler = kullback_leibler
-)
-```
-
-<!-- $\mathbf{X}^1$ et $\mathbf{X}^2$ -->
-
-```{r}
 #| label: fig-divsigma11
 #| fig-cap: "Divergence between the distributions $\\mathbf{X}^1$ et $\\mathbf{X}^2$"
 #| fig-subcap:
@@ -804,38 +749,11 @@ divS1 <- data.frame(
 #|    - "Bhattacharyya"
 #|    - "Hellinger"
 #|    - "Kullback-Leibler"
-#| layout-ncol: 3
-#| layout-nrow: 2
+#| layout-ncol: 2
+#| layout-nrow: 3
+#| cache: true
 
-plot(ln1~s1, data = divS1, type = "b", pch = 16,
-     xlab = substitute(Sigma[1][1]), ylab = "lambda1 * nu1/nu2")
-axis(side = 1, at = Sigma2[1, 1], labels = substitute(Sigma[1][1]), cex.axis = 1.5)
-
-plot(lnp~s1, data = divS1, type = "b", pch = 16,
-     xlab = substitute(Sigma[1][1]), ylab = "lambdap * nu1/nu2")
-axis(side = 1, at = Sigma2[1, 1], labels = substitute(Sigma[1][1]), cex.axis = 1.5)
-
-plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "")
-plot(renyi_0_25~s1, data = divS1, type = "b", pch = 16,
-     xlab = substitute(Sigma[1][1]), ylab = "Divergence")
-axis(side = 1, at = Sigma2[1, 1], labels = substitute(Sigma[1][1]), cex.axis = 1.5)
-
-plot(renyi_1_5~s1, data = divS1, type = "b", pch = 16,
-     xlab = substitute(Sigma[1][1]), ylab = "Divergence")
-axis(side = 1, at = Sigma2[1, 1], labels = substitute(Sigma[1][1]), cex.axis = 1.5)
-
-plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "")
-plot(bhattacharyya~s1, data = divS1, type = "b", pch = 16,
-     xlab = substitute(Sigma[1][1]), ylab = "Divergence")
-axis(side = 1, at = Sigma2[1, 1], labels = substitute(Sigma[1][1]), cex.axis = 1.5)
-
-plot(hellinger~s1, data = divS1, type = "b", pch = 16,
-     xlab = substitute(Sigma[1][1]), ylab = "Divergence")
-axis(side = 1, at = Sigma2[1, 1], labels = substitute(Sigma[1][1]), cex.axis = 1.5)
-
-plot(kullback_leibler~s1, data = divS1, type = "b", pch = 16,
-     xlab = substitute(Sigma[1][1]), ylab = "Divergence")
-axis(side = 1, at = Sigma2[1, 1], labels = substitute(Sigma[1][1]), cex.axis = 1.5)
+{{< include _append_1_2.R >}}
 ```
 
 #### Among the scale matrix: second situation
@@ -1662,7 +1580,7 @@ for (i in 1:length(S)) {
 ```{r}
 renyi_exetime <- data.frame(s = S, iter = iter, exetime = times)
 plot(exetime~s, data = renyi_exetime, type = "b", pch = 16,
-     xlab = "s", ylab = "Divergence")
+     xlab = "s", ylab = "Execution time")
 axis(side = 1, at = 1, labels = 1, cex.axis = 1.5)
 ```
 
@@ -2376,3 +2294,31 @@ distributions, and more generally to elliptical distributions.
 <!-- ::: {#refs} -->
 
 <!-- ::: -->
+
+# Appendices {#sec-appendix}
+
+## Study of the divergence
+
+### Multivariate $t$ distribution
+
+```{r}
+#| label: code-divnu1
+#| eval: false
+#| warning: true
+
+{{< include _append_1_1.R >}}
+```
+
+```{r}
+#| label: code-divsigma11
+#| eval: false
+#| warning: true
+
+{{< include _append_1_2.R >}}
+```
+
+### Multivariate Cauchy distribution
+
+### MGGD
+
+## Execution time
