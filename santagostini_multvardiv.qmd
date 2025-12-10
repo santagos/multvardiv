@@ -1934,7 +1934,7 @@ distributions, and more generally to elliptical distributions.
 
 ## Execution time
 
-#### Among the wanted precision
+#### Among the wanted precision {.unnumbered .unlisted}
 
 ```{r}
 #| label: code-extime1
@@ -1944,7 +1944,7 @@ distributions, and more generally to elliptical distributions.
 {{< include _append_2_1.R >}}
 ```
 
-#### Among the dimension of the distributions
+#### Among the dimension of the distributions {.unnumbered .unlisted}
 
 ```{r}
 #| label: code-extime2
@@ -1954,7 +1954,7 @@ distributions, and more generally to elliptical distributions.
 {{< include _append_2_2.R >}}
 ```
 
-#### Among the divergence
+#### Among the divergence {.unnumbered .unlisted}
 
 ```{r}
 #| label: code-extime3
