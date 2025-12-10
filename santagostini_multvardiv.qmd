@@ -610,6 +610,7 @@ to a limit.
 #|    - "Kullback-Leibler"
 #| layout-ncol: 2
 #| cache: true
+
 {{< include _append_1_1.R >}}
 ```
 
@@ -665,94 +666,19 @@ and $\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$, $s \in ]0 ; 70]$.
 The results are showed in @fig-divsigma12.
 
 ```{r}
-#| cache: true
-
-# The parameters
-nu <- 1.5
-Sigma <- matrix(c(1, 0.3, 0.3, 1), nrow = 2)
-
-# Values of the proportionality coefficient
-s <- c(seq(0.05, 1, by = 0.05), seq(2, 70, by = 2))
-
-# Renyi divergence, beta = 0.25
-b <- 0.25
-renyi_0_25 <- sapply(s, function(s) {
-  diststudent(nu1 = nu, Sigma1 = s*Sigma, nu2 = nu, Sigma2 = Sigma,
-              dist = "renyi", bet = b)
-})
-
-# Renyi divergence, beta = 1.5
-b <- 1.5
-renyi_1_5 <- sapply(s, function(s) {
-  diststudent(nu1 = nu, Sigma1 = s*Sigma, nu2 = nu, Sigma2 = Sigma,
-              dist = "renyi", bet = b)
-})
-
-# Battacharyya divergence
-bhattacharyya <- sapply(s, function(s) {
-  diststudent(nu1 = nu, Sigma1 = s*Sigma, nu2 = nu, Sigma2 = Sigma,
-              dist = "bhattacharyya")
-})
-
-# Hellinger divergence
-hellinger <- sapply(s, function(s) {
-  diststudent(nu1 = nu, Sigma1 = s*Sigma, nu2 = nu, Sigma2 = Sigma,
-              dist = "hellinger")
-})
-
-# Kullback-Leibler divergence
-kullback_leibler <- sapply(s, function(s) {
-  kld(Sigma1 = s*Sigma, Sigma2 = Sigma, nu1 = nu, nu2 = nu,
-      distribution = "mtd")
-})
-
-# Table of the results
-divSigma <- data.frame(
-  facteur = s,
-  renyi_0_25 = renyi_0_25,
-  renyi_1_5 = renyi_1_5,
-  bhattacharyya = bhattacharyya,
-  hellinger = hellinger,
-  kullback_leibler = kullback_leibler
-)
-```
-
-<!-- $\mathbf{X}^1$ et $\mathbf{X}^2$ -->
-
-```{r}
 #| label: fig-divsigma12
 #| fig-cap: "Divergence between the distributions $\\mathbf{X}^1$ et $\\mathbf{X}^2$"
 #| fig-subcap:
 #|    - "Renyi ($\\beta = 0.25$)"
 #|    - "Renyi ($\\beta = 1.5$)"
-#|    - ""
 #|    - "Bhattacharyya"
 #|    - "Hellinger"
 #|    - "Kullback-Leibler"
 #| layout-ncol: 3
 #| layout-nrow: 2
+#| cache: true
 
-plot(renyi_0_25~facteur, data = divSigma, type = "b", pch = 16,
-     xlab = "s", ylab = "Divergence")
-axis(side = 1, at = 1, labels = 1, cex.axis = 1.5)
-
-plot(renyi_1_5~facteur, data = divSigma, type = "b", pch = 16,
-     xlab = "s", ylab = "Divergence")
-axis(side = 1, at = 1, labels = 1, cex.axis = 1.5)
-
-plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "")
-
-plot(bhattacharyya~facteur, data = divSigma, type = "b", pch = 16,
-     xlab = "s", ylab = "Divergence")
-axis(side = 1, at = 1, labels = 1, cex.axis = 1.5)
-
-plot(hellinger~facteur, data = divSigma, type = "b", pch = 16,
-     xlab = "s", ylab = "Divergence")
-axis(side = 1, at = 1, labels = 1, cex.axis = 1.5)
-
-plot(kullback_leibler~facteur, data = divSigma, type = "b", pch = 16,
-     xlab = "s", ylab = "Divergence")
-axis(side = 1, at = 1, labels = 1, cex.axis = 1.5)
+{{< include _append_1_3.R >}}
 ```
 
 <!-- # Other multivariate distributions  -->
@@ -2195,6 +2121,8 @@ distributions, and more generally to elliptical distributions.
 
 ### Multivariate $t$ distribution
 
+#### Among the degrees of freedom
+
 ```{r}
 #| label: code-divnu1
 #| eval: false
@@ -2203,8 +2131,20 @@ distributions, and more generally to elliptical distributions.
 {{< include _append_1_1.R >}}
 ```
 
+#### Among the scale matrix: first situation
+
 ```{r}
 #| label: code-divsigma11
+#| eval: false
+#| warning: true
+
+{{< include _append_1_2.R >}}
+```
+
+#### Among the scale matrix: second situation
+
+```{r}
+#| label: code-divsigma12
 #| eval: false
 #| warning: true
 
