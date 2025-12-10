@@ -856,7 +856,7 @@ The results are showed in @fig-divsigma12.
 #| cache: true
 
 # The parameters
-nu <- 1
+nu <- 1.5
 Sigma <- matrix(c(1, 0.3, 0.3, 1), nrow = 2)
 
 # Values of the proportionality coefficient
