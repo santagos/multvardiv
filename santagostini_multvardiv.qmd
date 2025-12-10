@@ -843,7 +843,7 @@ axis(side = 1, at = Sigma2[1, 1], labels = substitute(Sigma[1][1]), cex.axis = 1
 Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_1)$
 and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_2)$
 
-where $\nu = 1$,  
+where $\nu = 1.5$,  
 $\boldsymbol{\Sigma}_2 = \left(\begin{array}{cc}
 1 & 0.3 \\
 0.3 & 1
@@ -1634,6 +1634,8 @@ $s \in [0.1; 70]$.
 
 We fix the wanted precision: $\epsilon = 10^{-6}$.
 
+#### Rényi divergence
+
 ```{r}
 #| cache: true
 
@@ -1663,6 +1665,8 @@ plot(exetime~s, data = renyi_exetime, type = "b", pch = 16,
      xlab = "s", ylab = "Divergence")
 axis(side = 1, at = 1, labels = 1, cex.axis = 1.5)
 ```
+
+#### Kullback-Leibler divergence
 
 ```{r}
 #| cache: true
