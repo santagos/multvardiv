@@ -59,21 +59,21 @@ divnu <- data.frame(
 )
 
 plot(renyi_0_25~nu1, data = divnu, type = "b", pch = 16,
-     xlab = substitute(nu[1]), ylab = "Divergence")
+     xlab = substitute(nu[1]), ylab = "Divergence", ylim = c(0, 0.6))
 axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5)
 
 plot(renyi_1_5~nu1, data = divnu, type = "b", pch = 16,
-     xlab = substitute(nu[1]), ylab = "Divergence")
+     xlab = substitute(nu[1]), ylab = "Divergence", ylim = c(0, 0.6))
 axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5)
 
 plot(bhattacharyya~nu1, data = divnu, type = "b", pch = 16,
-     xlab = substitute(nu[1]), ylab = "Divergence")
+     xlab = substitute(nu[1]), ylab = "Divergence", ylim = c(0, 0.6))
 axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5)
 
 plot(hellinger~nu1, data = divnu, type = "b", pch = 16,
-     xlab = substitute(nu[1]), ylab = "Divergence")
+     xlab = substitute(nu[1]), ylab = "Divergence", ylim = c(0, 0.6))
 axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5)
 
 plot(kullback_leibler~nu1, data = divnu, type = "b", pch = 16,
-     xlab = substitute(nu[1]), ylab = "Divergence")
+     xlab = substitute(nu[1]), ylab = "Divergence", ylim = c(0, 0.6))
 axis(side = 1, at = nu2, labels = substitute(nu[2]), cex.axis = 1.5)
