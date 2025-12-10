@@ -645,7 +645,6 @@ then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges
 #|    - "Hellinger"
 #|    - "Kullback-Leibler"
 #| layout-ncol: 2
-#| layout-nrow: 3
 #| cache: true
 
 {{< include _append_1_2.R >}}
@@ -674,8 +673,7 @@ The results are showed in @fig-divsigma12.
 #|    - "Bhattacharyya"
 #|    - "Hellinger"
 #|    - "Kullback-Leibler"
-#| layout-ncol: 3
-#| layout-nrow: 2
+#| layout-ncol: 2
 #| cache: true
 
 {{< include _append_1_3.R >}}
