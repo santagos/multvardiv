@@ -609,6 +609,7 @@ to a limit.
 #|    - "Hellinger"
 #|    - "Kullback-Leibler"
 #| layout-ncol: 2
+#| warning: false
 #| cache: true
 
 {{< include _append_1_1.R >}}
