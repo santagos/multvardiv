@@ -1180,7 +1180,7 @@ We fix the wanted precision: $\epsilon = 10^{-6}$.
 {{< include _append_2_2.R >}}
 ```
 
-### Among the divergence
+### Among the divergence between distributions
 
 We consider the distributions:
 $X^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma_1})$ and
@@ -1201,8 +1201,8 @@ We fix the wanted precision: $\epsilon = 10^{-6}$.
 #| label: fig-extime3
 #| fig-cap: "Evolution of the execution time among the divergence between the distributions"
 #| fig-subcap:
-#|    - "Renyi"
-#|    - "Kullback-Leibler"
+#|    - "Nombre d'itérations"
+#|    - "Temps d'exécution"
 #| layout-ncol: 2
 #| echo: false
 #| cache: true
