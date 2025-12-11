@@ -1113,7 +1113,7 @@ $\boldsymbol{\Sigma_2} = \left(\begin{array}{ccc}
 0.1 & 0.4 & 1
 \end{array}\right)$
 
-The R code which produce this table is given in @sec-appenexetime.
+The R code which produce this table is given in appendix, see @sec-appenexetime.
 
 ```{r}
 #| label: tbl-extime1
@@ -1171,7 +1171,7 @@ $\boldsymbol{\Sigma}_1$ and $\boldsymbol{\Sigma}_2$ :
     
 We fix the wanted precision: $\epsilon = 10^{-6}$.
 
-The R code which produce this table is given in @sec-appenexetime.
+The R code which produce this table is given in appendix, see @sec-appenexetime.
 
 ```{r}
 #| label: tbl-extime2
@@ -1199,7 +1199,7 @@ $s \in [0.1; 70]$.
 
 We fix the wanted precision: $\epsilon = 10^{-6}$.
 
-The R code which produce this table is given in @sec-appenexetime.
+The R code which produce this table is given in appendix, see @sec-appenexetime.
 
 ```{r}
 #| label: fig-extime3
