@@ -45,7 +45,9 @@ kl_exetime <- data.frame(eps = epsilon, iter = iter, exetime = times)
 library(kableExtra)
 data.frame(renyi_exetime$eps, renyi_exetime[2:3], kl_exetime[2:3]) %>%
   kbl(
-    col.names = c("Precision", "Number of iterations", "Execution time", "Number of iterations", "Execution time"),
+    col.names = c("Precision", "Number of iterations", "Execution time",
+                  "Number of iterations", "Execution time"),
     digits = c(16, 0, 4, 0, 4)
   ) %>%
-  add_header_above(c(" " = 1, "Rényi divergence" = 2, "Kullback-Leibler divergence" = 2))
+  add_header_above(c(" " = 1, "Rényi divergence" = 2,
+                     "Kullback-Leibler divergence" = 2))
