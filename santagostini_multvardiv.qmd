@@ -942,16 +942,16 @@ The `rmtd` function simulates a sample from a MTD:
 ```{r}
 #| echo: true
 set.seed(1234)
-x1 <- rmtd(10000, nu = 2, mu = rep(0, 3), Sigma =
-             rbind(c(2, 1.2, 0.4), c(1.2, 2, 0.6), c(0.4, 0.6, 2)))
+x1 <- rmtd(10000, nu = 2, mu = rep(0, 3),
+           Sigma = rbind(c(2, 1.2, 0.4), c(1.2, 2, 0.6), c(0.4, 0.6, 2)))
 head(x1)
 ```
 
 ```{r}
 #| echo: true
 set.seed(1234)
-x2 <- rmtd(10000, nu = 4, mu = rep(0, 3), Sigma =
-             rbind(c(1, 0.3, 0.1), c(0.3, 1, 0.4), c(0.1, 0.4, 1)))
+x2 <- rmtd(10000, nu = 4, mu = rep(0, 3),
+           Sigma = rbind(c(1, 0.3, 0.1), c(0.3, 1, 0.4), c(0.1, 0.4, 1)))
 head(x2)
 ```
 
@@ -1778,10 +1778,12 @@ The value of @eq-kldmtdcase3exact is:
 
 ```{r}
 lambda <- unique(lambda)
-d <- -2*log((nu2 + sqrt(nu2*lambda))/(2*nu2)) + (sqrt(nu2) - sqrt(lambda))/(sqrt(nu2) + sqrt(lambda))
-kl3control <- log( (gamma((nu1+3)/2) * gamma(nu2/2) * nu2^1.5) / (gamma((nu2+3)/2) * gamma(nu1/2) * nu1^1.5) ) +
-  (nu2 - nu1)/2 * ( digamma((nu1+3)/2) - digamma(nu1/2) ) - 0.5*3*(log(lambda)) -
-  (nu2 + 3)/2 * d
+d <- -2*log((nu2 + sqrt(nu2*lambda))/(2*nu2)) +
+  (sqrt(nu2) - sqrt(lambda))/(sqrt(nu2) + sqrt(lambda))
+kl3control <-log(
+  (gamma((nu1+3)/2)*gamma(nu2/2)*nu2^1.5)/(gamma((nu2+3)/2)*gamma(nu1/2) * nu1^1.5)
+  ) + (nu2 - nu1)/2 * ( digamma((nu1+3)/2) - digamma(nu1/2) ) -
+  0.5*3*(log(lambda)) - (nu2 + 3)/2 * d
 kl3control
 
 ```
