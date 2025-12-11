@@ -578,7 +578,7 @@ In the examples below, the divergences between $\mathbf{X}^1$ and $\mathbf{X}^2$
 are computed using the functions `dlstudent` and `kld` from the
 [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package.
 
-The R codes which produce these graphics are given in the [appendix](@sec-appendix).
+The R codes which produce these graphics are given in appendix, see @sec-appendix.
 
 #### Among the degrees of freedom {.unnumbered .unlisted}
 
@@ -1113,7 +1113,7 @@ $\boldsymbol{\Sigma_2} = \left(\begin{array}{ccc}
 0.1 & 0.4 & 1
 \end{array}\right)$
 
-The R code which produce this table is given in @sec-appendix.
+The R code which produce this table is given in @sec-appenexetime.
 
 ```{r}
 #| label: tbl-extime1
@@ -1171,6 +1171,8 @@ $\boldsymbol{\Sigma}_1$ and $\boldsymbol{\Sigma}_2$ :
     
 We fix the wanted precision: $\epsilon = 10^{-6}$.
 
+The R code which produce this table is given in @sec-appenexetime.
+
 ```{r}
 #| label: tbl-extime2
 #| tbl-cap: "Evolution of the execution time among the wished precision of the divergence"
@@ -1196,6 +1198,8 @@ and $\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$,
 $s \in [0.1; 70]$.
 
 We fix the wanted precision: $\epsilon = 10^{-6}$.
+
+The R code which produce this table is given in @sec-appenexetime.
 
 ```{r}
 #| label: fig-extime3
@@ -1935,7 +1939,7 @@ distributions, and more generally to elliptical distributions.
 
 <!-- ::: -->
 
-# Appendices {#sec-appendix}
+# Appendix {#sec-appendix}
 
 ## Study of the divergence
 
@@ -1978,7 +1982,7 @@ distributions, and more generally to elliptical distributions.
 
 ### MGGD
 
-## Execution time
+## Execution time {#sec-appenexetime}
 
 #### Among the wanted precision {.unnumbered .unlisted}
 
