@@ -1859,7 +1859,50 @@ As a consequence:
 
 $$
 f(\lambda) = \frac{\nu_2}{\nu_2-2\lambda}-\ln(\frac{2\lambda}{\nu_2})+\frac{\nu_2^2\ln(\frac{2\lambda}{\nu_2})}{(\nu_2-2\lambda)^2} +\frac{1}{2}
-$$
+$$ {#eq-kldmtdcase4exact}
+
+```{r}
+nu1 <- 2
+Sigma1 <- diag(0.5, nrow = 4)
+Sigma1
+nu2 <- 3
+Sigma2 <- diag(1, nrow = 4)
+Sigma2
+```
+
+Let us compute the KLD to $\mathbf{X}^1$ from $\mathbf{X}^2$, using
+`kldstudent`:
+
+```{r}
+#| cache: true
+kl4pc <- kldstudent(nu1, Sigma1, nu2, Sigma2, eps = .Machine$double.eps)
+```
+
+Given the eigenvalues of $\boldsymbol{\Sigma}_1 \boldsymbol{\Sigma}_2^{-1}$:
+
+```{r}
+lambda <- eigen(Sigma1 %*% solve(Sigma2), only.values = TRUE)$value
+lambda
+```
+
+The value of @eq-kldmtdcase4exact is:
+
+```{r}
+lambda <- unique(lambda)
+d <-  nu2/(nu2 - 2*lambda) - log(2*lambda/nu2) +
+  nu2^2*log(2*lambda/nu2)/((nu2 - 2*lambda)^2) + 0.5
+kl4control <-log(
+  (gamma((nu1+4)/2)*gamma(nu2/2)*nu2^2)/(gamma((nu2+4)/2)*gamma(nu1/2) * nu1^2)
+  ) + (nu2 - nu1)/2 * ( digamma((nu1+4)/2) - digamma(nu1/2) ) -
+  0.5*4*(log(lambda)) - (nu2 + 4)/2 * d
+kl4control
+```
+
+Which is equal (to the precision $10^{-15}$) to `kl4pc`:
+
+```{r}
+as.numeric(kl4pc) - kl4control
+```
 
 # Conclusion and perspectives
 
