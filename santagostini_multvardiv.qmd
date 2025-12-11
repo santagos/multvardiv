@@ -1201,9 +1201,9 @@ We fix the wanted precision: $\epsilon = 10^{-6}$.
 #| label: fig-extime3
 #| fig-cap: "Evolution of the execution time among the divergence between the distributions"
 #| fig-subcap:
-#|    - "Nombre d'itérations"
-#|    - "Temps d'exécution"
-#| layout-ncol: 2
+#|    - "Rényi divergence"
+#|    - "Kullback-Leibler"
+#| layout-ncol: 1
 #| echo: false
 #| cache: true
 
