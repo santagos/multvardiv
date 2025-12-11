@@ -728,7 +728,7 @@ MTD (@sec-est_mtd) setting $\nu = 1$. Then the algorithm presented in
     -   Estimate
         $\hat{\boldsymbol{\Sigma}}=\frac{1}{N}\sum_{i=1}^{N}\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}(\mathbf{x}_i-\boldsymbol{\mu}')(\mathbf{x}_i-\boldsymbol{\mu}')^T$
 
-### Rényi divergence
+### Rényi divergence {#sec-renyimcd}
 
 Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of
 $\mathbb{R}^p$ from MCDs with probability density functions:
@@ -772,6 +772,88 @@ where $D$ depends on the values of $\lambda_1, \dots, \lambda_p$:
 -   If $\lambda_1 > 1$: $$
       \displaystyle{ D = \prod_{i=1}^p\frac{1}{\sqrt{\lambda_i}} \times \frac{\partial}{\partial a} \bigg\{ F_D^{(p)} \bigg( \frac{1+p}{2}, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}}_p ; a + \frac{1+p}{2} ; 1 - \frac{1}{\lambda_1}, \dots, 1 - \frac{1}{\lambda_p} \bigg) \bigg\}\bigg|_{a=0} }
       $$ {#eq-klmcd3}
+
+### Study of the divergence
+
+As we did for the MTD, we look here how the divergence between two
+multivariate Cauchy distributions depend on the values of the parameters.
+
+Let:
+$\mathbf{X}^1 \sim f_{\mathbf{X}^1}(\mathbf{x}|\boldsymbol{0}, \boldsymbol{\Sigma}_1)$
+and
+$\mathbf{X}^2 \sim f_{\mathbf{X}^2}(\mathbf{x}|\boldsymbol{0}, \boldsymbol{\Sigma}_2)$.
+
+In the examples below, the divergences between $\mathbf{X}^1$ and $\mathbf{X}^2$
+are computed using the functions `dlstudent` (Rényi, Bhattacharyya and
+Hellinger divergences, setting $\nu_1 = nu_2 = 1$, see @sec-renyimcd) and
+`kld` from the [`multvardiv`](https://CRAN.R-project.org/package=multvardiv)
+package.
+
+The R codes which produce these graphics are given in appendix, see @sec-appendix.
+
+#### Among the scale matrix: first situation {.unnumbered .unlisted}
+
+Let $\mathbf{X}^1 \sim MCD(\mathbf{0}, \boldsymbol{\Sigma}^1)$
+and $\mathbf{X}^2 \sim MCD(\mathbf{0}, \boldsymbol{\Sigma}^2)$
+
+where $\boldsymbol{\boldsymbol{\Sigma}}_2 = \left(\begin{array}{cc}
+3 & 0.3 \\
+0.3 & 1
+\end{array}\right)$
+et $\boldsymbol{\boldsymbol{\Sigma}}_1 = \left(\begin{array}{cc}
+s_1 & 0.3 \\
+0.3 & 1
+\end{array}\right)$, $s_1 \in ]0 ; 30]$.
+
+The results are showed in @fig-divsigma11cauchy.
+For each of these divergences,
+$D(X^1 \parallel X^2) = 0$ when $s_1 = \boldsymbol{\Sigma}^2_{1, 1}$.
+For $s_1 \in ]0; \boldsymbol{\Sigma}^2_{1, 1}]$, the divergence decreases quickly to 0,
+then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges.
+
+```{r}
+#| label: fig-divsigma11cauchy
+#| fig-cap: "Divergence between the distributions $\\mathbf{X}^1$ et $\\mathbf{X}^2$"
+#| fig-subcap:
+#|    - "Renyi ($\\beta = 0.25$)"
+#|    - "Renyi ($\\beta = 1.5$)"
+#|    - "Bhattacharyya"
+#|    - "Hellinger"
+#|    - "Kullback-Leibler"
+#| layout-ncol: 2
+#| cache: true
+
+{{< include _append_1_4.R >}}
+```
+
+#### Among the scale matrix: second situation {.unnumbered .unlisted}
+
+Let $\mathbf{X}^1 \sim MCD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_1)$
+and $\mathbf{X}^2 \sim MCD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_2)$
+
+where $\nu = 1.5$,  
+$\boldsymbol{\Sigma}_2 = \left(\begin{array}{cc}
+1 & 0.3 \\
+0.3 & 1
+\end{array}\right)$  
+and $\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$, $s \in ]0 ; 70]$.
+
+The results are showed in @fig-divsigma12.
+
+```{r}
+#| label: fig-divsigma12cauchy
+#| fig-cap: "Divergence between the distributions $\\mathbf{X}^1$ et $\\mathbf{X}^2$"
+#| fig-subcap:
+#|    - "Renyi ($\\beta = 0.25$)"
+#|    - "Renyi ($\\beta = 1.5$)"
+#|    - "Bhattacharyya"
+#|    - "Hellinger"
+#|    - "Kullback-Leibler"
+#| layout-ncol: 2
+#| cache: true
+
+{{< include _append_1_3.R >}}
+```
 
 ## Multivariate generalized Gaussian distribution
 
@@ -1991,6 +2073,28 @@ distributions, and more generally to elliptical distributions.
 ```
 
 ### Multivariate Cauchy distribution
+
+#### Among the scale matrix: first situation {.unnumbered .unlisted}
+
+```{r}
+#| label: code-divsigma11cauchy
+#| eval: false
+#| code-fold: show
+#| warning: true
+
+{{< include _append_1_4.R >}}
+```
+
+#### Among the scale matrix: second situation {.unnumbered .unlisted}
+
+```{r}
+#| label: code-divsigma12cauchy
+#| eval: false
+#| code-fold: show
+#| warning: true
+
+{{< include _append_1_5.R >}}
+```
 
 ### MGGD
 
