@@ -728,6 +728,18 @@ MTD (@sec-est_mtd) setting $\nu = 1$. Then the algorithm presented in
     -   Estimate
         $\hat{\boldsymbol{\Sigma}}=\frac{1}{N}\sum_{i=1}^{N}\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}(\mathbf{x}_i-\boldsymbol{\mu}')(\mathbf{x}_i-\boldsymbol{\mu}')^T$
 
+### Rényi divergence
+
+Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of
+$\mathbb{R}^p$ from MCDs with probability density functions:
+$$\displaystyle{ f_{\mathbf{X}^1}\left(\mathbf{x}|\boldsymbol{\Sigma}_1\right) = f_{\mathbf{X}^1}\left(\mathbf{x}|\mathbf{0}, \boldsymbol{\Sigma}_1\right) = \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\boldsymbol{\Sigma}_1|^\frac{1}{2} \left[ 1 + \mathbf{x}^T \boldsymbol{\Sigma}_1^{-1} \mathbf{x} \right]^\frac{1+p}{2}} }$$
+and
+$$\displaystyle{ f_{\mathbf{X}^2}\left(\mathbf{x}|\boldsymbol{\Sigma}_2\right) = f_{\mathbf{X}^2}\left(\mathbf{x}|\mathbf{0}, \boldsymbol{\Sigma}_2\right) =  \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\boldsymbol{\Sigma}_2|^\frac{1}{2} \left[ 1 + \mathbf{x}^T \boldsymbol{\Sigma}_2^{-1} \mathbf{x} \right]^\frac{1+p}{2}} }$$
+
+As the MCD is a particular case of the MTD,
+the Rényi divergence between $\mathbf{X}^1$ and $\mathbf{X}^2$
+can be computed using @eq-rdmtd, setting $\nu_1 = 1$ and $\nu_2 = 1$.
+
 ### Kullback-Leibler divergence
 
 Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of
