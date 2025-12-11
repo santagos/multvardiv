@@ -49,13 +49,17 @@ kl <- data.frame(s = S, kl_iter = iter, kl_exetime = kltimes,
 # Plot of the execution times
 exetime <- merge(renyi, kl)
 plot(renyi_iter~renyi_div, data = exetime, type = "b", pch = 16,
-     main = "Rényi", xlab = "Divergence", ylab = "Number of iterations")
+     main = "Rényi", xlab = "Computed divergence",
+     ylab = "Number of iterations")
 plot(kl_iter~kl_div, data = exetime, type = "b", pch = 16,
-     main = "Kullback-Leibler", xlab = "Divergence", ylab = "Number of iterations")
+     main = "Kullback-Leibler", xlab = "Computed divergence",
+     ylab = "Number of iterations")
 plot(renyi_exetime~renyi_div, data = exetime, type = "b", pch = 16,
-     main = "Rényi", xlab = "Divergence", ylab = "Execution time")
+     main = "Rényi", xlab = "Computed divergence",
+     ylab = "Execution time")
 plot(kl_exetime~kl_div, data = exetime, type = "b", pch = 16,
-     main = "Kullback-Leibler", xlab = "Divergence", ylab = "Execution time")
+     main = "Kullback-Leibler", xlab = "Computed divergence",
+     ylab = "Execution time")
 
 # legend("topleft", legend = c("Rényi", "Kullback-Leibler"), col = 1:2, pch = 16)
 # matplot(x = exetime$kl_div,
