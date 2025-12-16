@@ -469,6 +469,8 @@ matrix $\boldsymbol{\Sigma}_1 \boldsymbol{\Sigma}_2^{-1}$ sorted in increasing o
 $\lambda_1 < \dots < \lambda_p$. Let $\delta_1 = \frac{\nu_1+p}{2}\beta$
 and $\delta_2 = \frac{\nu_2+p}{2}(1-\beta)$.
 
+If the following condition is verified:
+$$\delta_1 + \delta_2 - \frac{p}{2} > 0$${#eq-cond_delta}
 @bouhlel23 shows that the RD of order $\beta$ between $\mathbf{X}^1$ and
 $\mathbf{X}^2$ is given by:
 
@@ -1103,6 +1105,9 @@ nu2 <- par2$nu; Sigma2 = par2$Sigma
 #| echo: true
 rd12 <- diststudent(nu1, Sigma1, nu2, Sigma2, bet = 0.5)
 ```
+
+This needs that the condition @eq-cond_delta is verified.
+If it is not, there is a warnig and `NaN` is returned.
 
 The calculation of the Lauricella $D$-hypergeometric function, involved
 in the calculation of the RD between two MTDs (see @eq-rmtd) uses an
