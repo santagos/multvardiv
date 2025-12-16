@@ -1016,7 +1016,7 @@ For $s_1 \in ]0; \boldsymbol{\Sigma}^2_{1, 1}]$, the divergence decreases quickl
 then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges.
 
 ```{r}
-#| label: fig-divsigma11ggd.
+#| label: fig-divsigma11ggd
 #| fig-cap: "Kullback-Leibler divergence between the distributions $\\mathbf{X}^1$ and $\\mathbf{X}^2$"
 #| cache: true
 
