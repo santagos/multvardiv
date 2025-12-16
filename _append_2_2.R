@@ -55,7 +55,8 @@ iter[4] <- attr(d, "k")
 #               dist = "renyi", bet = 0.25)
 # )
 
-renyi_exetime <- data.frame(dim = 1:4, iter = iter, exetime = times)
+renyi_time2 <- times[2]
+renyi_exetime <- data.frame(dim = 1:4, iter = iter, exetime = times/renyi_time2)
 
 
 # Kullback-Leibler divergence
@@ -115,7 +116,8 @@ iter[4] <- attr(d, "k")
 #               dist = "renyi", bet = 0.25)
 # )
 
-kl_exetime <- data.frame(dim = 1:4, iter = iter, exetime = times)
+kl_time2 <- times[2]
+kl_exetime <- data.frame(dim = 1:4, iter = iter, exetime = times/kl_time2)
 
 
 # Table of the execution times
