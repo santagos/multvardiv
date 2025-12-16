@@ -23,6 +23,9 @@ approach is very different from functions provided by existing R packages such a
 [`dlookr`](https://CRAN.R-project.org/package=dlookr),
 [`LaplacesDemon`](https://web.archive.org/web/20150206004624/http://www.bayesian-inference.com/software),
 which allow the computation of statistical divergence in discrete case [@philentropy; @FNN; @dlookr; @LaplacesDemon].  
+The [`dad`](https://doi.org/10.32614/RJ-2021-071) package provides functions
+which compute the distance (including Hellinger or Jeffreys, i.e. symmetrized Kullback-Leibler) or divergence between multivariate Gaussian distributions
+or distributions estimated by the Gaussian kernel [@dad].
 
 <!-- The Kullback-Leibler divergence (KLD) is a measure of the dissimilarity -->
 <!-- between two univariate or multivariate probability distributions. -->
@@ -2057,6 +2060,7 @@ distributions, and more generally to elliptical distributions.
 ```{r}
 #| label: code-divnu1
 #| eval: false
+#| echo: true
 #| code-fold: show
 #| warning: true
 
@@ -2068,6 +2072,7 @@ distributions, and more generally to elliptical distributions.
 ```{r}
 #| label: code-divsigma11
 #| eval: false
+#| echo: true
 #| code-fold: show
 #| warning: true
 
@@ -2079,6 +2084,7 @@ distributions, and more generally to elliptical distributions.
 ```{r}
 #| label: code-divsigma12
 #| eval: false
+#| echo: true
 #| code-fold: show
 #| warning: true
 
@@ -2092,6 +2098,7 @@ distributions, and more generally to elliptical distributions.
 ```{r}
 #| label: code-divsigma11cauchy
 #| eval: false
+#| echo: true
 #| code-fold: show
 #| warning: true
 
@@ -2103,6 +2110,7 @@ distributions, and more generally to elliptical distributions.
 ```{r}
 #| label: code-divsigma12cauchy
 #| eval: false
+#| echo: true
 #| code-fold: show
 #| warning: true
 
@@ -2118,6 +2126,7 @@ distributions, and more generally to elliptical distributions.
 ```{r}
 #| label: code-extime1
 #| eval: false
+#| echo: true
 #| code-fold: show
 
 {{< include _append_2_1.R >}}
@@ -2128,6 +2137,7 @@ distributions, and more generally to elliptical distributions.
 ```{r}
 #| label: code-extime2
 #| eval: false
+#| echo: true
 #| code-fold: show
 
 {{< include _append_2_2.R >}}
@@ -2138,6 +2148,7 @@ distributions, and more generally to elliptical distributions.
 ```{r}
 #| label: code-extime3
 #| eval: false
+#| echo: true
 #| code-fold: show
 
 {{< include _append_2_3.R >}}
