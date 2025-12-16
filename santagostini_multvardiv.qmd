@@ -976,6 +976,75 @@ the KLD is given by: $$
     KL(X^1||X^2) = \displaystyle{\ln\left( \frac{\frac{\beta_1}{\sqrt{\sigma_1}} \Gamma\left(\frac{1}{2\beta_2}\right)}{\frac{\beta_2}{\sqrt{\sigma_2}} \Gamma\left(\frac{1}{2\beta_1}\right)} \right) + \frac{1}{2}\left(\frac{1}{\beta_2} - \frac{1}{\beta_1}\right) \ln{2} - \frac{1}{2\beta_2} + 2^{\frac{\beta_2}{\beta_1}-1} \ \frac{\Gamma\left(\frac{\beta_2}{\beta_1}+\frac{1}{\beta_1}\right)}{\Gamma\left(\frac{1}{2\beta_1}\right)}\ \left(\frac{\sigma_1}{\sigma_2}\right)^{\beta_2}}
 $$
 
+### Study of the divergence
+
+As for the MTD and the MCD, we look here how the divergence between two
+multivariate generalized Gaussian distributions depend on the values of
+the parameters.
+
+Let:
+$\mathbf{X}^1 \sim f_{\mathbf{X}^1}(\mathbf{x}|\boldsymbol{0}, \boldsymbol{\Sigma}_1)$
+and
+$\mathbf{X}^2 \sim f_{\mathbf{X}^2}(\mathbf{x}|\boldsymbol{0}, \boldsymbol{\Sigma}_2)$.
+
+In the examples below, the divergences between $\mathbf{X}^1$ and $\mathbf{X}^2$
+are computed using the functions `dlstudent` (Rényi, Bhattacharyya and
+Hellinger divergences, setting $\nu_1 = nu_2 = 1$, see @sec-renyimcd) and
+`kld` from the [`multvardiv`](https://CRAN.R-project.org/package=multvardiv)
+package.
+
+The R codes which produce these graphics are given in appendix, see @sec-appendix.
+
+#### Among the scale matrix: first situation {.unnumbered .unlisted}
+
+Let $\mathbf{X}^1 \sim MGGD(\mathbf{0}, \boldsymbol{\Sigma}^1, \beta_1)$
+and $\mathbf{X}^2 \sim MGGD(\mathbf{0}, \boldsymbol{\Sigma}^2, \beta_2)$
+
+where $\boldsymbol{\boldsymbol{\Sigma}}_2 = \left(\begin{array}{cc}
+3 & 0.3 \\
+0.3 & 1
+\end{array}\right)$
+and $\boldsymbol{\boldsymbol{\Sigma}}_1 = \left(\begin{array}{cc}
+s_1 & 0.3 \\
+0.3 & 1
+\end{array}\right)$, $s_1 \in ]0 ; 1000]$.
+
+The results are showed in @fig-divsigma11ggd.
+For each of these divergences,
+$D(X^1 \parallel X^2) = 0$ when $s_1 = \boldsymbol{\Sigma}^2_{1, 1}$.
+For $s_1 \in ]0; \boldsymbol{\Sigma}^2_{1, 1}]$, the divergence decreases quickly to 0,
+then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges.
+
+```{r}
+#| label: fig-divsigma11ggd.
+#| fig-cap: "Kullback-Leibler divergence between the distributions $\\mathbf{X}^1$ and $\\mathbf{X}^2$"
+#| cache: true
+
+{{< include _append_1_6.R >}}
+```
+
+#### Among the scale matrix: second situation {.unnumbered .unlisted}
+
+Let $\mathbf{X}^1 \sim MCD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_1)$
+and $\mathbf{X}^2 \sim MCD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_2)$
+
+where $\nu = 1.5$,  
+$\boldsymbol{\Sigma}_2 = \left(\begin{array}{cc}
+1 & 0.3 \\
+0.3 & 1
+\end{array}\right)$  
+and $\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$, $s \in ]0 ; 70]$.
+
+The results are showed in @fig-divsigma12ggd
+
+```{r}
+#| label: fig-divsigma12ggd
+#| fig-cap: "Kullback-Leibler divergence between the distributions $\\mathbf{X}^1$ and $\\mathbf{X}^2$"
+#| cache: true
+
+{{< include _append_1_7.R >}}
+```
+
 # The multvardiv package
 
 <!-- ## Other probability distributions: Multivariate Cauchy distributions, Multivariate generalized Gaussian distributions -->
