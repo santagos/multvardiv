@@ -1107,7 +1107,7 @@ rd12 <- diststudent(nu1, Sigma1, nu2, Sigma2, bet = 0.5)
 ```
 
 This needs that the condition given by @eq-cond_delta is verified.
-If it is not, there is a warnig and `NaN` is returned.
+If it is not, there is a warning and `NaN` is returned.
 
 The calculation of the Lauricella $D$-hypergeometric function, involved
 in the calculation of the RD between two MTDs (see @eq-rmtd) uses an
