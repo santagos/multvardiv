@@ -20,9 +20,9 @@ for (i in 1:length(epsilon)) {
   iter[i] <- attr(d, "k")
 }["elapsed"]
 
-renyi_exetime0 <- times[1]
+renyi_exetime6 <- times[7]
 renyi_exetime <- data.frame(eps = epsilon, iter = iter,
-                            exetime = times/renyi_exetime0)
+                            exetime = times/renyi_exetime6)
 
 
 # Kullback-Leibler divergence
@@ -39,9 +39,9 @@ for (i in 1:length(epsilon)) {
   iter[i] <- attr(d, "k")
 }
 
-kl_exetime0 <- times[1]
+kl_exetime6 <- times[7]
 kl_exetime <- data.frame(eps = epsilon, iter = iter,
-                         exetime = times/kl_exetime0)
+                         exetime = times/kl_exetime6)
 
 
 # Table of the execution times

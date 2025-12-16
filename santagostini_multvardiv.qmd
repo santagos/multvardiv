@@ -1212,8 +1212,6 @@ $\boldsymbol{\Sigma_2} = \left(\begin{array}{ccc}
 0.1 & 0.4 & 1
 \end{array}\right)$
 
-The R code which produce this table is given in appendix, see @sec-appenexetime.
-
 ```{r}
 #| label: tbl-extime1
 #| tbl-cap: "Evolution of the execution time among the wished precision of the divergence"
@@ -1222,6 +1220,11 @@ The R code which produce this table is given in appendix, see @sec-appenexetime.
 
 {{< include _append_2_1.R >}}
 ```
+
+In @tbl-extime1, the times are normalized by taking as reference
+the execution time to reach the precision $10^{-6}$: `r renyi_exetime6` (Rényi)
+or `r kl_exetime6` (Kullback-Leibler).
+The R code which produce the table is given in appendix, see @sec-appenexetime.
 
 ### Among the dimension of the distributions
 
