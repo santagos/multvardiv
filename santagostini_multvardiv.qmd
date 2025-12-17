@@ -1412,6 +1412,7 @@ $s \in [0.1; 70]$.
 
 We fix the wanted precision: $\epsilon = 10^{-6}$.
 
+The results are given by @fig-extime3.
 The R code which produce this table is given in appendix, see @sec-appenexetime.
 
 ```{r}
@@ -1420,6 +1421,7 @@ The R code which produce this table is given in appendix, see @sec-appenexetime.
 #| fig-subcap:
 #|    - "Rényi divergence"
 #|    - "Kullback-Leibler"
+#| fig-height: 4.7
 #| layout-ncol: 1
 #| echo: false
 #| cache: true
