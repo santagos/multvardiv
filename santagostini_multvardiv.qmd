@@ -643,6 +643,7 @@ then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges
 
 ```{r}
 #| label: fig-divsigma11
+#| echo: false
 #| fig-cap: "Divergence between the distributions $\\mathbf{X}^1$ et $\\mathbf{X}^2$"
 #| fig-subcap:
 #|    - "Renyi ($\\beta = 0.25$)"
@@ -672,6 +673,7 @@ The results are showed in @fig-divsigma12.
 
 ```{r}
 #| label: fig-divsigma12
+#| echo: false
 #| fig-cap: "Divergence between the distributions $\\mathbf{X}^1$ et $\\mathbf{X}^2$"
 #| fig-subcap:
 #|    - "Renyi ($\\beta = 0.25$)"
@@ -818,6 +820,7 @@ then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges
 
 ```{r}
 #| label: fig-divsigma11cauchy
+#| echo: false
 #| fig-cap: "Divergence between the distributions $\\mathbf{X}^1$ et $\\mathbf{X}^2$"
 #| fig-subcap:
 #|    - "Renyi ($\\beta = 0.25$)"
@@ -847,6 +850,7 @@ The results are showed in @fig-divsigma12.
 
 ```{r}
 #| label: fig-divsigma12cauchy
+#| echo: false
 #| fig-cap: "Divergence between the distributions $\\mathbf{X}^1$ et $\\mathbf{X}^2$"
 #| fig-subcap:
 #|    - "Renyi ($\\beta = 0.25$)"
@@ -1017,6 +1021,7 @@ then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges
 
 ```{r}
 #| label: fig-divsigma11ggd
+#| echo: false
 #| fig-cap: "Kullback-Leibler divergence between the distributions $\\mathbf{X}^1$ and $\\mathbf{X}^2$"
 #| cache: true
 
@@ -1035,10 +1040,11 @@ $\boldsymbol{\Sigma}_2 = \left(\begin{array}{cc}
 \end{array}\right)$  
 and $\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$, $s \in ]0 ; 70]$.
 
-The results are showed in @fig-divsigma12ggd
+The results are showed in @fig-divsigma12ggd.
 
 ```{r}
 #| label: fig-divsigma12ggd
+#| echo: false
 #| fig-cap: "Kullback-Leibler divergence between the distributions $\\mathbf{X}^1$ and $\\mathbf{X}^2$"
 #| cache: true
 
@@ -1064,8 +1070,8 @@ then for $\beta_1 \in ]\beta_2; +\infty]$, it increases slowly and converges
 to a limit.
 
 ```{r}
-#| echo: false
 #| label: fig-divbeta
+#| echo: false
 #| fig-cap: "Kullback-Leibler divergence between the distributions $\\mathbf{X}^1$ et $\\mathbf{X}^2$"
 #| warning: false
 #| cache: true
@@ -2215,6 +2221,42 @@ distributions, and more generally to elliptical distributions.
 ```
 
 ### MGGD
+
+#### Among the scale matrix: first situation {.unnumbered .unlisted}
+
+```{r}
+#| label: code-divsigma11ggd
+#| eval: false
+#| echo: true
+#| code-fold: show
+#| warning: true
+
+{{< include _append_1_6.R >}}
+```
+
+#### Among the scale matrix: second situation {.unnumbered .unlisted}
+
+```{r}
+#| label: code-divsigma12ggd
+#| eval: false
+#| echo: true
+#| code-fold: show
+#| warning: true
+
+{{< include _append_1_7.R >}}
+```
+
+#### Among the shapes of the distributions {.unbetambered .unlisted}
+
+```{r}
+#| label: code-divbeta
+#| eval: false
+#| echo: true
+#| code-fold: show
+#| warning: true
+
+{{< include _append_1_8.R >}}
+```
 
 ## Execution time {#sec-appenexetime}
 
