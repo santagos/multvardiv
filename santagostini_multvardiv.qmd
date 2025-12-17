@@ -1045,7 +1045,7 @@ The results are showed in @fig-divsigma12ggd
 {{< include _append_1_7.R >}}
 ```
 
-#### Among the degrees of freedom {.unbetambered .unlisted}
+#### Among the shapes of the distributions {.unbetambered .unlisted}
 
 Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \boldsymbol{\Sigma}, \beta_1)$
 and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \boldsymbol{\Sigma}, \beta_2)$
