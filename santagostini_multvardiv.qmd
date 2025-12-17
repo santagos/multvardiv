@@ -1045,6 +1045,34 @@ The results are showed in @fig-divsigma12ggd
 {{< include _append_1_7.R >}}
 ```
 
+#### Among the degrees of freedom {.unbetambered .unlisted}
+
+Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \boldsymbol{\Sigma}, \beta_1)$
+and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \boldsymbol{\Sigma}, \beta_2)$
+
+where $\beta_1$ take values in $]0 ; 50]$, $\beta_2 = 0.74$, and
+$\boldsymbol{\Sigma} = \left(\begin{array}{cc}
+1 & 0.3 \\
+0.3 & 1
+\end{array}\right)$.
+
+The results are showed in @fig-divbeta.
+Obviously, for each of these divergences,
+$D(X^1 \parallel X^2) = 0$ when $\beta_1 = \beta_2$.
+For $\beta_1 \in ]0; \beta_2]$, the divergence decreases quickly to 0,
+then for $\beta_1 \in ]\beta_2; +\infty]$, it increases slowly and converges
+to a limit.
+
+```{r}
+#| echo: false
+#| label: fig-divbeta
+#| fig-cap: "Kullback-Leibler divergence between the distributions $\\mathbf{X}^1$ et $\\mathbf{X}^2$"
+#| warning: false
+#| cache: true
+
+{{< include _append_1_8.R >}}
+```
+
 # The multvardiv package
 
 <!-- ## Other probability distributions: Multivariate Cauchy distributions, Multivariate generalized Gaussian distributions -->
