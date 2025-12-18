@@ -1,7 +1,7 @@
-s <- 3
+s <- 10#3
 
 # Values of Sigma1[1, 1]
-s1 <- c(seq(0.1, s, by = 0.05), seq(s+1, 1000, by = 1))
+s1 <- c(seq(0.1, s, by = 0.05), seq(s+1, 100, by = 1))
 
 # The other parameters
 Sigma1 <- Sigma2 <- matrix(c(s, 0.3, 0.3, 1), nrow = 2)
