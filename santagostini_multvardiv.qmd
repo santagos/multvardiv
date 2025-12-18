@@ -614,6 +614,7 @@ to a limit.
 #|    - "Hellinger"
 #|    - "Kullback-Leibler"
 #| layout-ncol: 2
+#| fig-width: 7
 #| fig-height: 3.5
 #| warning: false
 #| cache: true
@@ -654,6 +655,7 @@ then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges
 #|    - "Hellinger"
 #|    - "Kullback-Leibler"
 #| layout-ncol: 2
+#| fig-width: 7
 #| fig-height: 3.5
 #| cache: true
 
@@ -686,6 +688,7 @@ The results are showed in @fig-divsigma12.
 #|    - "Hellinger"
 #|    - "Kullback-Leibler"
 #| layout-ncol: 2
+#| fig-width: 7
 #| fig-height: 3.5
 #| cache: true
 
@@ -835,6 +838,7 @@ then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges
 #|    - "Hellinger"
 #|    - "Kullback-Leibler"
 #| layout-ncol: 2
+#| fig-width: 7
 #| fig-height: 3.5
 #| cache: true
 
@@ -867,6 +871,7 @@ The results are showed in @fig-divsigma12.
 #|    - "Hellinger"
 #|    - "Kullback-Leibler"
 #| layout-ncol: 2
+#| fig-width: 7
 #| fig-height: 3.5
 #| cache: true
 
@@ -1033,6 +1038,7 @@ then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges
 #| label: fig-divsigma11ggd
 #| echo: false
 #| fig-cap: "Kullback-Leibler divergence between the distributions $\\mathbf{X}^1$ and $\\mathbf{X}^2$"
+#| fig-width: 3.5
 #| fig-height: 2.35
 #| cache: true
 
@@ -1058,6 +1064,7 @@ The results are showed in @fig-divsigma12ggd.
 #| label: fig-divsigma12ggd
 #| echo: false
 #| fig-cap: "Kullback-Leibler divergence between the distributions $\\mathbf{X}^1$ and $\\mathbf{X}^2$"
+#| fig-width: 3.5
 #| fig-height: 2.35
 #| cache: true
 
@@ -1088,6 +1095,7 @@ to a limit.
 #| echo: false
 #| fig-cap: "Kullback-Leibler divergence between the distributions $\\mathbf{X}^1$ et $\\mathbf{X}^2$"
 #| warning: false
+#| fig-width: 3.5
 #| fig-height: 2.35
 #| cache: true
 
@@ -1438,6 +1446,7 @@ The R code which produce this table is given in appendix, see @sec-appenexetime.
 #|    - "Rényi divergence"
 #|    - "Kullback-Leibler"
 #| fig-height: 4.7
+#| fig-width: 7
 #| layout-ncol: 1
 #| echo: false
 #| cache: true
