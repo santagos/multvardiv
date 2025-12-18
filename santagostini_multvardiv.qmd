@@ -614,6 +614,7 @@ to a limit.
 #|    - "Hellinger"
 #|    - "Kullback-Leibler"
 #| layout-ncol: 2
+#| fig-height: 3.5
 #| warning: false
 #| cache: true
 
@@ -653,6 +654,7 @@ then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges
 #|    - "Hellinger"
 #|    - "Kullback-Leibler"
 #| layout-ncol: 2
+#| fig-height: 3.5
 #| cache: true
 
 par(mar = c(4.1, 4.1, 3.1, 2.1))
@@ -684,6 +686,7 @@ The results are showed in @fig-divsigma12.
 #|    - "Hellinger"
 #|    - "Kullback-Leibler"
 #| layout-ncol: 2
+#| fig-height: 3.5
 #| cache: true
 
 par(mar = c(4.1, 4.1, 3.1, 2.1))
@@ -832,6 +835,7 @@ then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges
 #|    - "Hellinger"
 #|    - "Kullback-Leibler"
 #| layout-ncol: 2
+#| fig-height: 3.5
 #| cache: true
 
 par(mar = c(4.1, 4.1, 3.1, 2.1))
@@ -863,6 +867,7 @@ The results are showed in @fig-divsigma12.
 #|    - "Hellinger"
 #|    - "Kullback-Leibler"
 #| layout-ncol: 2
+#| fig-height: 3.5
 #| cache: true
 
 par(mar = c(4.1, 4.1, 3.1, 2.1))
@@ -1028,6 +1033,7 @@ then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges
 #| label: fig-divsigma11ggd
 #| echo: false
 #| fig-cap: "Kullback-Leibler divergence between the distributions $\\mathbf{X}^1$ and $\\mathbf{X}^2$"
+#| fig-height: 2.35
 #| cache: true
 
 par(mar = c(4.1, 4.1, 3.1, 2.1))
@@ -1052,6 +1058,7 @@ The results are showed in @fig-divsigma12ggd.
 #| label: fig-divsigma12ggd
 #| echo: false
 #| fig-cap: "Kullback-Leibler divergence between the distributions $\\mathbf{X}^1$ and $\\mathbf{X}^2$"
+#| fig-height: 2.35
 #| cache: true
 
 par(mar = c(4.1, 4.1, 3.1, 2.1))
@@ -1081,6 +1088,7 @@ to a limit.
 #| echo: false
 #| fig-cap: "Kullback-Leibler divergence between the distributions $\\mathbf{X}^1$ et $\\mathbf{X}^2$"
 #| warning: false
+#| fig-height: 2.35
 #| cache: true
 
 par(mar = c(4.1, 4.1, 3.1, 2.1))
