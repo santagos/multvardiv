@@ -1,7 +1,7 @@
 s <- 3
 
 # Values of Sigma1[1, 1]
-s1 <- c(seq(0.1, s, by = 0.05), seq(s+1, 70, by = 1))
+s1 <- c(seq(0.1, s, by = 0.05), seq(s+1, 50, by = 1))
 
 # The other parameters
 nu <- 1

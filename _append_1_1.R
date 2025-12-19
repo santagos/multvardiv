@@ -1,7 +1,7 @@
 nu <- 2#5
 
 # Values of nu1
-nu1 <- c(seq(0.1, nu, by = 0.1), seq(nu+1, 50, by = 2))
+nu1 <- c(seq(0.1, nu, by = 0.1), seq(nu+1, 25, by = 1))
 
 # Fixed values of the other parameters
 nu2 <- nu
