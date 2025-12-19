@@ -124,7 +124,7 @@ kl_exetime <- data.frame(dim = 1:4, iter = iter, exetime = times/kl_time2)
 
 library(kableExtra)
 data.frame(renyi_exetime$dim, renyi_exetime[2:3], kl_exetime[2:3]) %>%
-  kbl(col.names = c("Dimension", "Number of iterations", "Execution time",
-                    "Number of iterations", "Execution time")) %>%
+  kbl(col.names = c("Dimension", "Number of iterations", "Execution time (s)",
+                    "Number of iterations", "Execution time (s)")) %>%
   add_header_above(c(" " = 1, "Rényi divergence" = 2,
                      "Kullback-Leibler divergence" = 2))
