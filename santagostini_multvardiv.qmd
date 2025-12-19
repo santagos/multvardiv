@@ -588,8 +588,8 @@ The R codes which produce these graphics are given in appendix, see @sec-appendi
 
 #### Among the degrees of freedom {.unnumbered .unlisted}
 
-Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma})$
-and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu_2, \boldsymbol{\Sigma})$
+Let $\mathbf{X}^1 \sim \text{MTD}(\mathbf{0}, \nu_1, \boldsymbol{\Sigma})$
+and $\mathbf{X}^2 \sim \text{MTD}(\mathbf{0}, \nu_2, \boldsymbol{\Sigma})$
 
 where $\nu_1$ take values in $]0 ; 50]$, $\nu_2 = 2$, and
 $\boldsymbol{\Sigma} = \left(\begin{array}{cc}
@@ -626,8 +626,8 @@ par(mar = c(4.1, 4.1, 3.1, 2.1))
 
 #### Among the scale matrix: first situation {.unnumbered .unlisted}
 
-Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}^1)$
-and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}^2)$
+Let $\mathbf{X}^1 \sim \text{MTD}(\mathbf{0}, \nu, \boldsymbol{\Sigma}^1)$
+and $\mathbf{X}^2 \sim \text{MTD}(\mathbf{0}, \nu, \boldsymbol{\Sigma}^2)$
 
 where $\nu = 1$,
 $\boldsymbol{\Sigma}^2 = \left(\begin{array}{cc}
@@ -666,8 +666,8 @@ par(mar = c(4.1, 4.1, 3.1, 2.1))
 
 #### Among the scale matrix: second situation {.unnumbered .unlisted}
 
-Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_1)$
-and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_2)$
+Let $\mathbf{X}^1 \sim \text{MTD}(\mathbf{0}, \nu, \boldsymbol{\Sigma}_1)$
+and $\mathbf{X}^2 \sim \text{MTD}(\mathbf{0}, \nu, \boldsymbol{\Sigma}_2)$
 
 where $\nu = 1.5$,  
 $\boldsymbol{\Sigma}_2 = \left(\begin{array}{cc}
@@ -1076,8 +1076,8 @@ par(mar = c(4.1, 4.1, 3.1, 2.1))
 
 #### Among the shapes of the distributions {.unbetambered .unlisted}
 
-Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \boldsymbol{\Sigma}, \beta_1)$
-and $\mathbf{X}^2 \sim MTD(\mathbf{0}, \boldsymbol{\Sigma}, \beta_2)$
+Let $\mathbf{X}^1 \sim \text{MGGD}(\mathbf{0}, \boldsymbol{\Sigma}, \beta_1)$
+and $\mathbf{X}^2 \sim \text{MGGD}(\mathbf{0}, \boldsymbol{\Sigma}, \beta_2)$
 
 where $\beta_1$ take values in $]0 ; 50]$, $\beta_2 = 0.74$, and
 $\boldsymbol{\Sigma} = \left(\begin{array}{cc}
@@ -1328,8 +1328,8 @@ kld12
 How does the execution time increase when the precision increases?
 
 We consider the distributions:
-$X^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma_1})$ and
-$X^2 \sim MTD(\mathbf{0}, \nu_2, \boldsymbol{\Sigma_2})$
+$X^1 \sim \text{MTD}(\mathbf{0}, \nu_1, \boldsymbol{\Sigma_1})$ and
+$X^2 \sim \text{MTD}(\mathbf{0}, \nu_2, \boldsymbol{\Sigma_2})$
 
 with $\nu_1 = 2$ and $\nu_2 = 4$,
 $\boldsymbol{\Sigma_1} = \left(\begin{array}{ccc}
@@ -1361,8 +1361,8 @@ The R code which produce the table is given in appendix, see @sec-appenexetime.
 ### Among the dimension of the distributions
 
 We consider the distributions:
-$X^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma_1})$ and
-$X^2 \sim MTD(\mathbf{0}, \nu_2, \boldsymbol{\Sigma_2})$
+$X^1 \sim \text{MTD}(\mathbf{0}, \nu_1, \boldsymbol{\Sigma_1})$ and
+$X^2 \sim \text{MTD}(\mathbf{0}, \nu_2, \boldsymbol{\Sigma_2})$
 
 with $\nu_1 = 2$ and $\nu_2 = 4$,
 and we vary the dimension of the distributions, taking successive values of
@@ -1424,8 +1424,8 @@ The R code which produce the table is given in appendix, see @sec-appenexetime.
 ### Among the divergence between distributions
 
 We consider the distributions:
-$X^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma_1})$ and
-$X^2 \sim MTD(\mathbf{0}, \nu_2, \boldsymbol{\Sigma_2})$
+$X^1 \sim \text{MTD}(\mathbf{0}, \nu_1, \boldsymbol{\Sigma_1})$ and
+$X^2 \sim \text{MTD}(\mathbf{0}, \nu_2, \boldsymbol{\Sigma_2})$
 
 with $\nu_1 = \nu_2 = 2$,
 $\boldsymbol{\Sigma}_2 = \left(\begin{array}{ccc}
