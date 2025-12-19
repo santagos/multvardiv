@@ -581,7 +581,8 @@ depends on the values of the parameters of these distributions.
 
 In the examples below, the divergences between $\mathbf{X}^1$ and $\mathbf{X}^2$
 are computed using the functions `dlstudent` and `kld` from the
-[`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package.
+[`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package
+(see @sec-divmtd).
 
 The R codes which produce these graphics are given in appendix, see @sec-appendix.
 
@@ -789,7 +790,7 @@ where $D$ depends on the values of $\lambda_1, \dots, \lambda_p$:
       \displaystyle{ D = \prod_{i=1}^p\frac{1}{\sqrt{\lambda_i}} \times \frac{\partial}{\partial a} \bigg\{ F_D^{(p)} \bigg( \frac{1+p}{2}, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}}_p ; a + \frac{1+p}{2} ; 1 - \frac{1}{\lambda_1}, \dots, 1 - \frac{1}{\lambda_p} \bigg) \bigg\}\bigg|_{a=0} }
       $$ {#eq-klmcd3}
 
-### Study of the divergence
+### Study of the divergence {#sec-divmtd}
 
 As we did for the MTD, we look here how the divergence between two
 multivariate Cauchy distributions depend on the values of the parameters.
