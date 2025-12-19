@@ -3,7 +3,7 @@ Sigma <- matrix(c(1, 0.3, 0.3, 1), nrow = 2)
 bet <- 0.74
 
 # Values of the proportionality coefficient
-s <- c(seq(0.05, 1, by = 0.05), seq(2, 70, by = 2))
+s <- c(seq(0.01, 1, by = 0.05), seq(2, 25, by = 2))
 
 # Kullback-Leibler divergence
 kullback_leibler <- sapply(s, function(s) {
