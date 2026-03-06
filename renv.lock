@@ -1160,10 +1160,10 @@
     },
     "multvardiv": {
       "Package": "multvardiv",
-      "Version": "1.0.14",
+      "Version": "1.0.15",
       "Source": "Repository",
       "Type": "Package",
-      "Title": "Multivariate Probability Distributions, Statistical Divergence",
+      "Title": "Multivariate Generalized Gaussian Distribution, Multivariate t Distribution, Multivariate Cauchy Distribution, Statistical Divergence",
       "Authors@R": "c( person(\"Pierre\", \"Santagostini\", email = \"pierre.santagostini@institut-agro.fr\", role = c(\"aut\", \"cre\")), person(\"Nizar\", \"Bouhlel\", email = c(\"nizar.bouhlel@institut-agro.fr\", \"nizar.bouhlel@inrae.fr\"), role = c(\"aut\")) )",
       "Maintainer": "Pierre Santagostini <pierre.santagostini@institut-agro.fr>",
       "Description": "Multivariate generalized Gaussian distribution, Multivariate Cauchy distribution, Multivariate t distribution. Distance between two distributions (see N. Bouhlel and A. Dziri (2019): <doi:10.1109/LSP.2019.2915000>, N. Bouhlel and D. Rousseau (2022): <doi:10.3390/e24060838>, N. Bouhlel and D. Rousseau (2023): <doi:10.1109/LSP.2023.3324594>). Manipulation of these multivariate probability distributions. This package replaces 'mggd', 'mcauchyd' and 'mstudentd'.",
@@ -1221,7 +1221,7 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "1.1.7",
+      "Version": "1.1.8",
       "Source": "Repository",
       "Type": "Package",
       "Title": "Project Environments",
@@ -1265,11 +1265,11 @@
       "Encoding": "UTF-8",
       "RoxygenNote": "7.3.3",
       "VignetteBuilder": "knitr",
+      "NeedsCompilation": "yes",
       "Config/Needs/website": "tidyverse/tidytemplate",
       "Config/testthat/edition": "3",
       "Config/testthat/parallel": "true",
       "Config/testthat/start-first": "bioconductor,python,install,restore,snapshot,retrieve,remotes",
-      "NeedsCompilation": "no",
       "Author": "Kevin Ushey [aut, cre] (ORCID: <https://orcid.org/0000-0003-2880-7407>), Hadley Wickham [aut] (ORCID: <https://orcid.org/0000-0003-4757-117X>), Posit Software, PBC [cph, fnd]",
       "Maintainer": "Kevin Ushey <kevin@rstudio.com>",
       "Repository": "CRAN"
@@ -1683,7 +1683,7 @@
     },
     "systemfonts": {
       "Package": "systemfonts",
-      "Version": "1.3.1",
+      "Version": "1.3.2",
       "Source": "Repository",
       "Type": "Package",
       "Title": "System Native Font Finding",
