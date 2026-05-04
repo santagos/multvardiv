@@ -5,7 +5,7 @@ project:
     - README.qmd
 
 title: "`multvardiv` package"
-subtitle: "Multivariate Generalized Gaussian Distribution, $t$ and Cauchy Distributions, Kullback-Leibler Divergence"
+subtitle: "Multivariate elliptical Distributions and Statistical Divergence"
 author:
   - name: Pierre Santagostini
     corresponding: true
