@@ -24,4 +24,4 @@ divS1 <- data.frame(
 
 plot(kullback_leibler~s1, data = divS1, type = "b", pch = 16,
      xlab = substitute(Sigma[1][1]), ylab = "Divergence")
-axis(side = 1, at = Sigma2[1, 1], labels = substitute(Sigma[1][1]), cex.axis = 1.5)
+axis(side = 1, at = Sigma2[1, 1], cex.axis = 1.2)

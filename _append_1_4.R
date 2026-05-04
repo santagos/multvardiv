@@ -55,20 +55,20 @@ divS1 <- data.frame(
 
 plot(renyi_0_25~s1, data = divS1, type = "b", pch = 16,
      xlab = substitute(Sigma[1][1]), ylab = "Divergence")
-axis(side = 1, at = Sigma2[1, 1], labels = substitute(Sigma[1][1]), cex.axis = 1.5)
+axis(side = 1, at = Sigma2[1, 1], cex.axis = 1.2)
 
 plot(renyi_1_5~s1, data = divS1, type = "b", pch = 16,
      xlab = substitute(Sigma[1][1]), ylab = "Divergence")
-axis(side = 1, at = Sigma2[1, 1], labels = substitute(Sigma[1][1]), cex.axis = 1.5)
+axis(side = 1, at = Sigma2[1, 1], cex.axis = 1.2)
 
 plot(bhattacharyya~s1, data = divS1, type = "b", pch = 16,
      xlab = substitute(Sigma[1][1]), ylab = "Divergence")
-axis(side = 1, at = Sigma2[1, 1], labels = substitute(Sigma[1][1]), cex.axis = 1.5)
+axis(side = 1, at = Sigma2[1, 1], cex.axis = 1.2)
 
 plot(hellinger~s1, data = divS1, type = "b", pch = 16,
      xlab = substitute(Sigma[1][1]), ylab = "Divergence")
-axis(side = 1, at = Sigma2[1, 1], labels = substitute(Sigma[1][1]), cex.axis = 1.5)
+axis(side = 1, at = Sigma2[1, 1], cex.axis = 1.2)
 
 plot(kullback_leibler~s1, data = divS1, type = "b", pch = 16,
      xlab = substitute(Sigma[1][1]), ylab = "Divergence")
-axis(side = 1, at = Sigma2[1, 1], labels = substitute(Sigma[1][1]), cex.axis = 1.5)
+axis(side = 1, at = Sigma2[1, 1], cex.axis = 1.2)

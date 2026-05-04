@@ -49,20 +49,20 @@ divSigma <- data.frame(
 
 plot(renyi_0_25~facteur, data = divSigma, type = "b", pch = 16,
      xlab = "s", ylab = "Divergence")
-axis(side = 1, at = 1, labels = 1, cex.axis = 1.5)
+axis(side = 1, at = 1, labels = 1, cex.axis = 1.2)
 
 plot(renyi_1_5~facteur, data = divSigma, type = "b", pch = 16,
      xlab = "s", ylab = "Divergence")
-axis(side = 1, at = 1, labels = 1, cex.axis = 1.5)
+axis(side = 1, at = 1, labels = 1, cex.axis = 1.2)
 
 plot(bhattacharyya~facteur, data = divSigma, type = "b", pch = 16,
      xlab = "s", ylab = "Divergence")
-axis(side = 1, at = 1, labels = 1, cex.axis = 1.5)
+axis(side = 1, at = 1, labels = 1, cex.axis = 1.2)
 
 plot(hellinger~facteur, data = divSigma, type = "b", pch = 16,
      xlab = "s", ylab = "Divergence")
-axis(side = 1, at = 1, labels = 1, cex.axis = 1.5)
+axis(side = 1, at = 1, labels = 1, cex.axis = 1.2)
 
 plot(kullback_leibler~facteur, data = divSigma, type = "b", pch = 16,
      xlab = "s", ylab = "Divergence")
-axis(side = 1, at = 1, labels = 1, cex.axis = 1.5)
+axis(side = 1, at = 1, labels = 1, cex.axis = 1.2)

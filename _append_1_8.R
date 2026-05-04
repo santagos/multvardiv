@@ -22,4 +22,4 @@ divbeta <- data.frame(
 
 plot(kullback_leibler~beta1, data = divbeta, type = "b", pch = 16,
      xlab = substitute(beta[1]), ylab = "Divergence", ylim = c(-0.1, 4))
-axis(side = 1, at = beta2, labels = substitute(beta[2]), cex.axis = 1.5)
+axis(side = 1, at = beta2, cex.axis = 1.2)
