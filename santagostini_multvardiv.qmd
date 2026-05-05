@@ -5,27 +5,74 @@ library(multvardiv)
 
 # Introduction
 
-Statistical divergences, such as the Kullback–Leibler divergence (KLD), Rényi divergence (RD), Bhattacharyya divergence (BD), and Hellinger divergence (HD), are fundamental tools in information theory, machine learning and statistics. These divergences quantify the 'distance' or dissimilarity between probability distributions, enabling a wide range of applications. 
-The Kullback–Leibler divergence (KLD) is widely used in information theory, pattern recognition, and machine learning (for example, in training generative models and reinforcement learning), as well as in model comparison, variational inference, and other related fields in computer science. It is used to assess the effectiveness of probabilistic models, compare distributions, and perform tasks such as feature selection. 
-The Rényi divergence (RD) is a generalization of the KL divergence. RD is used for privacy and security (differential privacy) and hypothesis testing.
-The Bhattacharyya divergence (BD) is used for clustering and classification (feature selection and clustering algorithms), signal processing (e.g. signal detection in radar or sonar), and computer vision (e.g. image retrieval and object recognition, and feature distribution comparison).
-The Hellinger divergence (HD) is used in robust statistics (it is less sensitive to outliers than the KL divergence), domain adaptation (transfer learning), nonparametric testing (goodness-of-fit tests and two-sample tests) and machine learning (e.g. adversarial learning).
+Statistical divergences -- such as the Kullback–Leibler (KLD), Rényi (RD),
+Bhattacharyya (BD), and Hellinger (HD) divergences -- are fundamental tools
+in information theory and machine learning. These divergences quantify
+the 'distance' or dissimilarity between probability distributions,
+enabling a wide range of applications. Widely regarded as a cornerstone
+of information theory, the KLD measures the relative entropy between two
+distributions, effectively capturing how one distribution differs from a
+reference distribution. The KLD is ubiquitous in model training,
+reinforcement learning, and variational inference.
+<!--The Kullback–Leibler divergence (KLD) is widely used in
+information theory, pattern recognition, and machine learning (for
+example, in training generative models and reinforcement learning), as
+well as in model comparison, variational inference, and other related
+fields in computer science. It is used to assess the effectiveness of
+probabilistic models, compare distributions, and perform tasks such as
+feature selection. --> A generalization of the KLD, the Rényi divergence
+extends the concept of divergence to a family of measures parameterized
+by an order $\beta$. This flexibility makes it invaluable for privacy
+and security (differential privacy) and hypothesis testing. The
+Bhattacharyya divergence (BD) offers a symmetric measure of
+dissimilarity between distributions, making it ideal for applications
+where bidirectional comparison is essential. It is used for clustering
+and classification (feature selection and clustering algorithms), signal
+processing (signal detection in noisy environments), and computer vision
+(image retrieval, object recognition, and feature distribution
+comparison). Finally, the Hellinger divergence (HD) is used in robust
+statistics (it is less sensitive to outliers than the KL divergence),
+domain adaptation (transfer learning), nonparametric testing
+(goodness-of-fit tests and two-sample tests) and machine learning
+(adversarial learning).
+<!--Fundamental to machine learning and information theory, statistical divergences quantify the 'distance' or dissimilarity between probability distributions. The Kullback–Leibler divergence (KLD) is the standard for training generative models, performing variational inference, and assessing model efficacy. As a flexible generalization, the Rényi divergence (RD) provides the framework for differential privacy and security analysis.
+For applications in signal processing and computer vision—such as image retrieval and radar detection—the Bhattacharyya divergence (BD) is preferred for its effectiveness in classification and clustering. Finally, the Hellinger divergence (HD) offers a robust alternative to KLD, making it ideal for goodness-of-fit tests, transfer learning, and handling outlier-heavy data.
+-->
 
-These divergences can be computed for both univariate or multivariate distributions in either discrete or continuous cases. The discrete scenario presents a simpler calculation as it bypasses the need for integral computation.
-Explicit expressions of most statistical divergences have been developed for many continuous univariate distributions, such as the gamma distribution, the Cauchy distribution, the generalized gamma distribution, the generalized Gaussian distribution, and so on. However, statistical divergences for continuous multivariate distributions require dealing with integrals whose domain is the set of all symmetric, positive definite matrices. Unfortunately, closed-form expressions are not easily found.   
+These divergences can be computed for both univariate or multivariate
+distributions in either discrete or continuous cases. The discrete
+scenario presents a simpler calculation as it bypasses the need for
+integral computation. Explicit expressions of most statistical
+divergences have been developed for many continuous univariate
+distributions, such as the gamma distribution, the Cauchy distribution,
+the generalized gamma distribution, the generalized Gaussian
+distribution, and so on. However, statistical divergences for continuous
+multivariate distributions require dealing with integrals whose domain
+is the set of all symmetric, positive definite matrices. Unfortunately,
+closed-form expressions are not easily found.\
 Very recently, closed form expressions of the KLD have been developed
-for the multivariate generalized Gaussian distribution (MGGDs) [@bouhlel19] and multivariate Cauchy distributions (MCDs) [@bouhlel22]. Furthermore, an expression
-of the RD has been developed for Multivariate $t$-distributions (MTDs) [@bouhlel23]. The BD and HD can be computed from the RD. In this paper, we propose an efficient implementation of these divergences in R packages that is both precise and computationally fast,
+for the Multivariate elliptical distributions such as the multivariate
+generalized Gaussian distribution (MGGDs) [@bouhlel19] and multivariate
+Cauchy distributions (MCDs) [@bouhlel22]. Furthermore, an expression of
+the RD has been developed for Multivariate $t$-distributions (MTDs)
+[@bouhlel23]. The BD and HD can be computed from the RD. In this paper,
+we propose an efficient implementation of these divergences in R
+packages that is both precise and computationally fast,
 [`multvardiv`](https://CRAN.R-project.org/package=multvardiv). Our
-approach is very different from functions provided by existing R packages such as
+approach is very different from functions provided by existing R
+packages such as
 [`philentropy`](https://joss.theoj.org/papers/10.21105/joss.00765),
 [`FNN`](https://CRAN.R-project.org/package=FNN),
 [`dlookr`](https://CRAN.R-project.org/package=dlookr),
 [`LaplacesDemon`](https://web.archive.org/web/20150206004624/http://www.bayesian-inference.com/software),
-which allow the computation of statistical divergence in discrete case [@philentropy; @FNN; @dlookr; @LaplacesDemon].  
-The [`dad`](https://doi.org/10.32614/RJ-2021-071) package provides functions
-which compute the distance (including Hellinger or Jeffreys, i.e. symmetrized Kullback-Leibler) or divergence between multivariate Gaussian distributions
-or distributions estimated by the Gaussian kernel [@dad].
+[`dad`](https://doi.org/10.32614/RJ-2021-071), which allow the
+computation of statistical divergence in discrete case [@philentropy;
+@FNN; @dlookr; @LaplacesDemon; @dad].\
+<!-- The [`dad`](https://doi.org/10.32614/RJ-2021-071) package provides
+functions which compute the distance (including Hellinger or Jeffreys,
+i.e. symmetrized Kullback-Leibler) or divergence between multivariate
+Gaussian distributions or distributions estimated by the Gaussian kernel
+[@dad].
 
 <!-- The Kullback-Leibler divergence (KLD) is a measure of the dissimilarity -->
 <!-- between two univariate or multivariate probability distributions. -->
@@ -59,8 +106,7 @@ or distributions estimated by the Gaussian kernel [@dad].
 <!-- which allow the computation of KLD between discrete (or discretized) -->
 <!-- probability distributions [@philentropy; @FNN; @dlookr; @LaplacesDemon]. -->
 
-
-In this paper, we will focus on three multivariate distributions: MTD, MCD and MGGD.  
+In this paper, we will focus on three multivariate distributions: MTD, MCD and MGGD.
 The MTD belongs to the elliptical symmetric distributions [@kotz; @bouhlel23]. Such distribution has been deployed in several signal and image processing applications where
 heavy-tailed distribution is weel-suited.  
 The MCD is a special case of the multivariate $t$-distribution [@bouhlel22]. MCD
@@ -82,22 +128,39 @@ In what follows, we first present the MTD, the MCD and the MGGD
 and [Multivariate Generalized Gaussian Distribution]).
 For each of these distributions, some results are presented,
 and analytic expressions of the statistical divergences are exposed.
-All of these results are used in the
-[`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package.  
+<!--All of these results are used in the [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package.\-->
 Then we present the tools available in the
 [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package
 for these distributions ([The multvardiv package]).
 We first present some functions for the MTDs ([Multivariate $t$-Distribution]): probability density function, simulation, parameter estimation and graphical
 representations. Then we present the numerical computation of statistical
-divergence between MTDs with diffrent level of precisions.
+divergence between MTDs with different level of precisions.
 The [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package
 provides the same tools for the MCD ([Multivariate Cauchy Distribution])
-and  MGGD ([Multivariate generalized Gaussian distribution]).
+and MGGD ([Multivariate generalized Gaussian distribution]).
 Some particular cases provide interesting results. We use these
 particular cases to test the computation of the statistical divergence
 ([Some particular cases -- test of the results]).
 
 # Multivariate elliptical distributions and divergence
+
+A $p$-dimensional real valued random vector $\mathbf{X}$ is elliptically
+symmetric (ES) distributed if its probability density function (p.d.f.)
+is given by $$
+    \displaystyle{ f_{\mathbf{X}}(\mathbf{x}) = C_{p,g} |\boldsymbol{\Sigma}|^{-1/2} g\left( (\mathbf{x}-\boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x}-\boldsymbol{\mu}) \right)}
+$$ where $C_{p,g}$ is a normalization constant such that the integral of
+the distribution is equal to 1,
+$g: \mathbb{R}_+ \rightarrow \mathbb{R}_+$ is a function called density
+generator [@Fang1990], $\boldsymbol{\Sigma}$ is a symmetric definite
+positive matrix, called the scatter matrix, and the vector
+$\boldsymbol{\mu}$ is a location parameter that coincides with the
+expectation of $\mathbf{X}$. The multivariate normal distribution, the
+multivariate t-distribution and the multivariate generalised Gaussian
+distribution are all special cases of the ES distributions. They are
+defined by the following density generators:
+$g(x) = \exp{(-\frac{1}{2}x)}$ for MND,
+$g(x) = (1+\frac{x}{\nu})^{-\frac{\nu+p}{2}}$ for MTD and
+$g(x) = \exp{(-\frac{1}{2}x^\beta)}$ for MGGD.
 
 ## Multivariate $t$-distribution
 
@@ -171,7 +234,7 @@ $$\begin{array}{lll}
 f_{\mathbf{X}|V}(\mathbf{x_i}|v_i, \theta_y) &    = &  \big|\frac{\partial \mathbf{Y}}{\partial \mathbf{X}}\big| f_{\mathbf{Y}}\left( (\mathbf{x_i}-\boldsymbol{\mu}) \sqrt{v_i}\right) \\
 &   = &  v_i^{\frac{p}{2}}\frac{1}{(2\pi)^{p/2}|\boldsymbol{\Sigma}|^{1/2}}\exp\big(-\frac{v_i}{2}(\mathbf{x_i}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x_i}-\boldsymbol{\mu})\big)  \\
 &   = & \frac{1}{(2\pi)^{p/2}|\frac{\boldsymbol{\Sigma}}{v_i}|^{1/2}}\exp\big(-\frac{v_i}{2}(\mathbf{x_i}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x_i}-\boldsymbol{\mu})\big)
-\end{array}$${#eq-conditional_law}
+\end{array}$$ {#eq-conditional_law}
 where $\big|\frac{\partial \mathbf{Y}}{\partial \mathbf{X}}\big|$ is the Jacobian determinant.
 It is clear that $\mathbf{X}|V\sim \mathcal{N}^p(\boldsymbol{\mu}, \frac{\boldsymbol{\Sigma}}{v})$. 
 Substituting the expression of the probability density function of $\mathbf{X}|V$ given by @eq-conditional_law into @eq-lamda_w, differentiating with respect to $\boldsymbol{\mu}$ and $\boldsymbol{\Sigma}$, and setting the result to zero gives:
@@ -310,12 +373,12 @@ Substituting @eq-v_distribution into @eq-lamda_x, differentiating with respect t
 <!-- En conclusion -->
 
 $$
-1+\ln \frac{\hat{\nu}}{2}-\psi(\frac{\hat{\nu}}{2})=\frac{1}{N}\sum_{i=1}^N \mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\} -\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\}
+1+\ln \frac{\hat{\nu}}{2}-\psi(\frac{\hat{\nu}}{2})=\frac{1}{N}\sum_{i=1}^N \left(\mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\} -\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\}\right)
 $$ {#eq-EM_G_1}
 
 #### Expression of $\mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\}$ and $\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\}$ {.unnumbered .unlisted}
 
-The posterior expectation $\mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\}$ and $\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\}$ depend on the posterior distribution $f_{V|\mathbf{X}}(v_i|\mathbf{x}_i)$ expressed as follows  
+The posterior expectation $\mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\}$ and $\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\}$ depend on the posterior distribution $f_{V|\mathbf{X}}(v_i|\mathbf{x}_i)$ expressed as follows
 
 $$\begin{array}{lll}
 f_{V|\mathbf{X}}(v_i|\mathbf{x}_i) & = &\displaystyle{\frac{f_{\mathbf{X}|V}(\mathbf{x_i}|v_i, \theta_y)f_{V}(v_i|\theta_{v})}{f_{\mathbf{X}}(\mathbf{x_i}|\theta_y, \theta_v)}}\\
@@ -449,7 +512,7 @@ estimation:
 
 <!--     1.    **Until** $D<\epsilon$ -->
 
-3.   **Return** $(\hat{\boldsymbol{\mu}},\hat{\boldsymbol{\Sigma}},\hat{\nu})$ 
+3.  **Return** $(\hat{\boldsymbol{\mu}},\hat{\boldsymbol{\Sigma}},\hat{\nu})$
 
 ### Rényi divergence
 
@@ -473,7 +536,7 @@ $\lambda_1 < \dots < \lambda_p$. Let $\delta_1 = \frac{\nu_1+p}{2}\beta$
 and $\delta_2 = \frac{\nu_2+p}{2}(1-\beta)$.
 
 If the following condition is verified:
-$$\delta_1 + \delta_2 - \frac{p}{2} > 0$${#eq-cond_delta}
+$$\delta_1 + \delta_2 - \frac{p}{2} > 0$$ {#eq-cond_delta}
 @bouhlel23 shows that the RD of order $\beta$ between $\mathbf{X}^1$ and
 $\mathbf{X}^2$ is given by:
 
@@ -530,8 +593,13 @@ $$ {#eq-hdmtd}
 
 ### Kullback-Leibler divergence {#sec-kldt}
 
-With the same notations, the KLD of $\mathbf{X}_1$ from $\mathbf{X}_2$
-is given by:
+The KLD of $\mathbf{X}^1$ from $\mathbf{X}^2$ is given by : $$
+    \begin{array}{ll}
+    \displaystyle{D_{KL}(\mathbf{X}^1||\mathbf{X}^2)} & \displaystyle{= \mathbb{E}_{X^1}\left[\ln\left(\frac{f_{\mathbf{X}^1}(\mathbf{X})}{f_{\mathbf{X}^2}(\mathbf{X})}\right)\right]} \\
+    & \displaystyle{= \int_{\mathbb{R}^p}{\ln \left( \frac{f_{\mathbf{X}^1}(\mathbf{x}|\boldsymbol{\Sigma}_1, \beta_1)}{f_{\mathbf{X}^2}(\mathbf{x}|\boldsymbol{\Sigma}_2, \beta_2)} \right) f_{\mathbf{X}^1}(\mathbf{x}|\boldsymbol{\Sigma}_1, \beta_1)\mathrm{d}\mathbf{x}}}
+    \end{array}
+$$ {#eq-kl} In our case, the analytic expression of the KLD of
+$\mathbf{X}_1$ from $\mathbf{X}_2$ is given by :
 
 $$\begin{array}{lll}
 D_{KL}(\mathbf{X}^1 \Vert \mathbf{X}^2) &   = &   \displaystyle{ \ln\left( \frac{\Gamma\left(\frac{\nu_1+p}{2}\right) \Gamma\left(\frac{\nu_2}{2}\right) \nu_2^\frac{p}{2}}{\Gamma\left(\frac{\nu_2+p}{2}\right) \Gamma\left(\frac{\nu_1}{2}\right) \nu_1^\frac{p}{2}} \right) + \frac{\nu_2 - \nu_1}{2} \left( \psi\left(\frac{\nu_1+p}{2}\right) - \psi\left(\frac{\nu_1}{2}\right) \right) } \\
@@ -548,7 +616,7 @@ $\frac{\nu_1}{\nu_2}\lambda_1, \dots, \frac{\nu_1}{\nu_2}\lambda_p$:
     &   = &   \displaystyle{ \prod\limits_{i=1}^p\left(\frac{\nu_2}{\nu_1}\frac{1}{\lambda_i}\right)^{\frac{1}{2}}\sum\limits_{m_1\geq 0}...\sum\limits_{m_p\geq 0} \bigg(\frac{\nu_1+p}{2}\bigg)_{\sum m_i}\frac{\partial}{\partial a}\bigg\lbrace \frac{1}{\big(a+\frac{\nu_1+p}{2}\big)_{\sum m_i}}  \bigg\rbrace\bigg|_{a=0} } \\
     &&    \displaystyle{ \times \bigg(\frac{1}{2}\bigg)_{m_1}...\bigg(\frac{1}{2}\bigg)_{m_p} \frac{1}{m_1!}\bigg(1-\frac{\nu_2}{\nu_1}\frac{1}{\lambda_1}\bigg)^{m_1} \dots \frac{1}{m_p!}\bigg(1-\frac{\nu_2}{\nu_1}\frac{1}{\lambda_p}\bigg)^{m_p} }
     \end{array}$$ {#eq-klmtd1} where: $$
-    \displaystyle{\frac{\partial}{\partial a}\bigg\lbrace \frac{1}{\left(a+\frac{\nu_1+p}{2}\right)_{\sum_{i=1}^p m_i}}  \bigg\rbrace\bigg|_{a=0} = \frac{-1}{\big(\frac{\nu_1+p}{2}\big)_{\sum_{i=1}^pm_i}} \sum_{k=0}^{\sum m_i -1} \frac{1}{k+\frac{\nu_1+p}{2}}}
+    \displaystyle{\frac{\partial}{\partial a}\bigg\lbrace \frac{1}{\left(a+\frac{\nu_1+p}{2}\right)_{\sum_{i=1}^p m_i}}  \bigg\rbrace\bigg|_{a=0} = \frac{-1}{\big(\frac{\nu_1+p}{2}\big)_{\sum_{i=1}^pm_i}} \sum_{k=0}^{\sum_{i=1}^p m_i -1} \frac{1}{k+\frac{\nu_1+p}{2}}}
     $$
 
 -   If $\displaystyle{\frac{\nu_1}{\nu_2}\lambda_p < 1}$,
@@ -557,7 +625,7 @@ $\frac{\nu_1}{\nu_2}\lambda_1, \dots, \frac{\nu_1}{\nu_2}\lambda_p$:
     &   = &   \displaystyle{ \sum_{m_1\geq 0} \dots \sum_{m_p\geq 0} \frac{\partial}{\partial a}\bigg\lbrace \frac{(a)_{\sum mi}}{\big(a+\frac{\nu_1+p}{2}\big)_{\sum m_i}}  \bigg\rbrace\bigg|_{a=0}  \bigg(\frac{1}{2}\bigg)_{m_1}...\bigg(\frac{1}{2}\bigg)_{m_p} } \\
     &&    \displaystyle{ \times \frac{1}{m_1!}\bigg(1-\frac{\nu_1}{\nu_2}\lambda_1\bigg)^{m_1} \dots \frac{1}{m_p!}\bigg(1-\frac{\nu_1}{\nu_2}\lambda_p\bigg)^{m_p} }
     \end{array}$$ {#eq-klmt2} where: $$
-    \displaystyle{ \frac{\partial}{\partial a}\bigg\lbrace \frac{(a)_{\sum m_i}}{\big(a+\frac{\nu_1+p}{2}\big)_{\sum_{i=1}^p m_i}}  \bigg\rbrace\bigg|_{a=0} = \frac{(1)_{\sum m_i} }{\big(\frac{\nu_1+p}{2}\big)_{\sum m_i}}\frac{1}{\sum m_i} }
+    \displaystyle{ \frac{\partial}{\partial a}\bigg\lbrace \frac{(a)_{\sum m_i}}{\big(a+\frac{\nu_1+p}{2}\big)_{\sum_{i=1}^p m_i}}  \bigg\rbrace\bigg|_{a=0} = \frac{(1)_{\sum_{i=1}^p m_i} }{\big(\frac{\nu_1+p}{2}\big)_{\sum_{i=1}^p m_i}}\frac{1}{\sum_{i=1}^p m_i} }
     $$
 
 -   If
@@ -568,28 +636,28 @@ $\frac{\nu_1}{\nu_2}\lambda_1, \dots, \frac{\nu_1}{\nu_2}\lambda_p$:
     &   = &   \displaystyle{ -\ln\bigg(\frac{\nu_1}{\nu_2}\lambda_p\bigg) +\sum\limits_{m_1\geq 0} \dots \sum_{m_p\geq 0} \frac{\partial}{\partial a}\bigg\lbrace \frac{(a)_{\sum mi} (a+\frac{\nu_1}{2})_{m_p}}{\big(a+\frac{\nu_1+p}{2}\big)_{\sum m_i}}  \bigg\rbrace\bigg|_{a=0} } \\
     &&    \displaystyle{ \times \bigg(\frac{1}{2}\bigg)_{m_1} \dots \bigg(\frac{1}{2}\bigg)_{m_{p-1}} \frac{1}{m_1!}\left(1-\frac{\lambda_1}{\lambda_p}\right)^{m_1} \dots  \frac{1}{m_p!}\left(1-\frac{\nu_2}{\nu_1}\frac{1}{\lambda_p}\right)^{m_p} }
     \end{array}$$ {#eq-klmtd3} where: $$
-    \displaystyle{ \frac{\partial}{\partial a}\bigg\lbrace \frac{(a)_{\sum m_i}(a+\frac{\nu_1}{2})_{m_p}}{\big(a+\frac{\nu_1+p}{2}\big)_{\sum_{i=1}^p m_i}}  \bigg\rbrace\bigg|_{a=0} = \frac{(1)_{\sum m_i} }{\big(\frac{\nu_1+p}{2}\big)_{\sum m_i}}\frac{(\frac{\nu_1}{2})_{m_p}}{\sum m_i} }
+    \displaystyle{ \frac{\partial}{\partial a}\bigg\lbrace \frac{(a)_{\sum_{i=1}^p m_i}(a+\frac{\nu_1}{2})_{m_p}}{\big(a+\frac{\nu_1+p}{2}\big)_{\sum_{i=1}^p m_i}}  \bigg\rbrace\bigg|_{a=0} = \frac{(1)_{\sum_{i=1}^p m_i} }{\big(\frac{\nu_1+p}{2}\big)_{\sum_{i=1}^p m_i}}\frac{(\frac{\nu_1}{2})_{m_p}}{\sum_{i=1}^p m_i} }
     $$
 
 ### Study of the divergence
 
-The divergence between two multivariate $t$ distributions
+The divergence between two multivariate $t$-distributions
 $\mathbf{X}^1 \sim f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \boldsymbol{0}, \boldsymbol{\Sigma}_1)$
 and
 $\mathbf{X}^2 \sim f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \boldsymbol{0}, \boldsymbol{\Sigma}_2)$
 depends on the values of the parameters of these distributions.
 
 In the examples below, the divergences between $\mathbf{X}^1$ and $\mathbf{X}^2$
-are computed using the functions `dlstudent` and `kld` from the
-[`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package
-(see @sec-divmtd).
+are computed using the functions `diststudent` and `kld` from the
+[`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package.
 
-The R codes which produce these graphics are given in appendix, see @sec-appendix.
+The R codes which produce these graphics are given in appendix, see
+@sec-appendix.
 
 #### Among the degrees of freedom {.unnumbered .unlisted}
 
-Let $\mathbf{X}^1 \sim \text{MTD}(\mathbf{0}, \nu_1, \boldsymbol{\Sigma})$
-and $\mathbf{X}^2 \sim \text{MTD}(\mathbf{0}, \nu_2, \boldsymbol{\Sigma})$
+Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma})$ and
+$\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu_2, \boldsymbol{\Sigma})$
 
 where $\nu_1$ take values in $]0 ; 50]$, $\nu_2 = 2$, and
 $\boldsymbol{\Sigma} = \left(\begin{array}{cc}
@@ -599,9 +667,9 @@ $\boldsymbol{\Sigma} = \left(\begin{array}{cc}
 
 The results are showed in @fig-divnu1.
 Obviously, for each of these divergences,
-$D(X^1 \parallel X^2) = 0$ when $\nu_1 = \nu_2$.
-For $\nu_1 \in ]0; \nu_2]$, the divergence decreases quickly to 0,
-then for $\nu_1 \in ]\nu_2; +\infty]$, it increases slowly and converges
+$D_R^{\beta}(\mathbf{X}^1 \parallel \mathbf{X}^2) = 0=D_{KL}(\mathbf{X}^1 \parallel \mathbf{X}^2)$ when $\nu_1 = \nu_2$. For
+$\nu_1 \in ]0; \nu_2]$, the divergence decreases quickly to 0.
+Then for $\nu_1 \in ]\nu_2; +\infty]$, it slowly increases and converges
 to a limit.
 
 ```{r}
@@ -626,24 +694,24 @@ par(mar = c(4.1, 4.1, 3.1, 2.1))
 
 #### Among the scale matrix: first situation {.unnumbered .unlisted}
 
-Let $\mathbf{X}^1 \sim \text{MTD}(\mathbf{0}, \nu, \boldsymbol{\Sigma}^1)$
-and $\mathbf{X}^2 \sim \text{MTD}(\mathbf{0}, \nu, \boldsymbol{\Sigma}^2)$
+Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_1)$ and
+$\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_2)$
 
 where $\nu = 1$,
-$\boldsymbol{\Sigma}^2 = \left(\begin{array}{cc}
+$\boldsymbol{\Sigma}_2 = \left(\begin{array}{cc}
 3 & 0.3 \\
 0.3 & 1
-\end{array}\right)$  
-and $\boldsymbol{\Sigma}^1 = \left(\begin{array}{cc}
+\end{array}\right)$
+and $\boldsymbol{\Sigma}_1 = \left(\begin{array}{cc}
 s_1 & 0.3 \\
 0.3 & 1
-\end{array}\right)$, $s_1 \in ]0 ; 50]$.
+\end{array}\right)$, $s_1 \in ]0 ; 70]$.
 
 The results are showed in @fig-divsigma11.
 For each of these divergences,
-$D(X^1 \parallel X^2) = 0$ when $s_1 = \boldsymbol{\Sigma}^2_{1, 1}$.
-For $s_1 \in ]0; \boldsymbol{\Sigma}^2_{1, 1}]$, the divergence decreases quickly to 0,
-then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges.
+$D_R^{\beta}(\mathbf{X}^1 \parallel \mathbf{X}^2) = 0=D_{KL}(\mathbf{X}^1 \parallel \mathbf{X}^2)$ when $s_1 = 3$.
+For $s_1 \in ]0; 3]$, the divergence decreases quickly to 0,
+then for $s_1 > 3$, it increases.
 
 ```{r}
 #| label: fig-divsigma11
@@ -666,15 +734,16 @@ par(mar = c(4.1, 4.1, 3.1, 2.1))
 
 #### Among the scale matrix: second situation {.unnumbered .unlisted}
 
-Let $\mathbf{X}^1 \sim \text{MTD}(\mathbf{0}, \nu, \boldsymbol{\Sigma}_1)$
-and $\mathbf{X}^2 \sim \text{MTD}(\mathbf{0}, \nu, \boldsymbol{\Sigma}_2)$
+Let $\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_1)$ and
+$\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu, \boldsymbol{\Sigma}_2)$
 
-where $\nu = 1.5$,  
+where $\nu = 1.5$,
 $\boldsymbol{\Sigma}_2 = \left(\begin{array}{cc}
 1 & 0.3 \\
 0.3 & 1
-\end{array}\right)$  
-and $\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$, $s \in ]0 ; 70]$.
+\end{array}\right)$
+and $\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$,
+$s \in ]0 ; 70]$.
 
 The results are showed in @fig-divsigma12.
 
@@ -748,11 +817,12 @@ MTD (@sec-est_mtd) setting $\nu = 1$. Then the algorithm presented in
 ### Rényi divergence {#sec-renyimcd}
 
 Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of
-$\mathbb{R}^p$ from MCDs with probability density functions:
+$\mathbb{R}^p$ from MCDs with probability density functions given by:
 $$\displaystyle{ f_{\mathbf{X}^1}\left(\mathbf{x}|\boldsymbol{\Sigma}_1\right) = f_{\mathbf{X}^1}\left(\mathbf{x}|\mathbf{0}, \boldsymbol{\Sigma}_1\right) = \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\boldsymbol{\Sigma}_1|^\frac{1}{2} \left[ 1 + \mathbf{x}^T \boldsymbol{\Sigma}_1^{-1} \mathbf{x} \right]^\frac{1+p}{2}} }$$
 and
 $$\displaystyle{ f_{\mathbf{X}^2}\left(\mathbf{x}|\boldsymbol{\Sigma}_2\right) = f_{\mathbf{X}^2}\left(\mathbf{x}|\mathbf{0}, \boldsymbol{\Sigma}_2\right) =  \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\boldsymbol{\Sigma}_2|^\frac{1}{2} \left[ 1 + \mathbf{x}^T \boldsymbol{\Sigma}_2^{-1} \mathbf{x} \right]^\frac{1+p}{2}} }$$
 
+We consider that $\boldsymbol{\mu}=0$.
 As the MCD is a particular case of the MTD,
 the Rényi divergence between $\mathbf{X}^1$ and $\mathbf{X}^2$
 can be computed using @eq-rdmtd, setting $\nu_1 = 1$ and $\nu_2 = 1$.
@@ -760,27 +830,23 @@ can be computed using @eq-rdmtd, setting $\nu_1 = 1$ and $\nu_2 = 1$.
 ### Kullback-Leibler divergence
 
 Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of
-$\mathbb{R}^p$ from MCDs with probability density functions:
-$$\displaystyle{ f_{\mathbf{X}^1}\left(\mathbf{x}|\boldsymbol{\Sigma}_1\right) = f_{\mathbf{X}^1}\left(\mathbf{x}|\mathbf{0}, \boldsymbol{\Sigma}_1\right) = \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\boldsymbol{\Sigma}_1|^\frac{1}{2} \left[ 1 + \mathbf{x}^T \boldsymbol{\Sigma}_1^{-1} \mathbf{x} \right]^\frac{1+p}{2}} }$$
-and
-$$\displaystyle{ f_{\mathbf{X}^2}\left(\mathbf{x}|\boldsymbol{\Sigma}_2\right) = f_{\mathbf{X}^2}\left(\mathbf{x}|\mathbf{0}, \boldsymbol{\Sigma}_2\right) =  \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\boldsymbol{\Sigma}_2|^\frac{1}{2} \left[ 1 + \mathbf{x}^T \boldsymbol{\Sigma}_2^{-1} \mathbf{x} \right]^\frac{1+p}{2}} }$$
-Let $\lambda_1, \dots, \lambda_p$ be the eigenvalues of the square
-matrix $\boldsymbol{\Sigma}_1 \boldsymbol{\Sigma}_2^{-1}$, sorted in increasing order:
-$\lambda_1 < \dots < \lambda_p$.
+$\mathbb{R}^p$ from MCDs where $\boldsymbol{\mu}=0$. Let
+$\lambda_1, \dots, \lambda_p$ be the eigenvalues of the square matrix
+$\boldsymbol{\Sigma}_1 \boldsymbol{\Sigma}_2^{-1}$, sorted in increasing
+order: $\lambda_1 < \dots < \lambda_p$.
 
 From @sec-kldt, the KLD to $\mathbf{X}^1$ from $\mathbf{X}^2$ (@eq-kl)
 is given by (@bouhlel22):
 
 $$
-KL(X_1||X_2) = \displaystyle{-\frac{1}{2} \ln{ \prod_{i=1}^p{\lambda_i}} + \frac{1+p}{2} \times D}
+D_{KL}(X_1||X_2) = \displaystyle{-\frac{1}{2} \ln{ \prod_{i=1}^p{\lambda_i}} + \frac{1+p}{2} \times D}
 $$
 
 where $D$ depends on the values of $\lambda_1, \dots, \lambda_p$:
 
 -   If $\lambda_1 < 1$ and $\lambda_p > 1$: $$
     \begin{aligned}
-    D = & \displaystyle{ \bigg( \ln{\lambda_p} - } \\
-    & \displaystyle{ \frac{\partial}{\partial a} \bigg\{ F_D^{(p)} \bigg( a, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}, a + \frac{1}{2}}_p ; a + \frac{1+p}{2} ; 1 - \frac{\lambda_1}{\lambda_p}, \dots, 1 - \frac{\lambda_{p-1}}{\lambda_p}, 1 - \frac{1}{\lambda_p} \bigg) \bigg\}\bigg|_{a=0} \bigg) }
+    D = & \displaystyle{ \bigg( \ln{\lambda_p - \frac{\partial}{\partial a} \bigg\{ F_D^{(p)} \bigg( a, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}, a + \frac{1}{2}}_p ; a + \frac{1+p}{2} ; 1 - \frac{\lambda_1}{\lambda_p}, \dots, 1 - \frac{\lambda_{p-1}}{\lambda_p}, 1 - \frac{1}{\lambda_p} \bigg) \bigg\}\bigg|_{a=0} \bigg) }}
     \end{aligned}
     $$ {#eq-klmcd1}
 -   If $\lambda_p < 1$: $$
@@ -801,8 +867,8 @@ and
 $\mathbf{X}^2 \sim f_{\mathbf{X}^2}(\mathbf{x}|\boldsymbol{0}, \boldsymbol{\Sigma}_2)$.
 
 In the examples below, the divergences between $\mathbf{X}^1$ and $\mathbf{X}^2$
-are computed using the functions `dlstudent` (Rényi, Bhattacharyya and
-Hellinger divergences, setting $\nu_1 = nu_2 = 1$, see @sec-renyimcd) and
+are computed using the functions `diststudent` (Rényi, Bhattacharyya and
+Hellinger divergences, setting $\nu_1 = \nu_2 = 1$, see @sec-renyimcd) and
 `kld` from the [`multvardiv`](https://CRAN.R-project.org/package=multvardiv)
 package.
 
@@ -810,8 +876,8 @@ The R codes which produce these graphics are given in appendix, see @sec-appendi
 
 #### Among the scale matrix: first situation {.unnumbered .unlisted}
 
-Let $\mathbf{X}^1 \sim \text{MCD}(\mathbf{0}, \boldsymbol{\Sigma}^1)$
-and $\mathbf{X}^2 \sim \text{MCD}(\mathbf{0}, \boldsymbol{\Sigma}^2)$
+Let $\mathbf{X}^1 \sim MCD(\mathbf{0}, \boldsymbol{\Sigma}_1)$ and
+$\mathbf{X}^2 \sim MCD(\mathbf{0}, \boldsymbol{\Sigma}_2)$
 
 where $\boldsymbol{\boldsymbol{\Sigma}}_2 = \left(\begin{array}{cc}
 3 & 0.3 \\
@@ -820,13 +886,13 @@ where $\boldsymbol{\boldsymbol{\Sigma}}_2 = \left(\begin{array}{cc}
 et $\boldsymbol{\boldsymbol{\Sigma}}_1 = \left(\begin{array}{cc}
 s_1 & 0.3 \\
 0.3 & 1
-\end{array}\right)$, $s_1 \in ]0 ; 30]$.
+\end{array}\right)$, $s_1 \in ]0 ; 70]$.
 
 The results are showed in @fig-divsigma11cauchy.
 For each of these divergences,
-$D(X^1 \parallel X^2) = 0$ when $s_1 = \boldsymbol{\Sigma}^2_{1, 1}$.
-For $s_1 \in ]0; \boldsymbol{\Sigma}^2_{1, 1}]$, the divergence decreases quickly to 0,
-then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges.
+$D_R^{\beta}(\mathbf{X}^1 \parallel \mathbf{X}^2) = 0=D_{KL}(\mathbf{X}^1 \parallel \mathbf{X}^2)$ when $s_1 = 3$.
+For $s_1 \in ]0; 3]$, the divergence decreases quickly to 0,
+then for $s_1 > 3$, it increases slowly.
 
 ```{r}
 #| label: fig-divsigma11cauchy
@@ -849,14 +915,13 @@ par(mar = c(4.1, 4.1, 3.1, 2.1))
 
 #### Among the scale matrix: second situation {.unnumbered .unlisted}
 
-Let $\mathbf{X}^1 \sim \text{MCD}(\mathbf{0}, \nu, \boldsymbol{\Sigma}_1)$
-and $\mathbf{X}^2 \sim \text{MCD}(\mathbf{0}, \nu, \boldsymbol{\Sigma}_2)$
+Let $\mathbf{X}^1 \sim MCD(\mathbf{0}, \boldsymbol{\Sigma}_1)$ and
+$\mathbf{X}^2 \sim MCD(\mathbf{0}, \boldsymbol{\Sigma}_2)$
 
-where $\nu = 1.5$,  
-$\boldsymbol{\Sigma}_2 = \left(\begin{array}{cc}
+where $\boldsymbol{\Sigma}_2 = \left(\begin{array}{cc}
 1 & 0.3 \\
 0.3 & 1
-\end{array}\right)$  
+\end{array}\right)$
 and $\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$, $s \in ]0 ; 70]$.
 
 The results are showed in @fig-divsigma12.
@@ -893,7 +958,7 @@ $$ {#eq-mggd}
 where $\Gamma(\cdot)$ is the gamma function.
 <!-- Let $\mathbf{X}$ a random vector of $\mathbb{R}^p$ distributed according to a MGGD with mean vector $\boldsymbol{\mu} = \mathbf{0}$, dispersion matrix $\Sigma$ and shape parameter $\beta$. -->
 @gomez show that $\mathbf{X}$ has the same distribution as: $$
-    \displaystyle{\mathbf{X} = \tau \boldsymbol{\Sigma}^{1/2} \mathbf{U}}
+    \displaystyle{\mathbf{X} = \boldsymbol{\mu} + \tau \boldsymbol{\Sigma}^{1/2} \mathbf{U}}
 $$ {#eq-rggd} where $\mathbf{U}$ is a random vector uniformly
 distributed on the unit sphere in $\mathbb{R}^p$ and $\tau$ is such that
 $\tau^{2\beta}$ is a random variable distributed according to a Gamma
@@ -954,12 +1019,15 @@ $$\displaystyle{f_{\mathbf{X}^1}(\mathbf{x}|\boldsymbol{\Sigma}_1, \beta_1) = f_
 and
 $$\displaystyle{f_{\mathbf{X}^2}(\mathbf{x}|\boldsymbol{\Sigma}_2, \beta_2) = f_{\mathbf{X}^2}\left(\mathbf{x}|\mathbf{0}, \boldsymbol{\Sigma}_2, \beta_2\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta_2}\right) 2^\frac{p}{2\beta_2}} \frac{\beta_2}{|\boldsymbol{\Sigma}_2|^\frac{1}{2}} e^{-\frac{1}{2}\left[ \mathbf{x}^T \boldsymbol{\Sigma}_2^{-1} \mathbf{x} \right]^{\beta_2}}}$$
 
-The KLD of $\mathbf{X}^1$ from $\mathbf{X}^2$ is: $$
+```{=html}
+<!--The KLD of $\mathbf{X}^1$ from $\mathbf{X}^2$ is: $$
     \begin{array}{ll}
     \displaystyle{KL(\mathbf{X}^1||\mathbf{X}^2)} & \displaystyle{= \mathbb{E}_{X^1}\left[\ln\left(\frac{f_{\mathbf{X}^1}(\mathbf{X})}{f_{\mathbf{X}^2}(\mathbf{X})}\right)\right]} \\
     & \displaystyle{= \int_{\mathbb{R}^p}{\ln \left( \frac{f_{\mathbf{X}^1}(\mathbf{x}|\boldsymbol{\Sigma}_1, \beta_1)}{f_{\mathbf{X}^2}(\mathbf{x}|\boldsymbol{\Sigma}_2, \beta_2)} \right) f_{\mathbf{X}^1}(\mathbf{x}|\boldsymbol{\Sigma}_1, \beta_1)\mathrm{d}\mathbf{x}}}
     \end{array}
 $$ {#eq-kl}
+-->
+```
 
 Let $\lambda_1, \dots, \lambda_p$ be the eigenvalues of the square
 matrix $\boldsymbol{\Sigma}_1 \boldsymbol{\Sigma}_2^{-1}$ sorted in increasing order:
@@ -968,7 +1036,7 @@ analytical expression of the KLD to $\mathbf{X}^1$ from $\mathbf{X}^2$:
 
 $$
     \begin{aligned}
-    KL(\mathbf{X}^1||\mathbf{X}^2) = & \displaystyle{\ln\left( \frac{\beta_1 |\boldsymbol{\Sigma}_1|^{\frac{-1}{2}} \Gamma\left(\frac{p}{2\beta_2}\right)}{\beta_2 |\boldsymbol{\Sigma}_2|^{\frac{-1}{2}} \Gamma\left(\frac{p}{2\beta_1}\right)} \right) + \frac{p}{2}\left(\frac{1}{\beta_2} - \frac{1}{\beta_1}\right) \ln{2} - \frac{p}{2\beta_2} + 2^{\frac{\beta_2}{\beta_1}-1} \ \frac{\Gamma\left(\frac{\beta_2}{\beta_1}+\frac{p}{\beta_1}\right)}{\Gamma\left(\frac{p}{2\beta_1}\right)}\ {\lambda_p}^{\beta_2}} \\
+    D_{KL}(\mathbf{X}^1||\mathbf{X}^2) = & \displaystyle{\ln\left( \frac{\beta_1 |\boldsymbol{\Sigma}_1|^{\frac{-1}{2}} \Gamma\left(\frac{p}{2\beta_2}\right)}{\beta_2 |\boldsymbol{\Sigma}_2|^{\frac{-1}{2}} \Gamma\left(\frac{p}{2\beta_1}\right)} \right) + \frac{p}{2}\left(\frac{1}{\beta_2} - \frac{1}{\beta_1}\right) \ln{2} - \frac{p}{2\beta_2} + 2^{\frac{\beta_2}{\beta_1}-1} \ \frac{\Gamma\left(\frac{\beta_2}{\beta_1}+\frac{p}{\beta_1}\right)}{\Gamma\left(\frac{p}{2\beta_1}\right)}\ {\lambda_p}^{\beta_2}} \\
     & \displaystyle{\times F_D^{(p-1)}\bigg(-\beta_2, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}}_{p-1}, \frac{p}{2}; 1-\frac{\lambda_{p-1}}{\lambda_p}, \dots, 1-\frac{\lambda_1}{\lambda_p}\bigg)}
     \end{aligned}
 $$ {#eq-klggd}
@@ -985,6 +1053,7 @@ $$ {#eq-klggd}
 <!-- $$ {#eq-pochhammer} -->
 
 #### Univariate case : $p=1$ {.unnumbered .unlisted}
+
 Let $X^1$ and $X^2$ be two random
 variables distributed according to centered generalized Gaussian
 distributions with probability density functions:
@@ -993,7 +1062,7 @@ and
 $$\displaystyle{f_{X^2}(x|\sigma_2, \beta_2) = f_{X^2}\left(x|0, \sigma_2, \beta_2\right) = \frac{\beta_2}{\Gamma\left(\frac{2}{2 \beta_2}\right) 2^\frac{1}{2\beta_2}\sqrt{\sigma_2}} e^{-\frac{1}{2}\left(\frac{x^2}{\sigma_2}\right)^\beta}}$$
 
 the KLD is given by: $$
-    KL(X^1||X^2) = \displaystyle{\ln\left( \frac{\frac{\beta_1}{\sqrt{\sigma_1}} \Gamma\left(\frac{1}{2\beta_2}\right)}{\frac{\beta_2}{\sqrt{\sigma_2}} \Gamma\left(\frac{1}{2\beta_1}\right)} \right) + \frac{1}{2}\left(\frac{1}{\beta_2} - \frac{1}{\beta_1}\right) \ln{2} - \frac{1}{2\beta_2} + 2^{\frac{\beta_2}{\beta_1}-1} \ \frac{\Gamma\left(\frac{\beta_2}{\beta_1}+\frac{1}{\beta_1}\right)}{\Gamma\left(\frac{1}{2\beta_1}\right)}\ \left(\frac{\sigma_1}{\sigma_2}\right)^{\beta_2}}
+    D_{KL}(X^1||X^2) = \displaystyle{\ln\left( \frac{\frac{\beta_1}{\sqrt{\sigma_1}} \Gamma\left(\frac{1}{2\beta_2}\right)}{\frac{\beta_2}{\sqrt{\sigma_2}} \Gamma\left(\frac{1}{2\beta_1}\right)} \right) + \frac{1}{2}\left(\frac{1}{\beta_2} - \frac{1}{\beta_1}\right) \ln{2} - \frac{1}{2\beta_2} + 2^{\frac{\beta_2}{\beta_1}-1} \ \frac{\Gamma\left(\frac{\beta_2}{\beta_1}+\frac{1}{\beta_1}\right)}{\Gamma\left(\frac{1}{2\beta_1}\right)}\ \left(\frac{\sigma_1}{\sigma_2}\right)^{\beta_2}}
 $$
 
 ### Study of the divergence
@@ -1003,13 +1072,12 @@ multivariate generalized Gaussian distributions depend on the values of
 the parameters.
 
 Let:
-$\mathbf{X}^1 \sim f_{\mathbf{X}^1}(\mathbf{x}|\boldsymbol{0}, \boldsymbol{\Sigma}_1)$
+$\mathbf{X}^1 \sim f_{\mathbf{X}^1}(\mathbf{x}|\boldsymbol{0}, \boldsymbol{\Sigma}_1, \beta_1)$
 and
-$\mathbf{X}^2 \sim f_{\mathbf{X}^2}(\mathbf{x}|\boldsymbol{0}, \boldsymbol{\Sigma}_2)$.
+$\mathbf{X}^2 \sim f_{\mathbf{X}^2}(\mathbf{x}|\boldsymbol{0}, \boldsymbol{\Sigma}_2, \beta_2)$.
 
 In the examples below, the divergences between $\mathbf{X}^1$ and $\mathbf{X}^2$
-are computed using the functions `dlstudent` (Rényi, Bhattacharyya and
-Hellinger divergences, setting $\nu_1 = nu_2 = 1$, see @sec-renyimcd) and
+are computed using the function
 `kld` from the [`multvardiv`](https://CRAN.R-project.org/package=multvardiv)
 package.
 
@@ -1017,8 +1085,8 @@ The R codes which produce these graphics are given in appendix, see @sec-appendi
 
 #### Among the scale matrix: first situation {.unnumbered .unlisted}
 
-Let $\mathbf{X}^1 \sim \text{MGGD}(\mathbf{0}, \boldsymbol{\Sigma}^1, \beta_1)$
-and $\mathbf{X}^2 \sim \text{MGGD}(\mathbf{0}, \boldsymbol{\Sigma}^2, \beta_2)$
+Let $\mathbf{X}^1 \sim MGGD(\mathbf{0}, \boldsymbol{\Sigma}_1, \beta_1)$
+and $\mathbf{X}^2 \sim MGGD(\mathbf{0}, \boldsymbol{\Sigma}_2, \beta_2)$
 
 where $\boldsymbol{\boldsymbol{\Sigma}}_2 = \left(\begin{array}{cc}
 10 & 0.3 \\
@@ -1027,20 +1095,19 @@ where $\boldsymbol{\boldsymbol{\Sigma}}_2 = \left(\begin{array}{cc}
 $\boldsymbol{\boldsymbol{\Sigma}}_1 = \left(\begin{array}{cc}
 s_1 & 0.3 \\
 0.3 & 1
-\end{array}\right)$, $s_1 \in ]0 ; 1000]$
-and $\beta1 = \beta_2 = 0.74$.
+\end{array}\right)$, $s_1 \in ]0 ; 100]$ and $\beta_1 = \beta_2 = 0.74$.
 
 The results are showed in @fig-divsigma11ggd.
 For each of these divergences,
-$D(X^1 \parallel X^2) = 0$ when $s_1 = \boldsymbol{\Sigma}^2_{1, 1}$.
-For $s_1 \in ]0; \boldsymbol{\Sigma}^2_{1, 1}]$, the divergence decreases quickly to 0,
-then for $s_1 > \boldsymbol{\Sigma}^2_{1, 1}$, it increases slowly and converges.
+$D_{KL}(\mathbf{X}^1 \parallel \mathbf{X}^2) = 0$ when $s_1 = 10$.
+For $s_1 \in ]0; 10]$, the divergence decreases quickly to 0,
+then for $s_1 > 10$, it increases slowly and converges.
 
 ```{r}
 #| label: fig-divsigma11ggd
 #| echo: false
 #| fig-cap: "Kullback-Leibler divergence between the distributions $\\mathbf{X}^1$ and $\\mathbf{X}^2$"
-#| fig-width: 3.5
+#| fig-width: 4
 #| fig-height: 2.35
 #| cache: true
 
@@ -1050,15 +1117,15 @@ par(mar = c(4.1, 4.1, 3.1, 2.1))
 
 #### Among the scale matrix: second situation {.unnumbered .unlisted}
 
-Let $\mathbf{X}^1 \sim \text{MGGD}(\mathbf{0}, \boldsymbol{\Sigma}_1, \beta_1)$
-and $\mathbf{X}^2 \sim \text{MGGD}(\mathbf{0}, \boldsymbol{\Sigma}_2, \beta_2)$
+Let $\mathbf{X}^1 \sim MGGD(\mathbf{0}, \boldsymbol{\Sigma}_1, \beta_1)$
+and $\mathbf{X}^2 \sim MGGD(\mathbf{0}, \boldsymbol{\Sigma}_2, \beta_2)$
 
 $\boldsymbol{\Sigma}_2 = \left(\begin{array}{cc}
 1 & 0.3 \\
 0.3 & 1
-\end{array}\right)$,  
+\end{array}\right)$,
 $\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$, $s \in ]0 ; 70]$
-and $\beta1 = \beta_2 = 0.74$.
+and $\beta_1 = \beta_2 = 0.74$.
 
 The results are showed in @fig-divsigma12ggd.
 
@@ -1066,7 +1133,7 @@ The results are showed in @fig-divsigma12ggd.
 #| label: fig-divsigma12ggd
 #| echo: false
 #| fig-cap: "Kullback-Leibler divergence between the distributions $\\mathbf{X}^1$ and $\\mathbf{X}^2$"
-#| fig-width: 3.5
+#| fig-width: 4
 #| fig-height: 2.35
 #| cache: true
 
@@ -1076,8 +1143,8 @@ par(mar = c(4.1, 4.1, 3.1, 2.1))
 
 #### Among the shapes of the distributions {.unbetambered .unlisted}
 
-Let $\mathbf{X}^1 \sim \text{MGGD}(\mathbf{0}, \boldsymbol{\Sigma}, \beta_1)$
-and $\mathbf{X}^2 \sim \text{MGGD}(\mathbf{0}, \boldsymbol{\Sigma}, \beta_2)$
+Let $\mathbf{X}^1 \sim MGGD(\mathbf{0}, \boldsymbol{\Sigma}, \beta_1)$
+and $\mathbf{X}^2 \sim MGGD(\mathbf{0}, \boldsymbol{\Sigma}, \beta_2)$
 
 where $\beta_1$ take values in $]0 ; 50]$, $\beta_2 = 0.74$, and
 $\boldsymbol{\Sigma} = \left(\begin{array}{cc}
@@ -1087,7 +1154,7 @@ $\boldsymbol{\Sigma} = \left(\begin{array}{cc}
 
 The results are showed in @fig-divbeta.
 Obviously, for each of these divergences,
-$D(X^1 \parallel X^2) = 0$ when $\beta_1 = \beta_2$.
+$D_{KL}(\mathbf{X}^1 \parallel \mathbf{X}^2)= 0$ when $\beta_1 = \beta_2$.
 For $\beta_1 \in ]0; \beta_2]$, the divergence decreases quickly to 0,
 then for $\beta_1 \in ]\beta_2; +\infty]$, it increases slowly and converges
 to a limit.
@@ -1097,7 +1164,7 @@ to a limit.
 #| echo: false
 #| fig-cap: "Kullback-Leibler divergence between the distributions $\\mathbf{X}^1$ et $\\mathbf{X}^2$"
 #| warning: false
-#| fig-width: 3.5
+#| fig-width: 4
 #| fig-height: 2.35
 #| cache: true
 
@@ -1126,7 +1193,7 @@ tabfcts <- data.frame(
   "Probability density function" = c("`dmtd`", "`dmc`", "`dmggd`"),
   "Simulation" = c("`rmtd`", "`rmc`", "`rmggd`"),
   "Parameter estimation" = c("`estparmtd`", "`estparmc`", "`estparmggd`"),
-  "Rényi, Bhattacharyya or Hellinger divergence" = c("`dlstudent`", "", ""),
+  "Rényi, Bhattacharyya or Hellinger divergence" = c("`diststudent`", "", ""),
   "Kullback-Leibler divergence" = c("`kldstudent`", "`kldcauchy`", "`kldggd`")
 )
 knitr::kable(tabfcts,
@@ -1145,11 +1212,11 @@ bivariate $t$, Cauchy or generalized Gaussian distribution:
 
 Two other functions are useful for some computation:
 
-*   `lauricella`: Lauricella D-Hypergeometric Function
-<!-- *   `lnpochhammer`: logarithm of the Pochhammer Symbol -->
-*   `pochhammer`: the Pochhammer symbol
+-   `lauricella`: Lauricella D-Hypergeometric Function
+    <!-- *   `lnpochhammer`: logarithm of the Pochhammer Symbol -->
+-   `pochhammer`: the Pochhammer symbol
 
-## Example dataset: simulation from a multivariate $t$ distribution
+## Example dataset: simulation from a multivariate $t$-distribution
 
 As an example, we simulate two datasets.
 
@@ -1221,7 +1288,7 @@ The precision `attr(,"epsilon")` is given by the `eps` argument.
 
 ## Rényi, Bhattacharyya and Hellinger divergences
 
-The `diststudentd` function computes the RD, BD or HD between two MTDs
+The `diststudent` function computes the RD, BD or HD between two MTDs
 with location parameter $\boldsymbol{\mu} = \mathbf{0}$.
 
 By default, the `diststudent` function computes the RD of order $\beta$.
@@ -1328,16 +1395,15 @@ kld12
 How does the execution time increase when the precision increases?
 
 We consider the distributions:
-$X^1 \sim \text{MTD}(\mathbf{0}, \nu_1, \boldsymbol{\Sigma_1})$ and
-$X^2 \sim \text{MTD}(\mathbf{0}, \nu_2, \boldsymbol{\Sigma_2})$
+$\mathbf{X}^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma_1})$ and
+$\mathbf{X}^2 \sim MTD(\mathbf{0}, \nu_2, \boldsymbol{\Sigma_2})$
 
 with $\nu_1 = 2$ and $\nu_2 = 4$,
 $\boldsymbol{\Sigma_1} = \left(\begin{array}{ccc}
 1 & 0.6 & 0.2 \\
 0.6 & 1 & 0.3 \\
 0.2 & 0.3 & 1
-\end{array}\right)$
-and
+\end{array}\right)$ and
 $\boldsymbol{\Sigma_2} = \left(\begin{array}{ccc}
 1 & 0.3 & 0.1 \\
 0.3 & 1 & 0.4 \\
@@ -1361,8 +1427,8 @@ The R code which produce the table is given in appendix, see @sec-appenexetime.
 ### Among the dimension of the distributions
 
 We consider the distributions:
-$X^1 \sim \text{MTD}(\mathbf{0}, \nu_1, \boldsymbol{\Sigma_1})$ and
-$X^2 \sim \text{MTD}(\mathbf{0}, \nu_2, \boldsymbol{\Sigma_2})$
+$X^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma_1})$ and
+$X^2 \sim MTD(\mathbf{0}, \nu_2, \boldsymbol{\Sigma_2})$
 
 with $\nu_1 = 2$ and $\nu_2 = 4$,
 and we vary the dimension of the distributions, taking successive values of
@@ -1416,30 +1482,29 @@ The R code which produce this table is given in appendix, see @sec-appenexetime.
 {{< include _append_2_2.R >}}
 ```
 
-In @tbl-extime2, the times are normalized by taking as reference
-the execution time for dimension 2 (bivariate): `r renyi_time2` s. (Rényi)
-or `r kl_time2` s. (Kullback-Leibler).
-The R code which produce the table is given in appendix, see @sec-appenexetime.
+In @tbl-extime2, the times are normalized by taking as reference the
+execution time for dimension 2 (bivariate): `r renyi_time2` s. (Rényi)
+or `r kl_time2` s. (Kullback-Leibler). The R code which produce the
+table is given in appendix, see @sec-appenexetime.
 
 ### Among the divergence between distributions
 
 We consider the distributions:
-$X^1 \sim \text{MTD}(\mathbf{0}, \nu_1, \boldsymbol{\Sigma_1})$ and
-$X^2 \sim \text{MTD}(\mathbf{0}, \nu_2, \boldsymbol{\Sigma_2})$
+$X^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma_1})$ and
+$X^2 \sim MTD(\mathbf{0}, \nu_2, \boldsymbol{\Sigma_2})$
 
 with $\nu_1 = \nu_2 = 2$,
 $\boldsymbol{\Sigma}_2 = \left(\begin{array}{ccc}
   1 & 0.3 & 0.1 \\
   0.3 & 1 & 0.4 \\
   0.1 & 0.4 & 1
-\end{array}\right)$,
-and $\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$,
-$s \in [0.1; 70]$.
+\end{array}\right)$, and
+$\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$, $s \in [0.1; 70]$.
 
 We fix the wanted precision: $\epsilon = 10^{-6}$.
 
-The results are given by @fig-extime3.
-The R code which produce this table is given in appendix, see @sec-appenexetime.
+The results are given by @fig-extime3. The R code which produce this
+table is given in appendix, see @sec-appenexetime.
 
 ```{r}
 #| label: fig-extime3
@@ -1461,6 +1526,8 @@ par(mar = c(4.1, 4.1, 3.1, 2.1))
 
 The [`multvardiv`](https://forge.inrae.fr/imhorphen/multvardiv) package
 provides the same tools for the MCD and the MGGD (@tbl-multvardiv).
+
+\newpage
 
 # Some particular cases -- test of the results
 
@@ -1926,35 +1993,36 @@ the `kldstudent` function.
 
 ### Case $p = 3$, $\lambda_1 = \lambda_2 = \lambda_3$
 
-When $p = 3$, if the eigenvalues of the matrix $\Sigma_1 \Sigma_2^{-1}$
-are equal: $\lambda_1 = \lambda_2 = \lambda_3 = \lambda$, if
-$\lambda < 1$, we can get a simpler expression of the partial derivative
-in @eq-klmt2.
+When $p = 3$, if the eigenvalues of the matrix $\boldsymbol{\Sigma_1} \boldsymbol{\Sigma_2^{-1}}$
+are equal: $\lambda_1 = \lambda_2 = \lambda_3 = \lambda$, and
+$\frac{\nu_1}{\nu_2}\lambda < 1$, then the expression of the partial derivative
+is given by @eq-klmt2 and developed as follows
 
-Let: $$
+Let: <!--$$
 f(\lambda) = \displaystyle{ \frac{\partial}{\partial{a}}{ \bigg\{ F_D^{(p)}\bigg( a, \frac{1}{2}, \frac{1}{2}, \frac{1}{2}; a + \frac{\nu_1+p}{2}; 1 - \frac{\nu_1}{\nu_2}\lambda_1, 1 - \frac{\nu_1}{\nu_2}\lambda_2, 1 - \frac{\nu_1}{\nu_2}\lambda_3 \bigg) \bigg\} } \bigg|_{a=0} }
-$$ {#eq-kldmtdcase3}
+$$ {#eq-kldmtdcase3} -->
 
 $$
 \begin{array}{lll}
-f(\lambda) &    = &   \displaystyle{ \frac{\partial}{\partial a}\left\lbrace
+f(\lambda) & = &\displaystyle{ \frac{\partial}{\partial{a}}{ \bigg\{ F_D^{(p)}\bigg( a, \frac{1}{2}, \frac{1}{2}, \frac{1}{2}; a + \frac{\nu_1+p}{2}; 1 - \frac{\nu_1}{\nu_2}\lambda_1, 1 - \frac{\nu_1}{\nu_2}\lambda_2, 1 - \frac{\nu_1}{\nu_2}\lambda_3 \bigg) \bigg\} } \bigg|_{a=0} } \\ 
+& = &   \displaystyle{ \frac{\partial}{\partial a}\left\lbrace
 _2 F_1 (a, \frac{3}{2},a+\frac{\nu_1+3}{2}, 1-\frac{\nu_1}{\nu_2}\lambda\right\rbrace\bigg|_{a=0} } \\
 &   = &   \displaystyle{ \sum\limits_{n=0}^\infty \frac{\partial}{\partial a}\left\lbrace \frac{(a)_n}{(a+\frac{\nu_1+3}{2})_n}\right\rbrace\bigg|_{a=0} \bigg(\frac{3}{2}\bigg)_n\frac{(1-\frac{\nu_1}{\nu_2}\lambda)^n}{n!} } \\
 &   = &   \displaystyle{ \sum\limits_{n=1}^\infty \frac{(1)_n}{(\frac{\nu_1+3}{2})_n} \frac{1}{n} \bigg(\frac{3}{2}\bigg)_n\frac{(1-\frac{\nu_1}{\nu_2}\lambda)^n}{n!} }
 \end{array}
-$$
+$$ {#eq-kldmtdcase3}
 
 The multiplication of the derivative of $f$ with respect to $\lambda$ by
 $(1 -\frac{\nu_1}{\nu_2}\lambda)$ is given as follows:
 
 $$
 \begin{array}{lll}
-(1-\frac{\nu_1}{\nu_2}\lambda)\frac{\partial}{\partial \lambda} f(\lambda) &    = &    -\frac{\nu_1}{\nu_2}\sum\limits_{n=1}^\infty \frac{(1)_n}{(\frac{\nu_1+3}{2})_n} \bigg(\frac{3}{2}\bigg)_n\frac{(1-\frac{\nu_1}{\nu_2}\lambda)^n}{n!}\\
-&   = &   -\frac{\nu_1}{\nu_2}\left[ _2 F_1(1, \frac{3}{2}, \frac{\nu_1+3}{2}, 1-\frac{\nu_1}{\nu_2}\lambda) -1  \right]
+(1-\frac{\nu_1}{\nu_2}\lambda)\frac{\partial}{\partial \lambda} f(\lambda) &    = &  \displaystyle{  -\frac{\nu_1}{\nu_2}\sum\limits_{n=1}^\infty \frac{(1)_n}{(\frac{\nu_1+3}{2})_n} \bigg(\frac{3}{2}\bigg)_n\frac{(1-\frac{\nu_1}{\nu_2}\lambda)^n}{n!}}\\
+&   = &   \displaystyle{-\frac{\nu_1}{\nu_2}}\left[ _2 F_1(1, \frac{3}{2}, \frac{\nu_1+3}{2}, 1-\frac{\nu_1}{\nu_2}\lambda) -1  \right]
 \end{array}
 $$
 
-If $\nu_1=1$, Knowing that
+In addition, if $\nu_1=1$ and knowing that
 
 $$_2 F_1(1, \frac{3}{2}, 2, 1-\frac{1}{\nu_2}\lambda) = \frac{2\nu_2}{\lambda+ \sqrt{\nu_2\lambda}}$$
 
@@ -2046,20 +2114,23 @@ as.numeric(kl3pc) - kl3control
 Similarly, when $p = 4$, if the eigenvalues of the matrix
 $\boldsymbol{\Sigma}_1 \boldsymbol{\Sigma}_2^{-1}$ are equal:
 $\lambda_1 = \lambda_2 = \lambda_3 = \lambda_4 = \lambda$, if
-$\lambda < 1$, we can get a simpler expression of the partial derivative
-in @eq-klmt2.
+$\frac{\nu_1}{\nu_2}\lambda < 1$, the expression of the partial derivative
+is given by @eq-klmt2 and developed as follows
 
-Let: $$
+```{=html}
+<!--Let: $$
 f(\lambda) = \displaystyle{ \frac{\partial}{\partial{a}}{ \bigg\{ F_D^{(p)}\bigg( a, \frac{1}{2}, \frac{1}{2}, \frac{1}{2}, \frac{1}{2}; a + \frac{\nu_1+p}{2}; 1 - \frac{\nu_1}{\nu_2}\lambda_1, 1 - \frac{\nu_1}{\nu_2}\lambda_2, 1 - \frac{\nu_1}{\nu_2}\lambda_3, 1 - \frac{\nu_1}{\nu_2}\lambda_4 \bigg) \bigg\} } \bigg|_{a=0} }
-$$ {#eq-kldmtdcase4}
+$$ {#eq-kldmtdcase4}-->
+```
 
 $$\begin{array}{lll}
-f(\lambda   & =   & \displaystyle{ \frac{\partial}{\partial a}\left\lbrace F_D^{(4)}\left(a, \frac{1}{2}, \frac{1}{2},\frac{1}{2},\frac{1}{2};a+\frac{\nu_1+4}{2}; 1-\frac{\nu_1}{\nu_2}\lambda,1-\frac{\nu_1}{\nu_2}\lambda,1-\frac{\nu_1}{\nu_2}, 1-\frac{\nu_1}{\nu_2}\lambda\right) \right\rbrace\bigg|_{a=0} }  \\
+f(\lambda) &= &\displaystyle{ \frac{\partial}{\partial{a}}{ \bigg\{ F_D^{(p)}\bigg( a, \frac{1}{2}, \frac{1}{2}, \frac{1}{2}, \frac{1}{2}; a + \frac{\nu_1+p}{2}; 1 - \frac{\nu_1}{\nu_2}\lambda_1, 1 - \frac{\nu_1}{\nu_2}\lambda_2, 1 - \frac{\nu_1}{\nu_2}\lambda_3, 1 - \frac{\nu_1}{\nu_2}\lambda_4 \bigg) \bigg\} } \bigg|_{a=0} }\\
+& =   & \displaystyle{ \frac{\partial}{\partial a}\left\lbrace F_D^{(4)}\left(a, \frac{1}{2}, \frac{1}{2},\frac{1}{2},\frac{1}{2};a+\frac{\nu_1+4}{2}; 1-\frac{\nu_1}{\nu_2}\lambda,1-\frac{\nu_1}{\nu_2}\lambda,1-\frac{\nu_1}{\nu_2}, 1-\frac{\nu_1}{\nu_2}\lambda\right) \right\rbrace\bigg|_{a=0} }  \\
 &   = &   \displaystyle{ \frac{\partial}{\partial a}\left\lbrace
 _2 F_1 (a, 2,a+\frac{\nu_1+4}{2}, 1-\frac{\nu_1}{\nu_2}\lambda\right\rbrace\bigg|_{a=0} }    \\
 &   = &   \displaystyle{ \sum\limits_{n=0}^\infty \frac{\partial}{\partial a}\left\lbrace \frac{(a)_n}{(a+\frac{\nu_1+4}{2})_n}\right\rbrace\bigg|_{a=0} (2)_n\frac{(1-\frac{\nu_1}{\nu_2}\lambda)^n}{n!} } \\
 &   = &   \displaystyle{ \sum\limits_{n=1}^\infty \frac{(1)_n}{(\frac{\nu_1+4}{2})_n} \frac{1}{n} (2)_n\frac{(1-\frac{\nu_1}{\nu_2}\lambda)^n}{n!} }
-\end{array}$$
+\end{array}$$ {#eq-kldmtdcase4}
 
 The multiplication of the derivative of $f$ with respect to $\lambda$ by
 $(1 -\frac{\nu_1}{\nu_2}\lambda)$ is given as follows:
@@ -2070,7 +2141,7 @@ $$\begin{array}{lll}
 \end{array}
 $$
 
-If $\nu_1=2$, Knowing that:
+In addition, if $\nu_1=2$ and knowing that:
 
 $$
 \displaystyle{ _2 F_1(1, 2, 3, 1-\frac{2}{\nu_2}\lambda) = -\frac{2\nu_2(\nu_2-2\lambda+\nu_2\ln(\frac{2\lambda}{\nu_2}))}{(\nu_2-2\lambda)^2} }
