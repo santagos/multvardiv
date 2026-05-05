@@ -1124,7 +1124,7 @@ $\boldsymbol{\Sigma}_2 = \left(\begin{array}{cc}
 1 & 0.3 \\
 0.3 & 1
 \end{array}\right)$,
-$\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$, $s \in ]0 ; 70]$
+$\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$, $s \in ]0 ; 25]$
 and $\beta_1 = \beta_2 = 0.74$.
 
 The results are showed in @fig-divsigma12ggd.
@@ -1146,7 +1146,7 @@ par(mar = c(4.1, 4.1, 3.1, 2.1))
 Let $\mathbf{X}^1 \sim MGGD(\mathbf{0}, \boldsymbol{\Sigma}, \beta_1)$
 and $\mathbf{X}^2 \sim MGGD(\mathbf{0}, \boldsymbol{\Sigma}, \beta_2)$
 
-where $\beta_1$ take values in $]0 ; 50]$, $\beta_2 = 0.74$, and
+where $\beta_1$ take values in $]0 ; 22]$, $\beta_2 = 0.74$, and
 $\boldsymbol{\Sigma} = \left(\begin{array}{cc}
 1 & 0.3 \\
 0.3 & 1
