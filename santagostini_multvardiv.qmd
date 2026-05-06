@@ -69,7 +69,7 @@ computation of statistical divergence in discrete case [@philentropy;
 @FNN; @dlookr; @LaplacesDemon].  
 The [`dad`](https://doi.org/10.32614/RJ-2021-071) package provides functions
 to compute distances between continuous multivariate Gaussian distributions,
-or between distributions estimated by the Gaussian kernel method if they are
+or between distributions non-parametrically estimated by the Gaussian kernel method if they are
 non-Gaussian [@dad].
 <!-- The [`dad`](https://doi.org/10.32614/RJ-2021-071) package provides
 functions which compute the distance (including Hellinger or Jeffreys,
