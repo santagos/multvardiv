@@ -1,17 +1,15 @@
-# Template for contribution to Computo
-Jane Doe, John Doe
-2025-07-30
+# `multvardiv` package
+Pierre Santagostini, Nizar Bouhlel
+2025-10-17
 
-*Template for preparing a submission to Computo, using the [quarto
-journal
-extension](https://github.com/computorg/computo-quarto-extension), the
-knitr kernel (R user) and
-[renv](https://rstudio.github.io/renv/articles/renv.html) to set-up the
-dependencies.  
-For a detailed, step-by-step guide on preparing your article, setting up
-the continuous integration and submitting it to Computo, please consult
-the [guidelines for
-authors](https://computo-journal.org/site/guidelines-authors.html).*
+*The R package `multvardiv` provides functions to compute the
+Kullback-Leibler divergence between two multivariate $t$, Cauchy or
+generalized Gaussian distributions using analytic expressions of the
+divergence. For the $t$ and Cauchy distributions, the Rényi,
+Bhattacharyya and Hellinger divergences are also available. This package
+also gives tools for the manipulation of these distributions:
+probability density function, simulation of a random sample, estimation
+of the parameters, graph.*
 
 [![build and
 publish](https://github.com/computorg/template-computo-r/actions/workflows/build.yml/badge.svg)](https://github.com/computorg/template-computo-r/actions/workflows/build.yml)
@@ -20,16 +18,18 @@ License](https://i.creativecommons.org/l/by/4.0/80x15.png)](http://creativecommo
 
 ### Authors
 
-- [Jane Doe](https://janedoe.someplace.themoon.org) (Name of Affiliation
-  one)
-- [John Doe](https://johndoe.someplace.themoon.org) (Name of Affiliation
-  two)
+- [Pierre Santagostini](?meta:by-author.1.url) (Univ Angers, Institut
+  Agro, INRAE, IRHS, SFR QUASAV, F-49000 Angers, France)
+- [Nizar Bouhlel](https://www.researchgate.net/profile/Nizar-Bouhlel)
+  (**?meta:by-affiliation.2.name**)
 
 ### Abstract
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-posuere vestibulum facilisis. Aenean pretium orci augue, quis lobortis
-libero accumsan eu. Nam mollis lorem sit amet pellentesque ullamcorper.
-Curabitur lobortis libero eget malesuada vestibulum. Nam nec nibh massa.
-Pellentesque porttitor cursus tellus. Mauris urna erat, rhoncus sed
-faucibus sit amet, venenatis eu ipsum.
+The R package `multvardiv` provides functions to compute the
+Kullback-Leibler divergence between two multivariate $t$, Cauchy or
+generalized Gaussian distributions using analytic expressions of the
+divergence. For the $t$ and Cauchy distributions, the Rényi,
+Bhattacharyya and Hellinger divergences are also available. This package
+also gives tools for the manipulation of these distributions:
+probability density function, simulation of a random sample, estimation
+of the parameters, graph.
