@@ -12,6 +12,7 @@ author:
     email: pierre.santagostini@institut-agro.fr
     affiliations:
       - name: Univ Angers, Institut Agro, INRAE, IRHS, SFR QUASAV, F-49000 Angers, France
+        department: ImHorPhen (Imaging for Horticulture and Phenotyping) team
         url: https://www6.angers-nantes.inrae.fr/irhs
   - name: Nizar Bouhlel
     email: nizar.bouhlel@institut-agro.fr; nizar.bouhlel@inrae.fr
@@ -19,7 +20,7 @@ author:
     orcid: 0000-0002-4861-8550
     affiliations:
       - name: Univ Angers, Institut Agro, INRAE, IRHS, SFR QUASAV, F-49000 Angers, France
-        department: 
+        department: ImHorPhen (Imaging for Horticulture and Phenotyping) team
         url: https://www6.angers-nantes.inrae.fr/irhs
 date: last-modified
 date-modified: last-modified
