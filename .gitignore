@@ -58,5 +58,6 @@ curves_dist*
 diststudent_probleme.R
 calculs_divergence/*
 .positai
+*.docx
 
 **/*.quarto_ipynb
