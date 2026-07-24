@@ -43,20 +43,21 @@ times[4] <- system.time(
 )["elapsed"]
 iter[4] <- attr(d, "k")
 
-# # Dim 5
-# Sigma1 = rbind(c(1, 0.6, 0.2, 0, 0), c(0.6, 1, 0.3, 0, 0),
-#                c(0.2, 0.3, 1, 0, 0), c(0, 0, 0, 1, 0),
-#                c(0, 0, 0, 0, 1))
-# Sigma2 = rbind(c(1, 0.3, 0.1, 0, 0), c(0.3, 1, 0.4, 0, 0),
-#                c(0.1, 0.4, 1, 0, 0), c(0, 0, 0, 1, 0),
-#                c(0, 0, 0, 0, 1))
-# t5 <- system.time(
-#   diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
-#               dist = "renyi", bet = 0.25)
-# )
+# Dim 5
+Sigma1 = rbind(c(1, 0.6, 0.2, 0, 0), c(0.6, 1, 0.3, 0, 0),
+               c(0.2, 0.3, 1, 0, 0), c(0, 0, 0, 1, 0),
+               c(0, 0, 0, 0, 1))
+Sigma2 = rbind(c(1, 0.3, 0.1, 0, 0), c(0.3, 1, 0.4, 0, 0),
+               c(0.1, 0.4, 1, 0, 0), c(0, 0, 0, 1, 0),
+               c(0, 0, 0, 0, 1))
+times[5] <- system.time(
+  d <- diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
+                   dist = "renyi", bet = 0.25)
+)["elapsed"]
+iter[5] <- attr(d, "k")
 
-renyi_time2 <- times[2]
-renyi_exetime <- data.frame(dim = 1:4, iter = iter, exetime = times/renyi_time2)
+renyi_time3 <- times[3]
+renyi_exetime <- data.frame(dim = 1:5, iter = iter, exetime = times/renyi_time3)
 
 
 # Kullback-Leibler divergence
@@ -104,27 +105,29 @@ times[4] <- system.time(
 )["elapsed"]
 iter[4] <- attr(d, "k")
 
-# # Dim 5
-# Sigma1 = rbind(c(1, 0.6, 0.2, 0, 0), c(0.6, 1, 0.3, 0, 0),
-#                c(0.2, 0.3, 1, 0, 0), c(0, 0, 0, 1, 0),
-#                c(0, 0, 0, 0, 1))
-# Sigma2 = rbind(c(1, 0.3, 0.1, 0, 0), c(0.3, 1, 0.4, 0, 0),
-#                c(0.1, 0.4, 1, 0, 0), c(0, 0, 0, 1, 0),
-#                c(0, 0, 0, 0, 1))
-# t5 <- system.time(
-#   diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
-#               dist = "renyi", bet = 0.25)
-# )
+# Dim 5
+Sigma1 = rbind(c(1, 0.6, 0.2, 0, 0), c(0.6, 1, 0.3, 0, 0),
+               c(0.2, 0.3, 1, 0, 0), c(0, 0, 0, 1, 0),
+               c(0, 0, 0, 0, 1))
+Sigma2 = rbind(c(1, 0.3, 0.1, 0, 0), c(0.3, 1, 0.4, 0, 0),
+               c(0.1, 0.4, 1, 0, 0), c(0, 0, 0, 1, 0),
+               c(0, 0, 0, 0, 1))
+times[5] <- system.time(
+  d <- kld(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
+           distribution = "mtd")
+)["elapsed"]
+iter[5] <- attr(d, "k")
 
-kl_time2 <- times[2]
-kl_exetime <- data.frame(dim = 1:4, iter = iter, exetime = times/kl_time2)
+kl_time3 <- times[3]
+kl_exetime <- data.frame(dim = 1:5, iter = iter, exetime = times/kl_time3)
 
 
 # Table of the execution times
 
 library(kableExtra)
 data.frame(renyi_exetime$dim, renyi_exetime[2:3], kl_exetime[2:3]) %>%
-  kbl(col.names = c("Dimension", "Number of iterations", "Execution time (s)",
-                    "Number of iterations", "Execution time (s)")) %>%
+  kbl(col.names = c("Dimension", "Number of iterations", "Execution time",
+                    "Number of iterations", "Execution time"),
+      digits = c(0, 0, 3, 0, 3)) %>%
   add_header_above(c(" " = 1, "Rényi divergence" = 2,
                      "Kullback-Leibler divergence" = 2))
