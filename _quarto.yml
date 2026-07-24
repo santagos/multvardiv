@@ -5,7 +5,7 @@ project:
     - README.qmd
 
 title: "`multvardiv` package"
-subtitle: "Multivariate elliptical Distributions and Statistical Divergence"
+subtitle: "Multivariate Elliptical Distributions and Statistical Divergence"
 author:
   - name: Pierre Santagostini
     corresponding: true
