@@ -3,13 +3,14 @@ Pierre Santagostini, Nizar Bouhlel
 2025-10-17
 
 *The R package `multvardiv` provides functions to compute the
-Kullback-Leibler divergence between two multivariate $t$, Cauchy or
-generalized Gaussian distributions using analytic expressions of the
-divergence. For the $t$ and Cauchy distributions, the Rényi,
-Bhattacharyya and Hellinger divergences are also available. This package
-also gives tools for the manipulation of these distributions:
-probability density function, simulation of a random sample, estimation
-of the parameters, graph.*
+Kullback-Leibler divergence between two Multivariate elliptical
+Distributions such as the multivariate $t$, Cauchy or generalized
+Gaussian distributions using analytic expressions of the divergence. For
+the $t$- and Cauchy distributions, the Rényi, Bhattacharyya and
+Hellinger divergences are also available. This package also gives tools
+for the manipulation of these distributions: probability density
+function, simulation of a random sample, estimation of the parameters,
+graph.*
 
 [![build and
 publish](https://github.com/computorg/template-computo-r/actions/workflows/build.yml/badge.svg)](https://github.com/computorg/template-computo-r/actions/workflows/build.yml)
@@ -26,10 +27,11 @@ License](https://i.creativecommons.org/l/by/4.0/80x15.png)](http://creativecommo
 ### Abstract
 
 The R package `multvardiv` provides functions to compute the
-Kullback-Leibler divergence between two multivariate $t$, Cauchy or
-generalized Gaussian distributions using analytic expressions of the
-divergence. For the $t$ and Cauchy distributions, the Rényi,
-Bhattacharyya and Hellinger divergences are also available. This package
-also gives tools for the manipulation of these distributions:
-probability density function, simulation of a random sample, estimation
-of the parameters, graph.
+Kullback-Leibler divergence between two Multivariate elliptical
+Distributions such as the multivariate $t$, Cauchy or generalized
+Gaussian distributions using analytic expressions of the divergence. For
+the $t$- and Cauchy distributions, the Rényi, Bhattacharyya and
+Hellinger divergences are also available. This package also gives tools
+for the manipulation of these distributions: probability density
+function, simulation of a random sample, estimation of the parameters,
+graph.
