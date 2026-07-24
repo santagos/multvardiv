@@ -56,8 +56,10 @@ times[5] <- system.time(
 )["elapsed"]
 iter[5] <- attr(d, "k")
 
-renyi_time3 <- times[3]
-renyi_exetime <- data.frame(dim = 1:5, iter = iter, exetime = times/renyi_time3)
+renyi_times <- times
+renyi_iter <- iter
+renyi_t3 <- renyi_times[3]
+renyi_exetime <- data.frame(dim = 1:5, iter = renyi_iter, exetime = renyi_times/renyi_t3)
 
 
 # Kullback-Leibler divergence
@@ -118,8 +120,10 @@ times[5] <- system.time(
 )["elapsed"]
 iter[5] <- attr(d, "k")
 
-kl_time3 <- times[3]
-kl_exetime <- data.frame(dim = 1:5, iter = iter, exetime = times/kl_time3)
+kl_times <- times
+kl_iter <- iter
+kl_t3 <- kl_times[3]
+kl_exetime <- data.frame(dim = 1:5, iter = kl_iter, exetime = kl_times/kl_t3)
 
 
 # Table of the execution times
