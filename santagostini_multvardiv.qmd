@@ -1487,7 +1487,7 @@ The R code which produce this table is given in appendix, see @sec-appenexetime.
 
 In @tbl-extime2, the times are normalized by taking as reference the
 execution time for dimension 3 <!-- 2 (bivariate) -->:
-`r renyi_time3` s. (Rényi) or `r kl_time3` s. (Kullback-Leibler).
+`r renyi_t3` s. (Rényi) or `r kl_t3` s. (Kullback-Leibler).
 The R code which produce the table is given in appendix, see @sec-appenexetime.
 
 ### Among the divergence between distributions
