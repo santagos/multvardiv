@@ -1421,12 +1421,32 @@ $\boldsymbol{\Sigma_2} = \left(\begin{array}{ccc}
 #| tbl-cap: "Evolution of the normalized execution time among the wished precision of the divergence"
 #| echo: false
 #| cache: true
+#| fig-show: hide
 
 {{< include _append_2_1.R >}}
 ```
 
-In @tbl-extime1, the times are normalized by taking as reference
-the execution time to reach the precision $10^{-6}$:
+```{r}
+#| label: fig-extime1
+#| fig-cap: "Evolution of the normalized execution time among the wished precision of the divergence"
+#| fig-subcap:
+#|    - "Rényi divergence"
+#|    - "Kullback-Leibler"
+#| fig-height: 3.5
+#| fig-width: 9
+#| layout-ncol: 1
+#| echo: false
+#| cache: true
+plot(exetime~epsilon, data = renyi_exetime, type = "b", log = "x",
+     pch = 16, xaxt = "n", xlab = "Precision", ylab = "Execution time")
+axis(1, at = epsilon, labels = parse(text = paste0("10^", log10(epsilon))))
+plot(exetime~epsilon, data = kl_exetime, type = "b", log = "x",
+     pch = 16, xaxt = "n", xlab = "Precision", ylab = "Execution time")
+axis(1, at = epsilon, labels = parse(text = paste0("10^", log10(epsilon))))
+```
+
+In @tbl-extime1 and @fig-extime1, the times are normalized
+by taking as reference the execution time to reach the precision $10^{-6}$:
 `r renyi_exetime6` s. (Rényi) or `r kl_exetime6` s. (Kullback-Leibler).
 The R code which produce the table is given in appendix, see @sec-appenexetime.
 
