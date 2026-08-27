@@ -1418,7 +1418,7 @@ $\boldsymbol{\Sigma_2} = \left(\begin{array}{ccc}
 
 ```{r}
 #| label: tbl-extime1
-#| tbl-cap: "Evolution of the execution time among the wished precision of the divergence"
+#| tbl-cap: "Evolution of the normalized execution time among the wished precision of the divergence"
 #| echo: false
 #| cache: true
 
@@ -1481,7 +1481,7 @@ The R code which produce this table is given in appendix, see @sec-appenexetime.
 
 ```{r}
 #| label: tbl-extime2
-#| tbl-cap: "Evolution of the execution time among the wished precision of the divergence"
+#| tbl-cap: "Evolution of the normalized execution time among the wished precision of the divergence"
 #| echo: false
 #| cache: true
 
