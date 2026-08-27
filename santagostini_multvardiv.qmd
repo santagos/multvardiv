@@ -1393,6 +1393,9 @@ kld12
 
 ## Execution time
 
+The R code which produces the results presented in this section,
+it was run under Windows, with a Intel Core Ultra 7 165H (1.40 GHz, 32 Go).
+
 ### Among the wanted precision
 
 How does the execution time increase when the precision increases?
