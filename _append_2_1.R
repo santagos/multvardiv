@@ -9,7 +9,7 @@ Sigma1 = rbind(c(1, 0.6, 0.2), c(0.6, 1, 0.3), c(0.2, 0.3, 1))
 Sigma2 = rbind(c(1, 0.3, 0.1), c(0.3, 1, 0.4), c(0.1, 0.4, 1))
 
 epsilon <- c(1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9,
-             1e-10, 1e-12, 1e-13, 1e-14, 1e-15)
+             1e-10, 1e-11, 1e-12, 1e-13, 1e-14, 1e-15)
 times <- iter <- numeric(length = length(epsilon))
 for (i in 1:length(epsilon)) {
   eps <- epsilon[i]
@@ -22,13 +22,13 @@ for (i in 1:length(epsilon)) {
 
 renyi_exetime6 <- times[7]
 renyi_exetime <- data.frame(eps = epsilon, iter = iter,
-                            exetime = times/renyi_exetime6)
+                            exetime = times, exetnorm = times/renyi_exetime6)
 
 
 # Kullback-Leibler divergence
 
 epsilon <- c(1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9,
-             1e-10, 1e-12, 1e-13, 1e-14, 1e-15)
+             1e-10, 1e-11, 1e-12, 1e-13, 1e-14, 1e-15)
 times <- iter <- numeric(length = length(epsilon))
 for (i in 1:length(epsilon)) {
   eps <- epsilon[i]
@@ -41,17 +41,30 @@ for (i in 1:length(epsilon)) {
 
 kl_exetime6 <- times[7]
 kl_exetime <- data.frame(eps = epsilon, iter = iter,
-                         exetime = times/kl_exetime6)
+                         exetime = times, exetnorm = times/renyi_exetime6)
 
+
+if (knitr::is_html_output()) {
+  precision <- paste0("10<sup>", log10(renyi_exetime$eps), "</sup>")
+} else {
+  precision <- paste0("$10^{", log10(renyi_exetime$eps), "}$")
+}
 
 # Table of the execution times
 
 library(kableExtra)
-data.frame(renyi_exetime$eps, renyi_exetime[2:3], kl_exetime[2:3]) %>%
+data.frame(precision, renyi_exetime[c(2, 4)], kl_exetime[c(2, 4)]) %>%
   kbl(
     col.names = c("Precision", "Number of iterations", "Execution time",
                   "Number of iterations", "Execution time"),
-    digits = c(16, 0, 4, 0, 4)
+    digits = c(16, 0, 4, 0, 4), escape = FALSE
   ) %>%
   add_header_above(c(" " = 1, "Rényi divergence" = 2,
                      "Kullback-Leibler divergence" = 2))
+
+plot(exetime~epsilon, data = renyi_exetime, type = "b", log = "x",
+     pch = 16, xaxt = "n", xlab = "Precision", ylab = "Execution time")
+axis(1, at = epsilon, labels = parse(text = paste0("10^", log10(epsilon))))
+plot(exetime~epsilon, data = kl_exetime, type = "b", log = "x",
+     pch = 16, xaxt = "n", xlab = "Precision", ylab = "Execution time")
+axis(1, at = epsilon, labels = parse(text = paste0("10^", log10(epsilon))))
