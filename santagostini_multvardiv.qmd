@@ -182,7 +182,7 @@ can be generated using [@roth; @kotz]: $$
     \displaystyle{\mathbf{X} = \boldsymbol{\mu} + \frac{\mathbf{Y}}{\sqrt{U/\nu}}}
 $$ {#eq-rmtd} where $\mathbf{Y}$ is generated from a centered Gaussian
 distribution with covariance matrix $\boldsymbol{\Sigma}$, i.e. $\mathbf{Y}\sim \mathcal{N}^p(\mathbf{0},\boldsymbol{\Sigma})$ and $U$ is distributed
-according to a Chi-squared distribution with $\nu$ degrees of freedom, $U\sim \chi^2(\nu)$ and $U$ is independent of $\mathbf{Y}$. For convenience, we use the following new variable: $V=\frac{U}{\nu}$. As a consequence, $V$ follows a Gamma distribution with parameters $(\frac{\nu}{2},\frac{\nu}{2})$, i.e. $V\sim Gamma(\frac{\nu}{2},\frac{\nu}{2})$. 
+according to a Chi-squared distribution with $\nu$ degrees of freedom, $U\sim \chi^2(\nu)$ and $U$ is independent of $\mathbf{Y}$. For convenience, we use the following new variable: $V=U/\nu$. As a consequence, $V$ follows a Gamma distribution with parameters $(\frac{\nu}{2},\frac{\nu}{2})$, i.e. $V\sim Gamma(\frac{\nu}{2},\frac{\nu}{2})$. 
 
 <!-- The MCD is a particular case of the multivariate $t$-distribution with $\nu = 1$. -->
 
