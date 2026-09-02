@@ -46,6 +46,7 @@ kullback_leibler <- sapply(s1, function(s1) {
 
 # Table of the results
 divS1 <- data.frame(
+  s1 = s1,
   renyi_0_25 = renyi_0_25,
   renyi_1_5 = renyi_1_5,
   bhattacharyya = bhattacharyya,
