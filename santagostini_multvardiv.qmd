@@ -148,7 +148,7 @@ particular cases to test the computation of the statistical divergence
 # Multivariate elliptical distributions and divergence
 
 A $p$-dimensional real valued random vector $\mathbf{X}$ is elliptically
-symmetric (ES) distributed if its probability density function (p.d.f.)
+symmetric (ES) distributed if its probability density function (*pdf*)
 is given by $$
     \displaystyle{ f_{\mathbf{X}}(\mathbf{x}) = C_{p,g} |\boldsymbol{\Sigma}|^{-1/2} g\left( (\mathbf{x}-\boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x}-\boldsymbol{\mu}) \right)}
 $$ where $C_{p,g}$ is a normalization constant such that the integral of
@@ -170,8 +170,7 @@ $g(x) = \exp{(-\frac{1}{2}x^\beta)}$ for MGGD.
 Let $\mathbf{X}$ be a random vector of $\mathbb{R}^p$ from a
 multivariate $t$-distribution (MTD) with degrees of freedom $\nu$, mean
 vector $\boldsymbol{\mu}$ and scale matrix $\boldsymbol{\Sigma}$, which is a
-$p \times p$ symmetric, positive definite real matrix. Its probability
-density function is given by: $$
+$p \times p$ symmetric, positive definite real matrix. Its *pdf* is given by: $$
     \displaystyle{ f_{\mathbf{X}}(\mathbf{x}|\nu, \boldsymbol{\mu}, \boldsymbol{\Sigma}) = \frac{\Gamma\left( \frac{\nu+p}{2} \right) |\boldsymbol{\Sigma}|^{-1/2}}{\Gamma\left( \frac{\nu}{2} \right) (\nu \pi)^{p/2}} \left( 1 + \frac{1}{\nu} (\mathbf{x}-\boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x}-\boldsymbol{\mu}) \right)^{-\frac{\nu+p}{2}} }
 $$ {#eq-mcd}
 
@@ -193,7 +192,7 @@ according to a Chi-squared distribution with $\nu$ degrees of freedom, $U\sim \c
 
 We use the Expectation-Maximization (EM) method to estimate the parameters of a multivariate $t$-distribution.
 Let $\{ \mathbf{x}_1, \dots, \mathbf{x}_n \}$ be $n$ observations from an MTD with
-a probability density function given by $f_{\mathbf{X}}(\mathbf{x})$. We
+a *pdf* given by $f_{\mathbf{X}}(\mathbf{x})$. We
 assume that each random vector $\mathbf{x}_i$ is associated with a non-observed, hidden variable $V_i$. The sequence $\{V_i,i=1,\cdots,N\}$ is
 also assumed to be $iid$.
 The probability density of $\mathbf{X}$ depends on a set of unknown
@@ -232,7 +231,7 @@ $$ {#eq-lamda_x}
 
 #### Estimation of $\theta_y=(\boldsymbol{\mu},\boldsymbol{\Sigma})$ {.unnumbered .unlisted}
 
-The probability density function of $\mathbf{X}$ knowing $v$ is given as follows 
+The *pdf* of $\mathbf{X}$ knowing $v$ is given as follows 
 $$\begin{array}{lll}
 f_{\mathbf{X}|V}(\mathbf{x_i}|v_i, \theta_y) &    = &  \big|\frac{\partial \mathbf{Y}}{\partial \mathbf{X}}\big| f_{\mathbf{Y}}\left( (\mathbf{x_i}-\boldsymbol{\mu}) \sqrt{v_i}\right) \\
 &   = &  v_i^{\frac{p}{2}}\frac{1}{(2\pi)^{p/2}|\boldsymbol{\Sigma}|^{1/2}}\exp\big(-\frac{v_i}{2}(\mathbf{x_i}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x_i}-\boldsymbol{\mu})\big)  \\
@@ -240,7 +239,7 @@ f_{\mathbf{X}|V}(\mathbf{x_i}|v_i, \theta_y) &    = &  \big|\frac{\partial \math
 \end{array}$$ {#eq-conditional_law}
 where $\big|\frac{\partial \mathbf{Y}}{\partial \mathbf{X}}\big|$ is the Jacobian determinant.
 It is clear that $\mathbf{X}|V\sim \mathcal{N}^p(\boldsymbol{\mu}, \frac{\boldsymbol{\Sigma}}{v})$. 
-Substituting the expression of the probability density function of $\mathbf{X}|V$ given by @eq-conditional_law into @eq-lamda_w, differentiating with respect to $\boldsymbol{\mu}$ and $\boldsymbol{\Sigma}$, and setting the result to zero gives:
+Substituting the expression of the *pdf* of $\mathbf{X}|V$ given by @eq-conditional_law into @eq-lamda_w, differentiating with respect to $\boldsymbol{\mu}$ and $\boldsymbol{\Sigma}$, and setting the result to zero gives:
 <!-- Nous allons procéder autrement, soit $V=\frac{U}{\nu}$, nous allons alors déterminer $f_{\X|V}(x_i|v_i, \theta_y)$ et $f_{V}(v_i|\theta_{u})$.  -->
 
 <!-- Sachant que -->
@@ -327,7 +326,7 @@ where $\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}$ is the posterior e
 
 #### Estimation of $\theta_v=(\nu)$ {.unnumbered .unlisted}
 
-The probability density function of $V$ is given by 
+The *pdf* of $V$ is given by 
 $$
 f_{V}(v_i|\theta_{v}) = \big(\frac{\nu}{2}\big)^{\frac{\nu}{2}}\frac{1}{\Gamma(\nu/2)}v_i^{\frac{\nu}{2}-1}\exp{-\frac{\nu}{2}v_i}
 $$ {#eq-v_distribution}
@@ -520,7 +519,7 @@ estimation:
 ### Rényi divergence
 
 Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of
-$\mathbb{R}^p$ from MTDs with probability density functions given as follows: $$
+$\mathbb{R}^p$ from MTDs with pdf given as follows: $$
     \displaystyle{ f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \boldsymbol{\Sigma}_1) = f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \boldsymbol{0}, \boldsymbol{\Sigma}_1) = \frac{\Gamma\left( \frac{\nu_1+p}{2} \right) |\boldsymbol{\Sigma}_1|^{-1/2}}{\Gamma\left( \frac{\nu_1}{2} \right) (\nu_1 \pi)^{p/2}} \left( 1 + \frac{1}{\nu_1} \mathbf{x}^T \boldsymbol{\Sigma}_1^{-1} \mathbf{x} \right)^{-\frac{\nu_1+p}{2}} }
 $$ and $$
     \displaystyle{ f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \boldsymbol{\Sigma}_2) = f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \boldsymbol{0}, \boldsymbol{\Sigma}_2) = \frac{\Gamma\left( \frac{\nu_2+p}{2} \right) |\boldsymbol{\Sigma}_2|^{-1/2}}{\Gamma\left( \frac{\nu_2}{2} \right) (\nu_2 \pi)^{p/2}} \left( 1 + \frac{2}{\nu_2} \mathbf{x}^T \boldsymbol{\Sigma}_2^{-1} \mathbf{x} \right)^{-\frac{\nu_2+p}{2}} }
@@ -776,7 +775,7 @@ par(mar = c(4.1, 4.1, 3.1, 2.1))
 Let $\mathbf{X}$ be a random vector of $\mathbb{R}^p$ from a
 multivariate Cauchy distribution (MCD) with location vector
 $\boldsymbol{\mu}$ and scale matrix $\boldsymbol{\Sigma}$, which is a $p \times p$
-symmetric, positive definite matrix. Its probability density function is
+symmetric, positive definite matrix. Its *pdf* is
 given by: $$
     \displaystyle{ f(\mathbf{x}|\boldsymbol{\mu}, \boldsymbol{\Sigma}) = \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\boldsymbol{\Sigma}|^\frac{1}{2} \left[ 1 + (\mathbf{x}-\boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x}-\boldsymbol{\mu}) \right]^\frac{1+p}{2}} }
 $$
@@ -820,7 +819,7 @@ MTD (@sec-est_mtd) setting $\nu = 1$. Then the algorithm presented in
 ### Rényi divergence {#sec-renyimcd}
 
 Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of
-$\mathbb{R}^p$ from MCDs with probability density functions given by:
+$\mathbb{R}^p$ from MCDs with *pdf* given by:
 $$\displaystyle{ f_{\mathbf{X}^1}\left(\mathbf{x}|\boldsymbol{\Sigma}_1\right) = f_{\mathbf{X}^1}\left(\mathbf{x}|\mathbf{0}, \boldsymbol{\Sigma}_1\right) = \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\boldsymbol{\Sigma}_1|^\frac{1}{2} \left[ 1 + \mathbf{x}^T \boldsymbol{\Sigma}_1^{-1} \mathbf{x} \right]^\frac{1+p}{2}} }$$
 and
 $$\displaystyle{ f_{\mathbf{X}^2}\left(\mathbf{x}|\boldsymbol{\Sigma}_2\right) = f_{\mathbf{X}^2}\left(\mathbf{x}|\mathbf{0}, \boldsymbol{\Sigma}_2\right) =  \frac{\Gamma\left(\frac{1+p}{2}\right)}{\pi^{p/2} \Gamma\left(\frac{1}{2}\right) |\boldsymbol{\Sigma}_2|^\frac{1}{2} \left[ 1 + \mathbf{x}^T \boldsymbol{\Sigma}_2^{-1} \mathbf{x} \right]^\frac{1+p}{2}} }$$
@@ -954,7 +953,7 @@ Let $\mathbf{X}$ a random vector of $\mathbb{R}^p$ from a Multivariate
 generalized Gaussian distribution (MGGD) with mean vector
 $\boldsymbol{\mu}$, dispersion matrix $\boldsymbol{\Sigma}$ (symmetric, positive
 definite of dimension $p \times p$) and shape parameter $\beta > 0$. Its
-probability density function is given by [@gomez; @bouhlel19]: $$
+*pdf* is given by [@gomez; @bouhlel19]: $$
     \displaystyle{f_\mathbf{X}\left(\mathbf{x}|\boldsymbol{\mu}, \boldsymbol{\Sigma}, \beta\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta}\right) 2^\frac{p}{2\beta}} \frac{\beta}{|\boldsymbol{\Sigma}|^\frac{1}{2}} e^{-\frac{1}{2}\left[ (\mathbf{x}-\boldsymbol{\mu})^T \boldsymbol{\Sigma}^{-1} (\mathbf{x}-\boldsymbol{\mu}) \right]^\beta}}
 $$ {#eq-mggd}
 
@@ -1016,8 +1015,7 @@ $m$ and $\beta$:
 ### Kullback-Leibler divergence
 
 Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of
-$\mathbb{R}^p$ ($p > 1$) from centered MGGDs with probability density
-functions
+$\mathbb{R}^p$ ($p > 1$) from centered MGGDs with *pdf*
 $$\displaystyle{f_{\mathbf{X}^1}(\mathbf{x}|\boldsymbol{\Sigma}_1, \beta_1) = f_{\mathbf{X}^1}\left(\mathbf{x}|\mathbf{0}, \boldsymbol{\Sigma}_1, \beta_1\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta_1}\right) 2^\frac{p}{2\beta_1}} \frac{\beta_1}{|\boldsymbol{\Sigma}_1|^\frac{1}{2}} e^{-\frac{1}{2}\left[ \mathbf{x}^T \boldsymbol{\Sigma}_1^{-1} \mathbf{x} \right]^{\beta_1}}}$$
 and
 $$\displaystyle{f_{\mathbf{X}^2}(\mathbf{x}|\boldsymbol{\Sigma}_2, \beta_2) = f_{\mathbf{X}^2}\left(\mathbf{x}|\mathbf{0}, \boldsymbol{\Sigma}_2, \beta_2\right) = \frac{\Gamma\left(\frac{p}{2}\right)}{\pi^\frac{p}{2} \Gamma\left(\frac{p}{2 \beta_2}\right) 2^\frac{p}{2\beta_2}} \frac{\beta_2}{|\boldsymbol{\Sigma}_2|^\frac{1}{2}} e^{-\frac{1}{2}\left[ \mathbf{x}^T \boldsymbol{\Sigma}_2^{-1} \mathbf{x} \right]^{\beta_2}}}$$
@@ -1059,7 +1057,7 @@ $$ {#eq-klggd}
 
 Let $X^1$ and $X^2$ be two random
 variables distributed according to centered generalized Gaussian
-distributions with probability density functions:
+distributions with *pdf*:
 $$\displaystyle{f_{X^1}(x|\sigma_1, \beta_1) = f_{X^1}\left(x|0, \sigma_1, \beta_1\right) = \frac{\beta_1}{\Gamma\left(\frac{1}{2 \beta_1}\right) 2^\frac{1}{2\beta_1}\sqrt{\sigma_1}} e^{-\frac{1}{2}\left(\frac{x^2}{\sigma_1}\right)^\beta}}$$
 and
 $$\displaystyle{f_{X^2}(x|\sigma_2, \beta_2) = f_{X^2}\left(x|0, \sigma_2, \beta_2\right) = \frac{\beta_2}{\Gamma\left(\frac{2}{2 \beta_2}\right) 2^\frac{1}{2\beta_2}\sqrt{\sigma_2}} e^{-\frac{1}{2}\left(\frac{x^2}{\sigma_2}\right)^\beta}}$$
