@@ -1426,7 +1426,7 @@ $\boldsymbol{\Sigma_2} = \left(\begin{array}{ccc}
 
 ```{r}
 #| label: fig-extime1
-#| fig-cap: "Evolution of the normalized execution time among the wished precision of the divergence"
+#| fig-cap: "Evolution of the execution time (in seconds) among the wished precision of the divergence"
 #| fig-subcap:
 #|    - "Rényi divergence"
 #|    - "Kullback-Leibler"
@@ -1436,10 +1436,10 @@ $\boldsymbol{\Sigma_2} = \left(\begin{array}{ccc}
 #| echo: false
 #| cache: true
 plot(exetime~epsilon, data = renyi_exetime, type = "b", log = "x",
-     pch = 16, xaxt = "n", xlab = "Precision", ylab = "Execution time")
+     pch = 16, xaxt = "n", xlab = "Precision", ylab = "Execution time (s)")
 axis(1, at = epsilon, labels = parse(text = paste0("10^", log10(epsilon))))
 plot(exetime~epsilon, data = kl_exetime, type = "b", log = "x",
-     pch = 16, xaxt = "n", xlab = "Precision", ylab = "Execution time")
+     pch = 16, xaxt = "n", xlab = "Precision", ylab = "Execution time (s)")
 axis(1, at = epsilon, labels = parse(text = paste0("10^", log10(epsilon))))
 ```
 
