@@ -5,9 +5,9 @@ library(multvardiv)
 
 # Introduction
 
-Statistical divergences -- such as the Kullback–Leibler (KLD), Rényi (RD),
-Bhattacharyya (BD), and Hellinger (HD) divergences -- are fundamental tools
-in information theory and machine learning. These divergences quantify
+Statistical divergences -- including the Kullback–Leibler (KLD), Rényi (RD),
+Bhattacharyya (BD), and Hellinger (HD) divergences -- serve as essential tools
+in information theory and machine learning. These measures quantify
 the 'distance' or dissimilarity between probability distributions,
 enabling a wide range of applications. Widely regarded as a cornerstone
 of information theory, the KLD measures the relative entropy between two
