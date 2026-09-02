@@ -604,8 +604,9 @@ The KLD of $\mathbf{X}^1$ from $\mathbf{X}^2$ is given by : $$
     \displaystyle{D_{KL}(\mathbf{X}^1||\mathbf{X}^2)} & \displaystyle{= \mathbb{E}_{X^1}\left[\ln\left(\frac{f_{\mathbf{X}^1}(\mathbf{X})}{f_{\mathbf{X}^2}(\mathbf{X})}\right)\right]} \\
     & \displaystyle{= \int_{\mathbb{R}^p}{\ln \left( \frac{f_{\mathbf{X}^1}(\mathbf{x}|\boldsymbol{\Sigma}_1, \beta_1)}{f_{\mathbf{X}^2}(\mathbf{x}|\boldsymbol{\Sigma}_2, \beta_2)} \right) f_{\mathbf{X}^1}(\mathbf{x}|\boldsymbol{\Sigma}_1, \beta_1)\mathrm{d}\mathbf{x}}}
     \end{array}
-$$ {#eq-kl} In our case, the analytic expression of the KLD of
-$\mathbf{X}_1$ from $\mathbf{X}_2$ is given by :
+$$ {#eq-kl}
+In our case, the analytic expression of the KLD of
+$\mathbf{X}_1$ from $\mathbf{X}_2$ is given by [@bouhlel23]:
 
 $$\begin{array}{lll}
 D_{KL}(\mathbf{X}^1 \Vert \mathbf{X}^2) &   = &   \displaystyle{ \ln\left( \frac{\Gamma\left(\frac{\nu_1+p}{2}\right) \Gamma\left(\frac{\nu_2}{2}\right) \nu_2^\frac{p}{2}}{\Gamma\left(\frac{\nu_2+p}{2}\right) \Gamma\left(\frac{\nu_1}{2}\right) \nu_1^\frac{p}{2}} \right) + \frac{\nu_2 - \nu_1}{2} \left( \psi\left(\frac{\nu_1+p}{2}\right) - \psi\left(\frac{\nu_1}{2}\right) \right) } \\
