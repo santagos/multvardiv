@@ -242,7 +242,7 @@ f_{\mathbf{X}|V}(\mathbf{x_i}|v_i, \theta_y) &    = &  \big|\frac{\partial \math
 &   = & \displaystyle{\frac{1}{(2\pi)^{p/2}|\frac{\boldsymbol{\Sigma}}{v_i}|^{1/2}}\exp\big(-\frac{v_i}{2}(\mathbf{x_i}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x_i}-\boldsymbol{\mu})\big)}
 \end{array}$$ {#eq-conditional_law}
 where $\big|\frac{\partial \mathbf{Y}}{\partial \mathbf{X}}\big|$ is the Jacobian determinant.
-It is clear that $\mathbf{X}|V\sim \mathcal{N}^p(\boldsymbol{\mu}, \frac{\boldsymbol{\Sigma}}{v})$. 
+It is clear that $\mathbf{X}|V\sim \mathcal{N}^p(\boldsymbol{\mu}, \boldsymbol{\Sigma}/v)$. 
 Substituting the expression of the *pdf* of $\mathbf{X}|V$ given by @eq-conditional_law into @eq-lamda_w, differentiating with respect to $\boldsymbol{\mu}$ and $\boldsymbol{\Sigma}$, and setting the result to zero gives:
 <!-- Nous allons procéder autrement, soit $V=\frac{U}{\nu}$, nous allons alors déterminer $f_{\X|V}(x_i|v_i, \theta_y)$ et $f_{V}(v_i|\theta_{u})$.  -->
 
