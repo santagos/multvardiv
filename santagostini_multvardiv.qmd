@@ -653,11 +653,9 @@ $\mathbf{X}^1 \sim f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \boldsymbol{0}, \boldsymbo
 and
 $\mathbf{X}^2 \sim f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \boldsymbol{0}, \boldsymbol{\Sigma}_2)$
 depends on the values of the parameters of these distributions.
-
 In the examples below, the divergences between $\mathbf{X}^1$ and $\mathbf{X}^2$
 are computed using the functions `diststudent` and `kld` from the
 [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package.
-
 The R codes which produce these graphics are given in appendix, see
 @sec-appendix.
 
