@@ -864,7 +864,7 @@ where $D$ depends on the values of $\lambda_1, \dots, \lambda_p$:
 ### Study of the divergence {#sec-divmtd}
 
 As we did for the MTD, we look here how the divergence between two
-multivariate Cauchy distributions depend on the values of the parameters.
+multivariate Cauchy distributions depends on the values of the parameters.
 
 Let:
 $\mathbf{X}^1 \sim f_{\mathbf{X}^1}(\mathbf{x}|\boldsymbol{0}, \boldsymbol{\Sigma}_1)$
