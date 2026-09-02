@@ -543,7 +543,7 @@ and $\delta_2 = \frac{\nu_2+p}{2}(1-\beta)$.
 
 If the following condition is verified:
 $$\delta_1 + \delta_2 - \frac{p}{2} > 0$$ {#eq-cond_delta}
-@bouhlel23 shows that the RD of order $\beta$ between $\mathbf{X}^1$ and
+@bouhlel23 show that the RD of order $\beta$ between $\mathbf{X}^1$ and
 $\mathbf{X}^2$ is given by:
 
 $$\begin{array}{lll}
