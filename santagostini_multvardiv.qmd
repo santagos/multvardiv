@@ -496,8 +496,8 @@ estimation:
 
 2.  Repeat
 
-    -   Compute $\mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta\}$ using 
-        @eq-E1 and $\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta\}$
+    -   Compute $\mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\}$ using 
+        @eq-E1 and $\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\}$
         using @eq-E2
 
     -   Estimate $\hat{\boldsymbol{\mu}}$ using @eq-EM_K1
