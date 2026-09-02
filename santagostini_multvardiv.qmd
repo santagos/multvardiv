@@ -238,8 +238,8 @@ $$ {#eq-lamda_x}
 The *pdf* of $\mathbf{X}$ knowing $v$ is given as follows 
 $$\begin{array}{lll}
 f_{\mathbf{X}|V}(\mathbf{x_i}|v_i, \theta_y) &    = &  \big|\frac{\partial \mathbf{Y}}{\partial \mathbf{X}}\big| f_{\mathbf{Y}}\left( (\mathbf{x_i}-\boldsymbol{\mu}) \sqrt{v_i}\right) \\
-&   = &  v_i^{\frac{p}{2}}\frac{1}{(2\pi)^{p/2}|\boldsymbol{\Sigma}|^{1/2}}\exp\big(-\frac{v_i}{2}(\mathbf{x_i}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x_i}-\boldsymbol{\mu})\big)  \\
-&   = & \frac{1}{(2\pi)^{p/2}|\frac{\boldsymbol{\Sigma}}{v_i}|^{1/2}}\exp\big(-\frac{v_i}{2}(\mathbf{x_i}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x_i}-\boldsymbol{\mu})\big)
+&   = &  \displaystyle{v_i^{\frac{p}{2}}\frac{1}{(2\pi)^{p/2}|\boldsymbol{\Sigma}|^{1/2}}\exp\big(-\frac{v_i}{2}(\mathbf{x_i}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x_i}-\boldsymbol{\mu})\big)}  \\
+&   = & \displaystyle{\frac{1}{(2\pi)^{p/2}|\frac{\boldsymbol{\Sigma}}{v_i}|^{1/2}}\exp\big(-\frac{v_i}{2}(\mathbf{x_i}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x_i}-\boldsymbol{\mu})\big)}
 \end{array}$$ {#eq-conditional_law}
 where $\big|\frac{\partial \mathbf{Y}}{\partial \mathbf{X}}\big|$ is the Jacobian determinant.
 It is clear that $\mathbf{X}|V\sim \mathcal{N}^p(\boldsymbol{\mu}, \frac{\boldsymbol{\Sigma}}{v})$. 
