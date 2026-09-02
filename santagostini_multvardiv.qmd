@@ -194,7 +194,7 @@ We use the Expectation-Maximization (EM) method to estimate the parameters of a 
 Let $\{ \mathbf{x}_1, \dots, \mathbf{x}_n \}$ be $n$ observations from an MTD with
 a *pdf* given by $f_{\mathbf{X}}(\mathbf{x})$. We
 assume that each random vector $\mathbf{x}_i$ is associated with a non-observed, hidden variable $V_i$. The sequence $\{V_i,i=1,\cdots,N\}$ is
-also assumed to be $iid$.
+also assumed to be independent and identically distributed ($iid$).
 The probability density of $\mathbf{X}$ depends on a set of unknown
 parameters $\theta = (\boldsymbol{\mu}, \boldsymbol{\Sigma}, \nu)$.
 <!-- We know that $\displaystyle{\mathbf{X} = \boldsymbol{\mu} + \frac{\mathbf{Y}}{\sqrt{u/\nu}}}$ (@eq-rmtd), -->
