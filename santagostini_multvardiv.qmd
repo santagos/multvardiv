@@ -794,7 +794,7 @@ $$
     \displaystyle{\mathbf{X} = \boldsymbol{\mu} + \frac{\mathbf{Y}}{\sqrt{U}}}
 $$ {#eq-rmcd} where $\mathbf{Y}$ is generated from a centered Gaussian
 distribution with covariance matrix $\boldsymbol{\Sigma}$ and $U$ is distributed
-according to a Chi-squared distribution with $\nu$ degrees of freedom.
+according to a Chi-squared distribution with $\nu=1$ degrees of freedom.
 
 ### Parameter estimation
 
