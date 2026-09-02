@@ -649,9 +649,9 @@ $\frac{\nu_1}{\nu_2}\lambda_1, \dots, \frac{\nu_1}{\nu_2}\lambda_p$:
 ### Study of the divergence
 
 The divergence between two multivariate $t$-distributions
-$\mathbf{X}^1 \sim f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \boldsymbol{0}, \boldsymbol{\Sigma}_1)$
+${\mathbf{X}^1 \sim f_{\mathbf{X}^1}(\mathbf{x}|\nu_1, \boldsymbol{0}, \boldsymbol{\Sigma}_1)}$
 and
-$\mathbf{X}^2 \sim f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \boldsymbol{0}, \boldsymbol{\Sigma}_2)$
+${\mathbf{X}^2 \sim f_{\mathbf{X}^2}(\mathbf{x}|\nu_2, \boldsymbol{0}, \boldsymbol{\Sigma}_2)}$
 depends on the values of the parameters of these distributions.
 In the examples below, the divergences between $\mathbf{X}^1$ and $\mathbf{X}^2$
 are computed using the functions `diststudent` and `kld` from the
@@ -673,8 +673,8 @@ $\boldsymbol{\Sigma} = \left(\begin{array}{cc}
 The results are showed in @fig-divnu1.
 Obviously, for each of these divergences,
 $D_R^{\beta}(\mathbf{X}^1 \parallel \mathbf{X}^2) = 0=D_{KL}(\mathbf{X}^1 \parallel \mathbf{X}^2)$ when $\nu_1 = \nu_2$. For
-$\nu_1 \in ]0; \nu_2]$, the divergence decreases quickly to 0.
-Then for $\nu_1 \in ]\nu_2; +\infty]$, it slowly increases and converges
+${\nu_1 \in ]0; \nu_2]}$, the divergence decreases quickly to 0.
+Then for ${\nu_1 \in ]\nu_2; +\infty]}$, it slowly increases and converges
 to a limit.
 
 ```{r}
