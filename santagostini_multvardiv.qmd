@@ -963,7 +963,7 @@ $$ {#eq-mggd}
 where $\Gamma(\cdot)$ is the gamma function.
 <!-- Let $\mathbf{X}$ a random vector of $\mathbb{R}^p$ distributed according to a MGGD with mean vector $\boldsymbol{\mu} = \mathbf{0}$, dispersion matrix $\Sigma$ and shape parameter $\beta$. -->
 @gomez show that $\mathbf{X}$ has the same distribution as: $$
-    \displaystyle{\mathbf{X} = \boldsymbol{\mu} + \tau \boldsymbol{\Sigma}^{1/2} \mathbf{U}}
+    \displaystyle{\mathbf{X} = \boldsymbol{\mu} + \tau \boldsymbol{\Sigma}^{\frac{1}{2}} \mathbf{U}}
 $$ {#eq-rggd} where $\mathbf{U}$ is a random vector uniformly
 distributed on the unit sphere in $\mathbb{R}^p$ and $\tau$ is such that
 $\tau^{2\beta}$ is a random variable distributed according to a Gamma
