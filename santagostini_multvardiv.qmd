@@ -844,14 +844,14 @@ From @sec-kldt, the KLD to $\mathbf{X}^1$ from $\mathbf{X}^2$ (@eq-kl)
 is given by (@bouhlel22):
 
 $$
-D_{KL}(X_1||X_2) = \displaystyle{-\frac{1}{2} \ln{ \prod_{i=1}^p{\lambda_i}} + \frac{1+p}{2} \times D}
+D_{KL}(X_1||X_2) = \displaystyle{-\frac{1}{2} \ln{ \prod_{i=1}^p{\lambda_i}} - \frac{1+p}{2} \times D}
 $$
 
 where $D$ depends on the values of $\lambda_1, \dots, \lambda_p$:
 
 -   If $\lambda_1 < 1$ and $\lambda_p > 1$: $$
     \begin{aligned}
-    D = & \displaystyle{ \bigg( \ln{\lambda_p - \frac{\partial}{\partial a} \bigg\{ F_D^{(p)} \bigg( a, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}, a + \frac{1}{2}}_p ; a + \frac{1+p}{2} ; 1 - \frac{\lambda_1}{\lambda_p}, \dots, 1 - \frac{\lambda_{p-1}}{\lambda_p}, 1 - \frac{1}{\lambda_p} \bigg) \bigg\}\bigg|_{a=0} \bigg) }}
+    D = & \displaystyle{ -\ln{\lambda_p + \frac{\partial}{\partial a} \bigg\{ F_D^{(p)} \bigg( a, \underbrace{\frac{1}{2}, \dots, \frac{1}{2}, a + \frac{1}{2}}_p ; a + \frac{1+p}{2} ; 1 - \frac{\lambda_1}{\lambda_p}, \dots, 1 - \frac{\lambda_{p-1}}{\lambda_p}, 1 - \frac{1}{\lambda_p} \bigg) \bigg\}\bigg|_{a=0} }}
     \end{aligned}
     $$ {#eq-klmcd1}
 -   If $\lambda_p < 1$: $$
