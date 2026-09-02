@@ -974,7 +974,7 @@ MGGD.
 
 ### Parameter estimation
 
-Let $\left( \mathbf{x}_1, \dots, \mathbf{x}_n \right)$ be $n$ i.i.d.
+Let $\left( \mathbf{x}_1, \dots, \mathbf{x}_n \right)$ be $n$ $iid$
 random vectors distributed according to a MGGD with parameters
 $\boldsymbol{\mu}$, $\boldsymbol{\Sigma}$ and $\beta$. @pascal give a method to
 estimate these parameters.
