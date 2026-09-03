@@ -133,5 +133,5 @@ data.frame(renyi_exetime$dim, renyi_exetime[2:3], kl_exetime[2:3]) %>%
   kbl(col.names = c("Dimension", "Number of iterations", "Execution time",
                     "Number of iterations", "Execution time"),
       digits = c(0, 0, 3, 0, 3)) %>%
-  add_header_above(c(" " = 1, "Rényi divergence" = 2,
+  add_header_above(c(" " = 1, "Rényi divergence of order $\\\\beta=0.25$" = 2,
                      "Kullback-Leibler divergence" = 2))

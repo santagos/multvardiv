@@ -1431,7 +1431,7 @@ $\boldsymbol{\Sigma_2} = \left(\begin{array}{ccc}
 #| label: fig-extime1
 #| fig-cap: "Evolution of the execution time (in seconds) among the wished precision of the divergence"
 #| fig-subcap:
-#|    - "Rényi divergence"
+#|    - "Rényi divergence of order $\\beta=0.25$"
 #|    - "Kullback-Leibler"
 #| fig-height: 3.5
 #| fig-width: 9
