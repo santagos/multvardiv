@@ -1313,9 +1313,9 @@ This needs that the condition given by @eq-cond_delta is verified.
 If it is not, there is a warning and `NaN` is returned.
 
 The calculation of the Lauricella $D$-hypergeometric function, involved
-in the calculation of the RD between two MTDs (see @eq-rmtd) uses an
-iterative algorithm. The optional `eps` argument (default `1e-6`) allows
-to indicate the desired precision for this calculation:
+in the calculation of the RD between two MTDs (see [@eq-rdmtd; @eq-lauric])
+uses an iterative algorithm. The optional `eps` argument (default `1e-6`)
+allows to indicate the desired precision for this calculation:
 
 ```{r}
 #| echo: true
