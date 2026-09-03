@@ -1145,7 +1145,7 @@ par(mar = c(4.1, 4.1, 3.1, 2.1))
 {{< include _append_1_7.R >}}
 ```
 
-#### Among the shapes of the distributions {.unbetambered .unlisted}
+#### Among the shapes of the distributions {.unnumbered .unlisted}
 
 Let $\mathbf{X}^1 \sim MGGD(\mathbf{0}, \boldsymbol{\Sigma}, \beta_1)$
 and $\mathbf{X}^2 \sim MGGD(\mathbf{0}, \boldsymbol{\Sigma}, \beta_2)$
