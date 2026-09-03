@@ -1497,6 +1497,21 @@ $\boldsymbol{\Sigma}_1$ and $\boldsymbol{\Sigma}_2$ :
       0 & 0 &  0 & 1
     \end{array}\right)$
     
+1.  $\boldsymbol{\Sigma}_1 = \left(\begin{array}{ccccc}
+      1 & 0.6 & 0.2 & 0 & 0 \\
+      0.6 & 1 & 0.3 & 0 & 0 \\
+      0.2 & 0.3 & 1 & 0 & 0 \\
+      0 & 0 & 0 & 1 & 0 \\
+      0 & 0 & 0 & 0 & 1
+    \end{array}\right)$,
+    $\boldsymbol{\Sigma}_2 = \left(\begin{array}{ccccc}
+      1 & 0.3 & 0.1 & 0 & 0 \\
+      0.3 & 1 & 0.4 & 0 & 0 \\
+      0.1 & 0.4 & 1 & 0 & 0 \\
+      0 & 0 &  0 & 1 & 0 \\
+      0 & 0 &  0 & 0 & 1
+    \end{array}\right)$
+    
 We fix the wanted precision: $\epsilon = 10^{-6}$.
 
 The R code which produce this table is given in appendix, see @sec-appenexetime.
