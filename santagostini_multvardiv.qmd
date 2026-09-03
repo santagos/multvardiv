@@ -1446,10 +1446,11 @@ plot(exetime~epsilon, data = kl_exetime, type = "b", log = "x",
 axis(1, at = epsilon, labels = parse(text = paste0("10^", log10(epsilon))))
 ```
 
-In @tbl-extime1 and @fig-extime1, the times are normalized
-by taking as reference the execution time to reach the precision $10^{-6}$:
+In @tbl-extime1, the times are normalized by taking as reference the
+execution time to reach the precision $10^{-6}$:
 `r renyi_exetime6` s. (Rényi) or `r kl_exetime6` s. (Kullback-Leibler).
-The R code which produce the table is given in appendix, see @sec-appenexetime.
+The R code which produce @tbl-extime1 and @fig-extime1 is given in appendix,
+see @sec-appenexetime.
 
 ### Among the dimension of the distributions
 
