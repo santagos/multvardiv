@@ -1105,7 +1105,7 @@ The results are showed in @fig-divsigma11ggd.
 For each of these divergences,
 $D_{KL}(\mathbf{X}^1 \parallel \mathbf{X}^2) = 0$ when $s_1 = 10$.
 For $s_1 \in ]0; 10]$, the divergence decreases quickly to 0,
-then for $s_1 > 10$, it increases slowly and converges.
+then for $s_1 > 10$, it increases slowly.
 
 ```{r}
 #| label: fig-divsigma11ggd
