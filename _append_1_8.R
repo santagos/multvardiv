@@ -1,7 +1,7 @@
 bet <- 0.74
 
 # Values of beta1
-beta1 <- c(seq(0.05, nu, by = 0.01), seq(nu+1, 22, by = 2))
+beta1 <- c(seq(0.05, bet, by = 0.01), seq(bet+1, 22, by = 2))
 
 # Fixed values of the other parameters
 beta2 <- bet
