@@ -1194,9 +1194,9 @@ generalized Gaussian distributions.
 #| output: asis
 tabfcts <- data.frame(
   "Multivariate Distribution" = c("$t$", "Cauchy", "MGGD"),
-  "Probability density function" = c("`dmtd`", "`dmc`", "`dmggd`"),
-  "Simulation" = c("`rmtd`", "`rmc`", "`rmggd`"),
-  "Parameter estimation" = c("`estparmtd`", "`estparmc`", "`estparmggd`"),
+  "Probability density function" = c("`dmtd`", "`dmcd`", "`dmggd`"),
+  "Simulation" = c("`rmtd`", "`rmcd`", "`rmggd`"),
+  "Parameter estimation" = c("`estparmtd`", "`estparmcd`", "`estparmggd`"),
   "Rényi, Bhattacharyya or Hellinger divergence" = c("`diststudent`", "", ""),
   "Kullback-Leibler divergence" = c("`kldstudent`", "`kldcauchy`", "`kldggd`")
 )
