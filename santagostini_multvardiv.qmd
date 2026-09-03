@@ -395,13 +395,13 @@ It is worth noticing that $V|\mathbf{X}\sim Gamma\left(\frac{p+\nu}{2},\nu+(\mat
 Consequently, the posterior expectations are given by:
 
 $$
-\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\} = \frac{\nu+p}{\nu+(\mathbf{x}_i-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x}_i-\boldsymbol{\mu})}
+\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\} = \frac{\nu'+p}{\nu'+(\mathbf{x}_i-\boldsymbol{\mu}')^T\boldsymbol{\Sigma}'^{-1}(\mathbf{x}_i-\boldsymbol{\mu}')}
 $$ {#eq-E1}
 
 and:
 
 $$
-\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\} = \psi(\frac{\nu+p}{2}) -\ln \frac{1}{2}\bigg[\nu+(\mathbf{x}_i-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x}_i-\boldsymbol{\mu})\bigg]
+\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\} = \psi(\frac{\nu'+p}{2}) -\ln \frac{1}{2}\bigg[\nu'+(\mathbf{x}_i-\boldsymbol{\mu}')^T\boldsymbol{\Sigma}'^{-1}(\mathbf{x}_i-\boldsymbol{\mu}')\bigg]
 $$ {#eq-E2}
 
 <!-- \begin{tcolorbox}[arc=1ex, colback=yellow, colframe=yellow, left=3pt, right=3pt, top=2pt, bottom=2pt] -->
