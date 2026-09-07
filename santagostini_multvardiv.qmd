@@ -1818,12 +1818,14 @@ Let us compute the KLD to $\mathbf{X}^1$ from $\mathbf{X}^2$, using
 `kldstudent`:
 
 ```{r}
+#| echo: true
 kl3pc <- kldstudent(nu1, Sigma1, nu2, Sigma2, eps = .Machine$double.eps)
 ```
 
 Given the eigenvalues of $\boldsymbol{\Sigma}_1 \boldsymbol{\Sigma}_2^{-1}$:
 
 ```{r}
+#| echo: true
 lambda <- eigen(Sigma1 %*% solve(Sigma2), only.values = TRUE)$value
 lambda
 ```
@@ -1831,6 +1833,7 @@ lambda
 The value of @eq-kldmtdcase3exact is:
 
 ```{r}
+#| echo: true
 lambda <- unique(lambda)
 d <- -2*log((nu2 + sqrt(nu2*lambda))/(2*nu2)) +
   (sqrt(nu2) - sqrt(lambda))/(sqrt(nu2) + sqrt(lambda))
@@ -1839,7 +1842,6 @@ kl3control <-log(
   ) + (nu2 - nu1)/2 * ( digamma((nu1+3)/2) - digamma(nu1/2) ) -
   0.5*3*(log(lambda)) - (nu2 + 3)/2 * d
 kl3control
-
 ```
 
 Which is equal (to the precision `.Machine$double.eps`) to `kl3pc`:
@@ -1868,7 +1870,7 @@ f(\lambda) &= &\displaystyle{ \frac{\partial}{\partial{a}}{ \bigg\{ F_D^{(p)}\bi
 &   = &   \displaystyle{ \frac{\partial}{\partial a}\left\lbrace
 _2 F_1 (a, 2,a+\frac{\nu_1+4}{2}, 1-\frac{\nu_1}{\nu_2}\lambda\right\rbrace\bigg|_{a=0} }    \\
 &   = &   \displaystyle{ \sum\limits_{n=0}^\infty \frac{\partial}{\partial a}\left\lbrace \frac{(a)_n}{(a+\frac{\nu_1+4}{2})_n}\right\rbrace\bigg|_{a=0} (2)_n\frac{(1-\frac{\nu_1}{\nu_2}\lambda)^n}{n!} } \\
-&   = &   \displaystyle{ \sum\limits_{n=1}^\infty \frac{(1)_n}{(\frac{\nu_1+4}{2})_n} \frac{1}{n} (2)_n\frac{(1-\frac{\nu_1}{\nu_2}\lambda)^n}{n!} }
+&   = &   \displaystyle{ \sum\limits_{n=1}^\infty \frac{(1)_n}{(\frac{\nu_1+4}{2})_n} \frac{1}{n} (2)_n\frac{\left(1-\frac{\nu_1}{\nu_2}\lambda\right)^n}{n!} }
 \end{array}$$ {#eq-kldmtdcase4}
 
 The multiplication of the derivative of $f$ with respect to $\lambda$ by
