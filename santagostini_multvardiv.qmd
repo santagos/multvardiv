@@ -1805,6 +1805,7 @@ $\boldsymbol{\mu}_1 = \boldsymbol{\mu}_2 = \mathbf{0}$ and $\nu_1$,
 $\boldsymbol{\Sigma}_1$, $\nu_2$ and $\boldsymbol{\Sigma}_2$ are given by:
 
 ```{r}
+#| echo: true
 nu1 <- 1
 Sigma1 <- diag(0.5, nrow = 3)
 Sigma1
