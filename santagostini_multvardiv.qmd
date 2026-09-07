@@ -1574,8 +1574,6 @@ provides the same tools for the MCD and the MGGD (@tbl-multvardiv).
 
 # Some particular cases -- test of the results
 
-<!-- ## Package [`mggd`](https://CRAN.R-project.org/package=mggd), the `lauricella` function: some particular examples -->
-
 ## The `lauricella` function: some particular examples
 
 The computation of the RD between two MTDs, as given by [@eq-rdmtd] and
