@@ -1837,6 +1837,11 @@ The value of @eq-kldmtdcase3exact is:
 lambda <- unique(lambda)
 d <- -2*log((nu2 + sqrt(nu2*lambda))/(2*nu2)) +
   (sqrt(nu2) - sqrt(lambda))/(sqrt(nu2) + sqrt(lambda))
+```
+
+Then, from @eq-klmtd:
+```{r}
+#| echo: true
 kl3control <-log(
   (gamma((nu1+3)/2)*gamma(nu2/2)*nu2^1.5)/(gamma((nu2+3)/2)*gamma(nu1/2) * nu1^1.5)
   ) + (nu2 - nu1)/2 * ( digamma((nu1+3)/2) - digamma(nu1/2) ) -
@@ -1954,6 +1959,11 @@ The value of @eq-kldmtdcase4exact is:
 lambda <- unique(lambda)
 d <-  nu2/(nu2 - 2*lambda) - log(2*lambda/nu2) +
   nu2^2*log(2*lambda/nu2)/((nu2 - 2*lambda)^2) + 0.5
+```
+
+Then, from @eq-klmtd:
+```{r}
+#| echo: true
 kl4control <-log(
   (gamma((nu1+4)/2)*gamma(nu2/2)*nu2^2)/(gamma((nu2+4)/2)*gamma(nu1/2) * nu1^2)
   ) + (nu2 - nu1)/2 * ( digamma((nu1+4)/2) - digamma(nu1/2) ) -
