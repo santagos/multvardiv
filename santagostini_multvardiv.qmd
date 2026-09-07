@@ -1358,7 +1358,7 @@ The optional `dist` argument allows to indicate the divergence:
 The `bet` argument is required for the RD. It is omitted for the BD or
 the HD.
 
-## Kullback-Leibler divergence
+## Kullback-Leibler divergence {#sec-kldiv}
 
 The `kldstudent` function computes the KLD between two MTDs with
 location parameter $\boldsymbol{\mu} = \mathbf{0}$.
@@ -1727,7 +1727,7 @@ lauricella4 == lauric4control
 
 Some particular cases allow a simpler calculation of the KLD between two
 MTDs. we use these particular cases, showed hereafter, for some tests of
-the `kldstudent` function.
+the `kldstudent` function (@sec-kldiv).
 
 ### Case $p = 3$, $\lambda_1 = \lambda_2 = \lambda_3$
 
