@@ -1578,8 +1578,9 @@ provides the same tools for the MCD and the MGGD (@tbl-multvardiv).
 
 ## The `lauricella` function: some particular examples
 
-The computation of the KLD between two MGGDs, as given by @eq-klggd,
-includes the $D$-hypergeometric Lauricella function (@eq-lauric). For
+The computation of the RD between two MTDs, as given by [@eq-rdmtd] and
+of the KLD between two MGGDs (@eq-klggd),
+include the $D$-hypergeometric Lauricella function (@eq-lauric). For
 some particular cases, a simpler calculation allows an exact computing
 of this expression. We used them in the `tests` directory of the
 [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package,
