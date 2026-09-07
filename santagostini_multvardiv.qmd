@@ -1925,6 +1925,13 @@ $$
 f(\lambda) = \frac{\nu_2}{\nu_2-2\lambda}-\ln(\frac{2\lambda}{\nu_2})+\frac{\nu_2^2\ln(\frac{2\lambda}{\nu_2})}{(\nu_2-2\lambda)^2} +\frac{1}{2}
 $$ {#eq-kldmtdcase4exact}
 
+Let $\mathbf{X}^1$ and $\mathbf{X}^2$ be two random vectors of $\mathbb{R}^4$
+distributed according to $t$ distributions with parameters
+$(\nu_1, \boldsymbol{\mu}_1, \boldsymbol{\Sigma}_1)$ and
+$(\nu_2, \boldsymbol{\mu}_2, \boldsymbol{\Sigma}_2)$ such that
+$\boldsymbol{\mu}_1 = \boldsymbol{\mu}_2 = \mathbf{0}$ and $\nu_1$,
+$\boldsymbol{\Sigma}_1$, $\nu_2$ and $\boldsymbol{\Sigma}_2$ are given by:
+
 ```{r}
 #| echo: true
 nu1 <- 2
