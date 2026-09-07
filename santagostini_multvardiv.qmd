@@ -1584,8 +1584,8 @@ include the $D$-hypergeometric Lauricella function (@eq-lauric). For
 some particular cases, a simpler calculation allows an exact computing
 of this expression. We used them in the `tests` directory of the
 [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package,
-to test the `lauricella` function used by `kldggd` (see \[Divergence
-between multivariate generalized Gaussian distributions\]).
+to test the `lauricella` function used by `diststudent` and `kldggd`
+([The multvardiv package]).
 
 ### Case $p = 2$, $\beta_2=1$
 
