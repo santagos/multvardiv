@@ -1086,7 +1086,7 @@ are computed using the function
 `kld` from the [`multvardiv`](https://CRAN.R-project.org/package=multvardiv)
 package.
 
-The R codes which produce these graphics are given in appendix (sec-append_divMGGD).
+The R codes which produce these graphics are given in appendix (@sec-append_divMGGD).
 
 #### Among the scale matrix: first situation {.unnumbered .unlisted}
 
