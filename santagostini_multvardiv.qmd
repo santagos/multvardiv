@@ -1395,8 +1395,8 @@ kld12
 
 ## Execution time
 
-The R code which produces the results presented in this section,
-it was run under Windows, with a Intel Core Ultra 7 165H (1.40 GHz, 32 Go).
+The R code which produces the results presented in this section
+were run under Windows, with a Intel Core Ultra 7 165H (1.40 GHz, 32 Go).
 
 ### Among the wanted precision
 
@@ -1451,7 +1451,7 @@ In @tbl-extime1, the times are normalized by taking as reference the
 execution time to reach the precision $10^{-6}$:
 `r renyi_exetime6` s. (Rényi) or `r kl_exetime6` s. (Kullback-Leibler).
 The R code which produce @tbl-extime1 and @fig-extime1 is given in appendix,
-see @sec-appenexetime.
+see @sec-appendtime1.
 
 ### Among the dimension of the distributions
 
@@ -1515,7 +1515,7 @@ $\boldsymbol{\Sigma}_1$ and $\boldsymbol{\Sigma}_2$ :
     
 We fix the wanted precision: $\epsilon = 10^{-6}$.
 
-The R code which produce this table is given in appendix, see @sec-appenexetime.
+The R code which produce this table is given in appendix, see @sec-appendtime2.
 
 ```{r}
 #| label: tbl-extime2
@@ -1548,7 +1548,7 @@ $\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$, $s \in [0.1; 70]$.
 We fix the wanted precision: $\epsilon = 10^{-6}$.
 
 The results are given by @fig-extime3. The R code which produce this
-table is given in appendix, see @sec-appenexetime.
+table is given in appendix, see @sec-appendtime3.
 
 ```{r}
 #| label: fig-extime3
@@ -2125,7 +2125,7 @@ distributions, and more generally to elliptical distributions.
 
 ## Execution time {#sec-appenexetime}
 
-#### Among the wanted precision {.unnumbered .unlisted}
+### Among the wanted precision {#sec-appendtime1}
 
 ```{r}
 #| label: code-extime1
@@ -2136,7 +2136,7 @@ distributions, and more generally to elliptical distributions.
 {{< include _append_2_1.R >}}
 ```
 
-#### Among the dimension of the distributions {.unnumbered .unlisted}
+### Among the dimension of the distributions {#sec-appendtime2}
 
 ```{r}
 #| label: code-extime2
@@ -2147,7 +2147,7 @@ distributions, and more generally to elliptical distributions.
 {{< include _append_2_2.R >}}
 ```
 
-#### Among the divergence {.unnumbered .unlisted}
+### Among the divergence {#sec-appendtime3}
 
 ```{r}
 #| label: code-extime3
