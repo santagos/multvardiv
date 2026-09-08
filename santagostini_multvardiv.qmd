@@ -1522,6 +1522,7 @@ The R code which produce this table is given in appendix, see @sec-appendtime2.
 #| tbl-cap: "Evolution of the normalized execution time among the wished precision of the divergence"
 #| echo: false
 #| cache: true
+#| cache.path: "santagostini_multvardiv_cache/"
 
 {{< include _append_2_2.R >}}
 ```
