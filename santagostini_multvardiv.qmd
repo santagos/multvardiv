@@ -656,8 +656,8 @@ depends on the values of the parameters of these distributions.
 In the examples below, the divergences between $\mathbf{X}^1$ and $\mathbf{X}^2$
 are computed using the functions `diststudent` and `kld` from the
 [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package.
-The R codes which produce these graphics are given in appendix, see
-@sec-appendix.
+The R codes which produce these graphics are given in appendix
+(@sec-append_divMTD).
 
 #### Among the degrees of freedom {.unnumbered .unlisted}
 
@@ -877,7 +877,8 @@ Hellinger divergences, setting $\nu_1 = \nu_2 = 1$, see @sec-renyimcd) and
 `kld` from the [`multvardiv`](https://CRAN.R-project.org/package=multvardiv)
 package.
 
-The R codes which produce these graphics are given in appendix, see @sec-appendix.
+The R codes which produce these graphics are given in appendix,
+(@sec-append_divMCD).
 
 #### Among the scale matrix: first situation {.unnumbered .unlisted}
 
@@ -1085,7 +1086,7 @@ are computed using the function
 `kld` from the [`multvardiv`](https://CRAN.R-project.org/package=multvardiv)
 package.
 
-The R codes which produce these graphics are given in appendix, see @sec-appendix.
+The R codes which produce these graphics are given in appendix (sec-append_divMGGD).
 
 #### Among the scale matrix: first situation {.unnumbered .unlisted}
 
@@ -2020,7 +2021,7 @@ distributions, and more generally to elliptical distributions.
 
 ## Study of the divergence
 
-### Multivariate $t$ distribution
+### Multivariate $t$ distribution {#sec-append_divMTD}
 
 #### Among the degrees of freedom {.unnumbered .unlisted}
 
@@ -2058,7 +2059,7 @@ distributions, and more generally to elliptical distributions.
 {{< include _append_1_2.R >}}
 ```
 
-### Multivariate Cauchy distribution
+### Multivariate Cauchy distribution {#sec-append_divMCD}
 
 #### Among the scale matrix: first situation {.unnumbered .unlisted}
 
@@ -2084,7 +2085,7 @@ distributions, and more generally to elliptical distributions.
 {{< include _append_1_5.R >}}
 ```
 
-### MGGD
+### Multivariate general Gaussian distribution {#sec-append_divMGGD}
 
 #### Among the scale matrix: first situation {.unnumbered .unlisted}
 
