@@ -1996,10 +1996,10 @@ the MTD and MCD, the Rényi, Bhattacharyya and Hellinger divergences,
 based on analytical expressions given by @bouhlel19, @bouhlel22 and
 @bouhlel23. Using some particular cases which allow an exact calculation
 of the Lauricella function, we could test the `lauricella` function used
-by the `kldggd` function of the
+by the `kldggd` and `diststudent` functions of the
 [`multvardiv`](https://CRAN.R-project.org/package=multvardiv) package.
 Similarly, we used some particular cases for the calculation of the KLD
-between MTDs or between MCDs to test the `kldtstudent` and `kldcauchy`
+between MTDs <!-- or between MCDs --> to test the `kldtstudent` and `kldcauchy`
 function<!-- of the [`mcauchyd`](https://CRAN.R-project.org/package=mcauchyd) package -->.
 
 In a future version of the
