@@ -1419,16 +1419,22 @@ $\boldsymbol{\Sigma_2} = \left(\begin{array}{ccc}
 \end{array}\right)$
 
 ```{r}
-#| label: tbl-extime1
-#| tbl-cap: "Evolution of the normalized execution time among the wished precision of the divergence"
+#| label: extime1
 #| echo: false
 #| cache: true
 #| cache.path: "santagostini_multvardiv_cache/"
 #| fig-show: hide
 
-cat("\n _append_2_1.R\n")
+if (!file.exists("renyi_2_1.rds")|!file.exists("kl_2_1.rds"))
+  source("_append_2_1.R")
+```
 
-{{< include _append_2_1.R >}}
+```{r}
+#| label: tbl-extime1
+#| tbl-cap: "Evolution of the normalized execution time among the wished precision of the divergence"
+#| echo: false
+
+{{< include _append_2_1_tbl.R >}}
 ```
 
 ```{r}
@@ -1452,7 +1458,8 @@ axis(1, at = epsilon, labels = parse(text = paste0("10^", log10(epsilon))))
 
 In @tbl-extime1, the times are normalized by taking as reference the
 execution time to reach the precision $10^{-6}$:
-`r renyi_exetime6` s. (Rényi) or `r kl_exetime6` s. (Kullback-Leibler).
+`r renyi_exetime$exetime[7]` s. (Rényi) or `r kl_exetime$exetime[7]` s.
+(Kullback-Leibler).
 The R code which produce @tbl-extime1 and @fig-extime1 is given in appendix,
 see @sec-appendtime1.
 
@@ -1521,18 +1528,29 @@ We fix the wanted precision: $\epsilon = 10^{-6}$.
 The R code which produce this table is given in appendix, see @sec-appendtime2.
 
 ```{r}
+#| label: extime2
+#| echo: false
+#| cache: true
+#| cache.path: "santagostini_multvardiv_cache/"
+
+if (!file.exists("renyi_2_2.rds")|!file.exists("kl_2_2.rds"))
+  source("_append_2_2.R")
+```
+
+```{r}
 #| label: tbl-extime2
 #| tbl-cap: "Evolution of the normalized execution time among the wished precision of the divergence"
 #| echo: false
 #| cache: true
 #| cache.path: "santagostini_multvardiv_cache/"
 
-{{< include _append_2_2.R >}}
+{{< include _append_2_2_tbl.R >}}
 ```
 
 In @tbl-extime2, the times are normalized by taking as reference the
 execution time for dimension 3 <!-- 2 (bivariate) -->:
-{`r renyi_t3` s.} (Rényi) or {`r kl_t3` s.} (Kullback-Leibler).
+{`r renyi_exetime$exetime[3]` s.} (Rényi) or {`r kl_exetime$exetime[3]` s.}
+(Kullback-Leibler).
 The R code which produce the table is given in appendix, see @sec-appenexetime.
 
 ### Among the divergence between distributions
@@ -2138,6 +2156,10 @@ distributions, and more generally to elliptical distributions.
 #| code-fold: show
 
 {{< include _append_2_1.R >}}
+
+{{< include _append_2_1_tbl.R >}}
+
+{{< include _append_2_1_plot.R >}}
 ```
 
 ### Among the dimension of the distributions {#sec-appendtime2}
@@ -2149,6 +2171,8 @@ distributions, and more generally to elliptical distributions.
 #| code-fold: show
 
 {{< include _append_2_2.R >}}
+
+{{< include _append_2_2_tbl.R >}}
 ```
 
 ### Among the divergence {#sec-appendtime3}
