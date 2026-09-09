@@ -2140,7 +2140,7 @@ distributions, and more generally to elliptical distributions.
 {{< include _append_1_7.R >}}
 ```
 
-#### Among the shapes of the distributions {.unbetambered .unlisted}
+#### Among the shapes of the distributions {.unnumbered .unlisted}
 
 ```{r}
 #| label: code-divbeta
