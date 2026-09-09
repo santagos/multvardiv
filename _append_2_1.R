@@ -42,28 +42,5 @@ kl_exetime6 <- times[7]
 kl_exetime <- data.frame(eps = epsilon, iter = iter,
                          exetime = times, exetnorm = times/kl_exetime6)
 
-
-if (knitr::is_html_output()) {
-  precision <- paste0("10<sup>", log10(epsilon), "</sup>")
-} else {
-  precision <- paste0("$10^{", log10(epsilon), "}$")
-}
-
-# Table of the execution times
-
-library(kableExtra)
-data.frame(precision, renyi_exetime[c(2, 4)], kl_exetime[c(2, 4)]) %>%
-  kbl(
-    col.names = c("Precision", "Number of iterations", "Execution time",
-                  "Number of iterations", "Execution time"),
-    digits = c(16, 0, 4, 0, 4), escape = FALSE
-  ) %>%
-  add_header_above(c(" " = 1, "Rényi divergence of order $\\\\beta=0.25$" = 2,
-                     "Kullback-Leibler divergence" = 2), escape = FALSE)
-
-plot(exetime~eps, data = renyi_exetime, type = "b", log = "x",
-     pch = 16, xaxt = "n", xlab = "Precision", ylab = "Execution time")
-axis(1, at = epsilon, labels = parse(text = paste0("10^", log10(epsilon))))
-plot(exetime~eps, data = kl_exetime, type = "b", log = "x",
-     pch = 16, xaxt = "n", xlab = "Precision", ylab = "Execution time")
-axis(1, at = epsilon, labels = parse(text = paste0("10^", log10(epsilon))))
+saveRDS(renyi_exetime, file = "renyi_2_1.rds")
+saveRDS(kl_exetime, file = "kl_2_1.rds")

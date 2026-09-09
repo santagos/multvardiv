@@ -1423,7 +1423,10 @@ $\boldsymbol{\Sigma_2} = \left(\begin{array}{ccc}
 #| tbl-cap: "Evolution of the normalized execution time among the wished precision of the divergence"
 #| echo: false
 #| cache: true
+#| cache.path: "santagostini_multvardiv_cache/"
 #| fig-show: hide
+
+cat("\n _append_2_1.R\n")
 
 {{< include _append_2_1.R >}}
 ```

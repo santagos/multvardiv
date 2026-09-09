@@ -127,13 +127,5 @@ kl_t3 <- kl_times[3]
 kl_exetime <- data.frame(dim = 1:5, iter = kl_iter, exetime = kl_times,
                          normexet = kl_times/kl_t3)
 
-
-# Table of the execution times
-
-library(kableExtra)
-data.frame(renyi_exetime$dim, renyi_exetime[c(2, 4)], kl_exetime[c(2, 4)]) %>%
-  kbl(col.names = c("Dimension", "Number of iterations", "Execution time",
-                    "Number of iterations", "Execution time"),
-      digits = c(0, 0, 3, 0, 3)) %>%
-  add_header_above(c(" " = 1, "Rényi divergence of order $\\\\beta=0.25$" = 2,
-                     "Kullback-Leibler divergence" = 2), escape = FALSE)
+saveRDS(renyi_exetime, file = "renyi_2_2.rds")
+saveRDS(kl_exetime, file = "kl_2_2.rds")
