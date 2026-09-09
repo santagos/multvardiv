@@ -1,4 +1,4 @@
-s <- 10#3
+s <- 10
 
 # Values of Sigma1[1, 1]
 s1 <- c(seq(0.1, s, by = 0.05), seq(s+1, 100, by = 1))

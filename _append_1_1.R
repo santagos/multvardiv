@@ -1,4 +1,4 @@
-nu <- 2#5
+nu <- 2
 
 # Values of nu1
 nu1 <- c(seq(0.1, nu, by = 0.1), seq(nu+1, 20, by = 1))

@@ -64,14 +64,6 @@ divS1 <- data.frame(
   kullback_leibler = kullback_leibler
 )
 
-# plot(ln1~s1, data = divS1, type = "b", pch = 16,
-#      xlab = substitute(Sigma[1][1]), ylab = "lambda1 * nu1/nu2")
-# axis(side = 1, at = Sigma2[1, 1], labels = substitute(Sigma[1][1]), cex.axis = 1.2)
-# 
-# plot(lnp~s1, data = divS1, type = "b", pch = 16,
-#      xlab = substitute(Sigma[1][1]), ylab = "lambdap * nu1/nu2")
-# axis(side = 1, at = Sigma2[1, 1], labels = substitute(Sigma[1][1]), cex.axis = 1.2)
-
 plot(renyi_0_25~s1, data = divS1, type = "b", pch = 16,
      xlab = substitute(Sigma[1][1]), ylab = "Divergence")
 axis(side = 1, at = Sigma2[1, 1], cex.axis = 1.2)
