@@ -1,0 +1,10 @@
+renyi_exetime <- readRDS("renyi_2_2.rds")
+kl_exetime <- readRDS("kl_2_2.rds")
+
+library(kableExtra)
+merge(renyi_exetime[c(1, 2, 4)], kl_exetime[c(1, 2, 4)], by = "dim") %>%
+  kbl(col.names = c("Dimension", "Number of iterations", "Execution time",
+                    "Number of iterations", "Execution time"),
+      digits = c(0, 0, 3, 0, 3)) %>%
+  add_header_above(c(" " = 1, "Rényi divergence of order $\\\\beta=0.25$" = 2,
+                     "Kullback-Leibler divergence" = 2), escape = FALSE)
