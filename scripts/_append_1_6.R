@@ -3,10 +3,9 @@ s <- 10
 # Values of Sigma1[1, 1]
 s1 <- c(seq(0.1, s, by = 0.05), seq(s+1, 100, by = 1))
 
-# The other parameters
+# Fixed values of the other parameters
 Sigma1 <- Sigma2 <- matrix(c(s, 0.3, 0.3, 1), nrow = 2)
 Sigma1[1, 1] <- NA
-
 bet <- 0.74
 
 # Kullback-Leibler divergence
