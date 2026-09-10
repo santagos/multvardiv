@@ -968,7 +968,7 @@
     },
     "multvardiv": {
       "Package": "multvardiv",
-      "Version": "1.0.15",
+      "Version": "1.0.16",
       "Source": "Repository",
       "Type": "Package",
       "Title": "Multivariate Generalized Gaussian Distribution, Multivariate t Distribution, Multivariate Cauchy Distribution, Statistical Divergence",
@@ -985,13 +985,13 @@
       ],
       "License": "GPL (>= 3)",
       "URL": "https://forge.inrae.fr/imhorphen/multvardiv",
-      "BugReports": "https://forge.inrae.fr/imhorphen/multvardiv/-/issues",
+      "BugReports": "https://forge.inrae.fr/imhorphen/multvardiv/-/work_items",
       "Encoding": "UTF-8",
-      "RoxygenNote": "7.3.3",
       "Suggests": [
         "testthat (>= 3.2.1)"
       ],
       "Config/testthat/edition": "3",
+      "Config/roxygen2/version": "8.1.0",
       "NeedsCompilation": "no",
       "Author": "Pierre Santagostini [aut, cre], Nizar Bouhlel [aut]",
       "Repository": "CRAN"
