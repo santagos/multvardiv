@@ -1,5 +1,5 @@
-readRDS("renyi_2_1.rds")
-readRDS("kl_2_1.rds")
+readRDS("exetimes/renyi_2_1.rds")
+readRDS("exetimes/kl_2_1.rds")
 
 plot(exetime~eps, data = renyi_exetime, type = "b", log = "x",
      pch = 16, xaxt = "n", xlab = "Precision", ylab = "Execution time")

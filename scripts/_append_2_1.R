@@ -42,5 +42,5 @@ kl_exetime6 <- times[7]
 kl_exetime <- data.frame(eps = epsilon, iter = iter,
                          exetime = times, exetnorm = times/kl_exetime6)
 
-saveRDS(renyi_exetime, file = "renyi_2_1.rds")
-saveRDS(kl_exetime, file = "kl_2_1.rds")
+saveRDS(renyi_exetime, file = "exetimes/renyi_2_1.rds")
+saveRDS(kl_exetime, file = "exetimes/kl_2_1.rds")

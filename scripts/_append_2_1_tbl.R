@@ -1,5 +1,5 @@
-renyi_exetime <- readRDS("renyi_2_1.rds")
-kl_exetime <- readRDS("kl_2_1.rds")
+renyi_exetime <- readRDS("exetimes/renyi_2_1.rds")
+kl_exetime <- readRDS("exetimes/kl_2_1.rds")
 
 if (knitr::is_html_output()) {
   precision <- paste0("10<sup>", log10(renyi_exetime$eps), "</sup>")

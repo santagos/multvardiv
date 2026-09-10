@@ -1,4 +1,4 @@
-exetime <- readRDS("renyikl_2_3.rds")
+exetime <- readRDS("exetimes/renyikl_2_3.rds")
 
 # Plot of the execution times
 

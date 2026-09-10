@@ -1,5 +1,5 @@
-renyi_exetime <- readRDS("renyi_2_2.rds")
-kl_exetime <- readRDS("kl_2_2.rds")
+renyi_exetime <- readRDS("exetimes/renyi_2_2.rds")
+kl_exetime <- readRDS("exetimes/kl_2_2.rds")
 
 library(kableExtra)
 merge(renyi_exetime[c(1, 2, 4)], kl_exetime[c(1, 2, 4)], by = "dim") %>%

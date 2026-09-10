@@ -39,4 +39,4 @@ kl <- data.frame(s = S, kl_iter = iter, kl_exetime = kltimes,
 exetime <- merge(renyi, kl)
 
 
-saveRDS(exetime, file = "renyikl_2_3.rds")
+saveRDS(exetime, file = "exetimes/renyikl_2_3.rds")
