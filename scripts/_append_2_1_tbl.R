@@ -1,3 +1,4 @@
+# Load the execution times
 renyi_exetime <- readRDS("exetimes/renyi_2_1.rds")
 kl_exetime <- readRDS("exetimes/kl_2_1.rds")
 

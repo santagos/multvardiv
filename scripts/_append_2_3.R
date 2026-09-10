@@ -39,4 +39,5 @@ kl <- data.frame(s = S, kl_iter = iter, kl_exetime = kltimes,
 exetime <- merge(renyi, kl)
 
 
+# Save the execution times
 saveRDS(exetime, file = "exetimes/renyikl_2_3.rds")

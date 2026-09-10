@@ -1,6 +1,8 @@
+# Load the execution times
 exetime <- readRDS("exetimes/renyikl_2_3.rds")
 
-# Plot of the execution times
+
+# Plot the execution times among the proportionality coefficients
 
 par(mfrow = c(2, 2))
 plot(renyi_iter~s, data = exetime, type = "b", pch = 16,
