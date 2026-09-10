@@ -127,5 +127,7 @@ kl_t3 <- kl_times[3]
 kl_exetime <- data.frame(dim = 1:5, iter = kl_iter, exetime = kl_times,
                          normexet = kl_times/kl_t3)
 
+
+# Save the execution times
 saveRDS(renyi_exetime, file = "exetimes/renyi_2_2.rds")
 saveRDS(kl_exetime, file = "exetimes/kl_2_2.rds")
