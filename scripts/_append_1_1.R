@@ -8,7 +8,7 @@ nu2 <- nu
 Sigma <- matrix(c(1, 0.3, 0.3, 1), nrow = 2)
 
 # Values of lambda*nu1/nu2
-nulambda <- nu1/nu2
+lambdanu <- nu1/nu2
 
 # Rényi divergence, beta = 0.25
 b <- 0.25
