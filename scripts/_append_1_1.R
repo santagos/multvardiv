@@ -50,7 +50,7 @@ kullback_leibler <- sapply(nu1, function(nu) {
 # Table of the results
 divnu <- data.frame(
   nu1 = nu1,
-  nulambda = nulambda,
+  lambdanu = lambdanu,
   renyi_0_25 = renyi_0_25,
   renyi_1_5 = renyi_1_5,
   bhattacharyya = bhattacharyya,
