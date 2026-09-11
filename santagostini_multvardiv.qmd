@@ -1563,7 +1563,7 @@ $\boldsymbol{\Sigma}_2 = \left(\begin{array}{ccc}
   0.3 & 1 & 0.4 \\
   0.1 & 0.4 & 1
 \end{array}\right)$, and
-$\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$, $s \in [0.1; 70]$.
+$\boldsymbol{\Sigma}_1 = s \ \boldsymbol{\Sigma}_2$, $s \in ]0; 50]$.
 
 We fix the wanted precision: $\epsilon = 10^{-6}$.
 
