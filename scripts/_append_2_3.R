@@ -3,7 +3,7 @@ nu <- 2
 Sigma <- rbind(c(1, 0.3, 0.1), c(0.3, 1, 0.4), c(0.1, 0.4, 1))
 
 # Values of the proportionality coefficient
-S <- c(seq(0.1, 1, by = 0.1), seq(2, 70, by = 2))
+S <- c(seq(0.1, 1, by = 0.1), seq(2, 50, by = 2))
 
 
 # Rényi divergence

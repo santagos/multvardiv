@@ -1541,8 +1541,6 @@ if (!file.exists("exetimes/renyi_2_2.rds")|!file.exists("exetimes/kl_2_2.rds"))
 #| label: tbl-extime2
 #| tbl-cap: "Evolution of the normalized execution time among the wished precision of the divergence"
 #| echo: false
-#| cache: true
-#| cache.path: "santagostini_multvardiv_cache/"
 
 {{< include scripts/_append_2_2_tbl.R >}}
 ```
