@@ -43,8 +43,7 @@
       "NeedsCompilation": "yes",
       "Author": "Brian Ripley [aut, cre, cph], Bill Venables [aut, cph], Douglas M. Bates [ctb], Kurt Hornik [trl] (partial port ca 1998), Albrecht Gebhardt [trl] (partial port ca 1998), David Firth [ctb] (support functions for polr)",
       "Maintainer": "Brian Ripley <Brian.Ripley@R-project.org>",
-      "Repository": "CRAN",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "R6": {
       "Package": "R6",
@@ -87,8 +86,7 @@
       "Description": "Provides color schemes for maps (and other graphics) designed by Cynthia Brewer as described at http://colorbrewer2.org.",
       "License": "Apache License 2.0",
       "NeedsCompilation": "no",
-      "Repository": "CRAN",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "base64enc": {
       "Package": "base64enc",
@@ -841,8 +839,7 @@
         "stats",
         "graphics"
       ],
-      "Repository": "CRAN",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "lifecycle": {
       "Package": "lifecycle",
@@ -1030,57 +1027,10 @@
     "renv": {
       "Package": "renv",
       "Version": "1.2.4",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Project Environments",
-      "Authors@R": "c( person(\"Kevin\", \"Ushey\", role = c(\"aut\", \"cre\"), email = \"kevin@rstudio.com\", comment = c(ORCID = \"0000-0003-2880-7407\")), person(\"Hadley\", \"Wickham\", role = c(\"aut\"), email = \"hadley@rstudio.com\", comment = c(ORCID = \"0000-0003-4757-117X\")), person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\")) )",
-      "Description": "A dependency management toolkit for R. Using 'renv', you can create and manage project-local R libraries, save the state of these libraries to a 'lockfile', and later restore your library as required. Together, these tools can help make your projects more isolated, portable, and reproducible.",
-      "License": "MIT + file LICENSE",
-      "URL": "https://rstudio.github.io/renv/, https://github.com/rstudio/renv",
-      "BugReports": "https://github.com/rstudio/renv/issues",
-      "Imports": [
-        "utils"
-      ],
-      "Suggests": [
-        "BiocManager",
-        "cli",
-        "compiler",
-        "covr",
-        "cpp11",
-        "curl",
-        "devtools",
-        "generics",
-        "gitcreds",
-        "jsonlite",
-        "jsonvalidate",
-        "knitr",
-        "miniUI",
-        "modules",
-        "packrat",
-        "pak",
-        "R6",
-        "remotes",
-        "reticulate",
-        "rmarkdown",
-        "rstudioapi",
-        "shiny",
-        "testthat",
-        "uuid",
-        "waldo",
-        "yaml",
-        "webfakes"
-      ],
-      "Encoding": "UTF-8",
-      "VignetteBuilder": "knitr",
-      "Config/Needs/website": "tidyverse/tidytemplate",
-      "Config/testthat/edition": "3",
-      "Config/testthat/parallel": "true",
-      "Config/testthat/start-first": "bioconductor,python,install,restore,snapshot,retrieve,remotes",
-      "Config/roxygen2/version": "8.0.0",
+      "OS_type": null,
       "NeedsCompilation": "no",
-      "Author": "Kevin Ushey [aut, cre] (ORCID: <https://orcid.org/0000-0003-2880-7407>), Hadley Wickham [aut] (ORCID: <https://orcid.org/0000-0003-4757-117X>), Posit Software, PBC [cph, fnd]",
-      "Maintainer": "Kevin Ushey <kevin@rstudio.com>",
-      "Repository": "CRAN"
+      "Repository": "CRAN",
+      "Source": "Repository"
     },
     "rgl": {
       "Package": "rgl",
@@ -1148,7 +1098,8 @@
       "NeedsCompilation": "yes",
       "Author": "Duncan Murdoch [aut, cre], Daniel Adler [aut], Oleg Nenadic [ctb], Simon Urbanek [ctb], Ming Chen [ctb], Albrecht Gebhardt [ctb], Ben Bolker [ctb], Gabor Csardi [ctb], Adam Strzelecki [ctb], Alexander Senger [ctb], The R Core Team [ctb, cph], Dirk Eddelbuettel [ctb], The authors of Shiny [cph], The authors of knitr [cph], Jeroen Ooms [ctb], Yohann Demont [ctb], Joshua Ulrich [ctb], Xavier Fernandez i Marin [ctb], George Helffrich [ctb], Ivan Krylov [ctb], Michael Sumner [ctb], Mike Stein [ctb], Jonathon Love [ctb], Mapbox team [ctb, cph]",
       "Maintainer": "Duncan Murdoch <murdoch.duncan@gmail.com>",
-      "Repository": "CRAN"
+      "Repository": "CRAN",
+      "Encoding": "UTF-8"
     },
     "rlang": {
       "Package": "rlang",

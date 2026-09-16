@@ -1,7 +1,7 @@
 project:
   type: default
   render:
-    - santagostini_multvardiv.qmd
+    - main.qmd
     - README.qmd
 
 title: "`multvardiv` package"
@@ -30,10 +30,17 @@ abstract: >+
   The R package `multvardiv` provides functions to compute the Kullback-Leibler divergence between two Multivariate elliptical Distributions such as the multivariate $t$, Cauchy or generalized Gaussian distributions using analytic expressions of the divergence. For the $t$- and Cauchy distributions, the Rényi, Bhattacharyya and Hellinger divergences are also available. This package also gives tools for the manipulation of these distributions: probability density function, simulation of a random sample, estimation of the parameters, graph.
 keywords: [multivariate generalized Gaussian distribution, multivariate t distribution, multivariate Cauchy distribution, Kullback-Leibler divergence]
 bibliography: references.bib
-github-user: computorg
-repo: "template-computo-r"
-draft: true # set to false once the build is running
-published: false # will be set to true once accepted
+github-user: santagos
+repo: "multvardiv"
+status: "submitted"
+citation:
+  type: article-journal
+  container-title: "Computo"
+  issn: "2824-7795"
+  doi: "10.5072/computo.0000" # placeholder DOI (10.5072 is the official DOI test prefix), replace once assigned
+  # set at acceptance, with the published repository name (used by Google Scholar):
+  # url: "https://computo-journal.org/published-YYYYMM-name/"
+  # pdf-url: "https://computo-journal.org/published-YYYYMM-name/main.pdf"
 license: CC-BY-4.0
 format:
   computo-html: default

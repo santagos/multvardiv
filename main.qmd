@@ -66,7 +66,7 @@ packages such as
 [`dlookr`](https://CRAN.R-project.org/package=dlookr),
 [`LaplacesDemon`](https://web.archive.org/web/20150206004624/http://www.bayesian-inference.com/software), which allow the
 computation of statistical divergence in discrete case [@philentropy;
-@FNN; @dlookr; @LaplacesDemon].  
+@FNN; @dlookr; @LaplacesDemon].
 The [`dad`](https://doi.org/10.32614/RJ-2021-071) package provides functions
 to compute distances between continuous multivariate Gaussian distributions,
 or between distributions non-parametrically estimated by the Gaussian kernel method if they are
@@ -75,11 +75,11 @@ non-Gaussian [@dad].
 functions which compute the distance (including Hellinger or Jeffreys,
 i.e. symmetrized Kullback-Leibler) or divergence between multivariate
 Gaussian distributions or distributions estimated by the Gaussian kernel
-[@dad].
+[@dad]. -->
 
 <!-- The Kullback-Leibler divergence (KLD) is a measure of the dissimilarity -->
 <!-- between two univariate or multivariate probability distributions. -->
-<!-- <!-- It is extensively used on statistical signal processing, machine learning, pattern recognition and other related fields in computer science. --> 
+<!-- It is extensively used on statistical signal processing, machine learning, pattern recognition and other related fields in computer science. -->
 <!-- It is extensively used on statistical signal processing, pattern -->
 <!-- recognition, machine learning, data science, statistical inference and -->
 <!-- other related fields in computer science, to assess the effectiveness of -->
@@ -111,17 +111,17 @@ Gaussian distributions or distributions estimated by the Gaussian kernel
 
 In this paper, we will focus on three multivariate distributions: MTD, MCD and MGGD.
 The MTD belongs to the elliptical symmetric distributions [@kotz; @bouhlel23]. Such distribution has been deployed in several signal and image processing applications where
-heavy-tailed distribution is weel-suited.  
+heavy-tailed distribution is weel-suited.
 The MCD is a special case of the multivariate $t$-distribution [@bouhlel22]. MCD
 has been recently used in several signal and image processing
 applications for which non-Gaussian models are needed. These
 applications include speckle denoising [@sahu; @ranjani], color image
 denoising [@sadreazami16], watermarking [@sadreazami14], speech
-enhancement [@fontaine].  
+enhancement [@fontaine].
 The MGGD belongs to the family of elliptic distributions [@pascal]. MGGD is used in several signal and image processing applications [@bouhlel19]. In particular, it
 is widely used to accurately model the magnitudes of wavelet detail
 coefficients to capture inter-band dependencies or/and intra-band in a
-wide-sense (multi-scale, multi-channel, spatial dependencies, etc) [@Bouhlel2022]. 
+wide-sense (multi-scale, multi-channel, spatial dependencies, etc) [@Bouhlel2022].
 Application examples include, but are not limited to: image denoising
 [@sendur; @dongwook05; @dongwook09], texture image retrieving and
 classification [@verdoolaege09; @verdoolaege11; @berthoumieu].
@@ -182,7 +182,7 @@ can be generated using [@roth; @kotz]: $$
     \displaystyle{\mathbf{X} = \boldsymbol{\mu} + \frac{\mathbf{Y}}{\sqrt{U/\nu}}}
 $$ {#eq-rmtd} where $\mathbf{Y}$ is generated from a centered Gaussian
 distribution with covariance matrix $\boldsymbol{\Sigma}$, i.e. $\mathbf{Y}\sim \mathcal{N}^p(\mathbf{0},\boldsymbol{\Sigma})$ and $U$ is distributed
-according to a Chi-squared distribution with $\nu$ degrees of freedom, $U\sim \chi^2(\nu)$ and $U$ is independent of $\mathbf{Y}$. For convenience, we use the following new variable: $V=U/\nu$. As a consequence, $V$ follows a Gamma distribution with parameters $(\frac{\nu}{2},\frac{\nu}{2})$, i.e. $V\sim Gamma(\frac{\nu}{2},\frac{\nu}{2})$. 
+according to a Chi-squared distribution with $\nu$ degrees of freedom, $U\sim \chi^2(\nu)$ and $U$ is independent of $\mathbf{Y}$. For convenience, we use the following new variable: $V=U/\nu$. As a consequence, $V$ follows a Gamma distribution with parameters $(\frac{\nu}{2},\frac{\nu}{2})$, i.e. $V\sim Gamma(\frac{\nu}{2},\frac{\nu}{2})$.
 
 <!-- The MCD is a particular case of the multivariate $t$-distribution with $\nu = 1$. -->
 
@@ -235,14 +235,14 @@ $$ {#eq-lamda_x}
 
 #### Estimation of $\theta_y=(\boldsymbol{\mu},\boldsymbol{\Sigma})$ {.unnumbered .unlisted}
 
-The pdf of $\mathbf{X}$ knowing $v$ is given as follows 
+The pdf of $\mathbf{X}$ knowing $v$ is given as follows
 $$\begin{array}{lll}
 f_{\mathbf{X}|V}(\mathbf{x_i}|v_i, \theta_y) &    = &  \big|\frac{\partial \mathbf{Y}}{\partial \mathbf{X}}\big| f_{\mathbf{Y}}\left( (\mathbf{x_i}-\boldsymbol{\mu}) \sqrt{v_i}\right) \\
 &   = &  \displaystyle{v_i^{\frac{p}{2}}\frac{1}{(2\pi)^{p/2}|\boldsymbol{\Sigma}|^{1/2}}\exp\big(-\frac{v_i}{2}(\mathbf{x_i}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x_i}-\boldsymbol{\mu})\big)}  \\
 &   = & \displaystyle{\frac{1}{(2\pi)^{p/2}|\frac{\boldsymbol{\Sigma}}{v_i}|^{1/2}}\exp\big(-\frac{v_i}{2}(\mathbf{x_i}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x_i}-\boldsymbol{\mu})\big)}
 \end{array}$$ {#eq-conditional_law}
 where $\big|\frac{\partial \mathbf{Y}}{\partial \mathbf{X}}\big|$ is the Jacobian determinant.
-It is clear that $\mathbf{X}|V\sim \mathcal{N}^p(\boldsymbol{\mu}, \boldsymbol{\Sigma}/v)$. 
+It is clear that $\mathbf{X}|V\sim \mathcal{N}^p(\boldsymbol{\mu}, \boldsymbol{\Sigma}/v)$.
 Substituting the expression of the pdf of $\mathbf{X}|V$ given by @eq-conditional_law into @eq-lamda_w, differentiating with respect to $\boldsymbol{\mu}$ and $\boldsymbol{\Sigma}$, and setting the result to zero gives:
 <!-- Nous allons procéder autrement, soit $V=\frac{U}{\nu}$, nous allons alors déterminer $f_{\X|V}(x_i|v_i, \theta_y)$ et $f_{V}(v_i|\theta_{u})$.  -->
 
@@ -330,7 +330,7 @@ where $\mathbb{E}_{V|\mathbf{X}}\{V_i|\mathbf{x}_i,\theta'\}$ is the posterior e
 
 #### Estimation of $\theta_v=(\nu)$ {.unnumbered .unlisted}
 
-The pdf of $V$ is given by 
+The pdf of $V$ is given by
 $$
 f_{V}(v_i|\theta_{v}) = \big(\frac{\nu}{2}\big)^{\frac{\nu}{2}}\frac{1}{\Gamma(\nu/2)}v_i^{\frac{\nu}{2}-1}\exp{-\frac{\nu}{2}v_i}
 $$ {#eq-v_distribution}
@@ -496,7 +496,7 @@ estimation:
 
 2.  Repeat
 
-    -   Compute $\mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\}$ using 
+    -   Compute $\mathbb{E}_{V|\mathbf{X}}\{V_i |\mathbf{x}_i,\theta'\}$ using
         @eq-E1 and $\mathbb{E}_{V|\mathbf{X}}\{\ln V_i|\mathbf{x}_i,\theta'\}$
         using @eq-E2
 
@@ -505,11 +505,11 @@ estimation:
     -   Estimate $\hat{\boldsymbol{\Sigma}}$ using @eq-EM_K2
 
     -   Resolve @eq-EM_G_1 to estimate $\hat{\nu}$
-    
+
     -   Compute the stop criterion: $D\leftarrow\Vert\hat{\theta}-\theta'\Vert$
-    
+
     -   Define the inputs for the next iteration: $\boldsymbol{\mu}',\boldsymbol{\Sigma}',\nu' \leftarrow\hat{\boldsymbol{\mu}},\hat{\boldsymbol{\Sigma}},\hat{\nu}$
-    
+
     -   **Until** $D<\epsilon$
 
 <!--           *   Compute the stop criterion: $D\leftarrow\Vert\hat{\theta}-\theta'\Vert$ -->
@@ -1414,7 +1414,6 @@ $\boldsymbol{\Sigma_2} = \left(\begin{array}{ccc}
 #| label: extime1
 #| echo: false
 #| cache: true
-#| cache.path: "santagostini_multvardiv_cache/"
 #| fig-show: hide
 
 if (!file.exists("exetimes/renyi_2_1.rds")|!file.exists("exetimes/kl_2_1.rds"))
@@ -1500,7 +1499,7 @@ $\boldsymbol{\Sigma}_1$ and $\boldsymbol{\Sigma}_2$ :
       0.1 & 0.4 & 1 & 0 \\
       0 & 0 &  0 & 1
     \end{array}\right)$
-    
+
 1.  $\boldsymbol{\Sigma}_1 = \left(\begin{array}{ccccc}
       1 & 0.6 & 0.2 & 0 & 0 \\
       0.6 & 1 & 0.3 & 0 & 0 \\
@@ -1515,7 +1514,7 @@ $\boldsymbol{\Sigma}_1$ and $\boldsymbol{\Sigma}_2$ :
       0 & 0 &  0 & 1 & 0 \\
       0 & 0 &  0 & 0 & 1
     \end{array}\right)$
-    
+
 We fix the wanted precision: $\epsilon = 10^{-6}$.
 
 The R code which produce this table is given in appendix, see @sec-appendtime2.
@@ -1524,7 +1523,6 @@ The R code which produce this table is given in appendix, see @sec-appendtime2.
 #| label: extime2
 #| echo: false
 #| cache: true
-#| cache.path: "santagostini_multvardiv_cache/"
 
 if (!file.exists("exetimes/renyi_2_2.rds")|!file.exists("exetimes/kl_2_2.rds"))
   source("scripts/_append_2_2.R")
@@ -1763,7 +1761,7 @@ $$ {#eq-kldmtdcase3} -->
 
 $$
 \begin{array}{lll}
-f(\lambda) & = &\displaystyle{ \frac{\partial}{\partial{a}}{ \bigg\{ F_D^{(p)}\bigg( a, \frac{1}{2}, \frac{1}{2}, \frac{1}{2}; a + \frac{\nu_1+p}{2}; 1 - \frac{\nu_1}{\nu_2}\lambda_1, 1 - \frac{\nu_1}{\nu_2}\lambda_2, 1 - \frac{\nu_1}{\nu_2}\lambda_3 \bigg) \bigg\} } \bigg|_{a=0} } \\ 
+f(\lambda) & = &\displaystyle{ \frac{\partial}{\partial{a}}{ \bigg\{ F_D^{(p)}\bigg( a, \frac{1}{2}, \frac{1}{2}, \frac{1}{2}; a + \frac{\nu_1+p}{2}; 1 - \frac{\nu_1}{\nu_2}\lambda_1, 1 - \frac{\nu_1}{\nu_2}\lambda_2, 1 - \frac{\nu_1}{\nu_2}\lambda_3 \bigg) \bigg\} } \bigg|_{a=0} } \\
 & = &   \displaystyle{ \frac{\partial}{\partial a}\left\lbrace
 _2 F_1 (a, \frac{3}{2},a+\frac{\nu_1+3}{2}, 1-\frac{\nu_1}{\nu_2}\lambda\right\rbrace\bigg|_{a=0} } \\
 &   = &   \displaystyle{ \sum\limits_{n=0}^\infty \frac{\partial}{\partial a}\left\lbrace \frac{(a)_n}{(a+\frac{\nu_1+3}{2})_n}\right\rbrace\bigg|_{a=0} \bigg(\frac{3}{2}\bigg)_n\frac{(1-\frac{\nu_1}{\nu_2}\lambda)^n}{n!} } \\
