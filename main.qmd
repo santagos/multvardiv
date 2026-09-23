@@ -1201,6 +1201,8 @@ knitr::kable(tabfcts,
              caption = "multvardiv package: the functions for MTD, MCD and MGGD")
 ```
 
+As well, the package provides functions for the probability density,
+simulation of a random sample and parameter estimation.
 Furthermore, two functions allow to plot the probability density of a
 bivariate $t$, Cauchy or generalized Gaussian distribution:
 
