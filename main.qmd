@@ -1415,7 +1415,6 @@ $\boldsymbol{\Sigma_2} = \left(\begin{array}{ccc}
 ```{r}
 #| label: extime1
 #| echo: false
-#| cache: true
 #| fig-show: hide
 
 if ((!file.exists("exetimes/renyi_2_1.rds"))|(!file.exists("exetimes/kl_2_1.rds")))
@@ -1524,7 +1523,6 @@ The R code which produce this table is given in appendix, see @sec-appendtime2.
 ```{r}
 #| label: extime2
 #| echo: false
-#| cache: true
 
 if ((!file.exists("exetimes/renyi_2_2.rds"))|(!file.exists("exetimes/kl_2_2.rds")))
   source("scripts/_append_2_2.R")
@@ -1566,7 +1564,6 @@ table is given in appendix, see @sec-appendtime3.
 ```{r}
 #| label: extime3
 #| echo: false
-#| cache: true
 
 if (!file.exists("exetimes/renyikl_2_3.rds"))
   source("scripts/_append_2_3.R")
