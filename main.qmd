@@ -1526,7 +1526,7 @@ The R code which produce this table is given in appendix, see @sec-appendtime2.
 #| echo: false
 #| cache: true
 
-if (!file.exists("exetimes/renyi_2_2.rds")|!file.exists("exetimes/kl_2_2.rds"))
+if ((!file.exists("exetimes/renyi_2_2.rds"))|(!file.exists("exetimes/kl_2_2.rds")))
   source("scripts/_append_2_2.R")
 ```
 
