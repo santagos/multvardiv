@@ -8,43 +8,39 @@ epsilon <- c(1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9,
 nu1 <- 2
 nu2 <- 4
 
-times <- iter <- numeric(4)
-
 Sigma1 = rbind(c(1, 0.6, 0.2), c(0.6, 1, 0.3), c(0.2, 0.3, 1))
 Sigma2 = rbind(c(1, 0.3, 0.1), c(0.3, 1, 0.4), c(0.1, 0.4, 1))
 
-times <- iter <- numeric(length = length(epsilon))
-for (i in 1:length(epsilon)) {
-  eps <- epsilon[i]
-  times[i] <- system.time(
-    d <- diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
-                     dist = "renyi", bet = 0.25, eps = eps)
-  )["elapsed"]
-  iter[i] <- attr(d, "k")
-}
+expr <- parse(text = paste0(
+  "drenyi <- diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2, ",
+  "dist = 'renyi', bet = 0.25, eps = ", epsilon, ")"
+)) |>
+  as.list()
+names(expr) <- -log10(epsilon)
 
-renyi_exetime6 <- times[7]
-renyi_exetime <- data.frame(eps = epsilon, iter = iter,
-                            exetime = times, exetnorm = times/renyi_exetime6)
+times <- vector("list", length = length(epsilon))
+iter <- numeric(length = length(epsilon))
+
+renyi_exetime <- microbenchmark(list = expr)
 
 
 # Kullback-Leibler divergence
 
-times <- iter <- numeric(length = length(epsilon))
-for (i in 1:length(epsilon)) {
-  eps <- epsilon[i]
-  times[i] <- system.time(
-    d <- kld(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
-             distribution = "mtd", eps = eps)
-  )["elapsed"]
-  iter[i] <- attr(d, "k")
-}
+expr <- parse(text = paste0(
+  "dkl <- kld(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2, ",
+  "distribution = 'mtd', eps = ", epsilon, ")"
+)) |>
+  as.list()
+names(expr) <- -log10(epsilon)
 
-kl_exetime6 <- times[7]
-kl_exetime <- data.frame(eps = epsilon, iter = iter,
-                         exetime = times, exetnorm = times/kl_exetime6)
+times <- vector("list", length = length(epsilon))
+iter <- numeric(length = length(epsilon))
+
+kl_exetime <- microbenchmark(list = expr)
 
 
 # Save the execution times
-saveRDS(renyi_exetime, file = "exetimes/renyi_2_1.rds")
-saveRDS(kl_exetime, file = "exetimes/kl_2_1.rds")
+saveRDS(list(exetime = renyi_exetime, epsilon = epsilon),
+        file = "exetimes/renyi_2_1.rds")
+saveRDS(list(exetime = kl_exetime, epsilon = epsilon),
+        file = "exetimes/kl_2_1.rds")
