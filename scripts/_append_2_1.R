@@ -21,10 +21,8 @@ expr <- parse(text = paste0(
   as.list()
 names(expr) <- -log10(epsilon)
 
-times <- vector("list", length = length(epsilon))
-iter <- numeric(length = length(epsilon))
-
 renyi_exetime <- microbenchmark(list = expr)
+levels(renyi_exetime$expr) <- epsilon
 
 
 # Kullback-Leibler divergence
@@ -36,10 +34,8 @@ expr <- parse(text = paste0(
   as.list()
 names(expr) <- -log10(epsilon)
 
-times <- vector("list", length = length(epsilon))
-iter <- numeric(length = length(epsilon))
-
 kl_exetime <- microbenchmark(list = expr)
+levels(kl_exetime$expr) <- epsilon
 
 
 # Save the execution times

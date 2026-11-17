@@ -44,17 +44,19 @@ expr <- parse(text = paste0(
 names(expr) <- paste0("dim", 1:4)
 
 renyi_exetime <- microbenchmark(list = expr, times = 30)
+levels(renyi_exetime$expr) <- paste("Dimension", 1:4)
 
 
 expr <- parse(text = paste0(
-  "dkl <- kld(nu1 = nu1, Sigma1 ",
-  "Sigma", 1:4, "_1, nu2 = nu2, Sigma2 = Sigma2, ",
+  "dkl <- kld(nu1 = nu1, Sigma1 = ",
+  "Sigma", 1:4, "_1, nu2 = nu2, Sigma2 = ",
   "Sigma", 1:4, "_2, distribution = 'mtd', eps = 1e-3)"
 )) |>
   as.list()
-names(expr) <- -log10(epsilon)
+names(expr) <- paste0("dim", 1:4)
 
 kl_exetime <- microbenchmark(list = expr, times = 30)
+levels(kl_exetime$expr) <- paste("Dimension", 1:4)
 
 
 # Save the execution times
