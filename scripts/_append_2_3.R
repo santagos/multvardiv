@@ -1,3 +1,5 @@
+library(microbenchmark)
+
 # Parameters
 nu <- 2
 Sigma <- rbind(c(1, 0.3, 0.1), c(0.3, 1, 0.4), c(0.1, 0.4, 1))
@@ -7,37 +9,28 @@ S <- c(seq(0.1, 1, by = 0.1), seq(2, 50, by = 2))
 
 
 # Rényi divergence
-renyitimes <- iter <- renyidiv <- numeric(length = length(S))
-for (i in 1:length(S)) {
-  s <- S[i]
-  renyitimes[i] <- system.time(
-    d <- diststudent(nu1 = nu, Sigma1 = s*Sigma, nu2 = nu, Sigma2 = Sigma,
-                     dist = "renyi", bet = 0.25)
-  )["elapsed"]
-  renyidiv[i] <- d
-  iter[i] <- attr(d, "k")
-}
-renyi <- data.frame(s = S, renyi_iter = iter, renyi_exetime = renyitimes,
-                    renyi_div = renyidiv)
+expr <- parse(text = paste0(
+  "diststudent(nu1 = nu, Sigma1 = ", S, "*Sigma, nu2 = nu, Sigma2 = Sigma, ",
+  "dist = 'renyi', bet = 0.25)"
+)) |>
+  as.list()
+names(expr) <- S
+
+renyi_exetime <- microbenchmark(list = expr)
+levels(renyi_exetime$expr) <- paste("S=", S)
 
 
 # Kullback-Leibler divergence
-kltimes <- iter <- kldiv <- numeric(length = length(S))
-for (i in 1:length(S)) {
-  s <- S[i]
-  kltimes[i] <- system.time(
-    d <- kld(nu1 = nu, Sigma1 = s*Sigma, nu2 = nu, Sigma2 = Sigma,
-             distribution = "mtd")
-  )["elapsed"]
-  kldiv[i] <- d
-  iter[i] <- attr(d, "k")
-}
-kl <- data.frame(s = S, kl_iter = iter, kl_exetime = kltimes,
-                 kl_div = kldiv)
-
-
-exetime <- merge(renyi, kl)
+expr <- parse(text = paste0(
+  "diststudent(nu1 = nu, Sigma1 = ", S, "*Sigma, nu2 = nu, Sigma2 = Sigma, ",
+  "distribution = 'mtd')"
+)) |>
+  as.list()
+names(expr) <- S
+kl_exetime <- microbenchmark(list = expr)
+levels(kl_exetime$expr) <- paste("S=", S)
 
 
 # Save the execution times
-saveRDS(exetime, file = "exetimes/renyikl_2_3.rds")
+saveRDS(renyi_exetime, file = "exetimes/renyi_2_3.rds")
+saveRDS(kl_exetime, file = "exetimes/kl_2_3.rds")

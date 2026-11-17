@@ -1,22 +1,26 @@
+library(microbenchmark)
+
 # Load the execution times
 renyi_exetime <- readRDS("exetimes/renyi_2_1.rds")
 kl_exetime <- readRDS("exetimes/kl_2_1.rds")
 
 if (knitr::is_html_output()) {
-  precision <- paste0("10<sup>", log10(renyi_exetime$eps), "</sup>")
+  precision <- paste0("10<sup>", log10(renyi_exetime$epsilon), "</sup>")
 } else {
-  precision <- paste0("$10^{", log10(renyi_exetime$eps), "}$")
+  precision <- paste0("$10^{", log10(renyi_exetime$epsilon), "}$")
 }
 
-# Table of the execution times
-
+# Display the table of execution time among the whished precision
 library(kableExtra)
-tbl <- data.frame(precision, renyi_exetime[c(2, 4)], kl_exetime[c(2, 4)]) %>%
-  kbl(
-    col.names = c("Precision", "Number of iterations", "Execution time",
-                  "Number of iterations", "Execution time"),
-    digits = c(16, 0, 4, 0, 4), escape = FALSE
-  ) %>%
-  add_header_above(c(" " = 1, "Rényi divergence of order β=0.25" = 2,
-                     "Kullback-Leibler divergence" = 2), escape = FALSE)
-tbl
+renyi <- summary(renyi_exetime$exetime)[-8]
+renyi$expr <- as.numeric(as.character(renyi$expr))
+kl <- summary(kl_exetime$exetime)[-8]
+kl$expr <- as.numeric(as.character(kl$expr))
+merge(renyi, kl, by = "expr", sort = FALSE) |>
+  kbl(col.names = c("Whished precision", rep(c(
+    "Minimum", "1st quartile", "Mean", "Median", "3rd quartile", "Maximum"),
+    2)
+  ), digits = c(15, rep(2, 12))) |>
+  add_header_above(c(" " = 1,
+                     "Rényi divergence of order β=0.25" = 6,
+                     "Kullback-Leibler divergence" = 6))
