@@ -1,3 +1,6 @@
+library(microbenchmark)
+
+
 nu1 <- 2
 nu2 <- 4
 
@@ -6,126 +9,52 @@ nu2 <- 4
 times <- iter <- numeric(4)
 
 # Dim 1
-Sigma1 <- 0.2
-Sigma2 <- 0.3
-times[1] <- system.time(
-  d <- diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
-                   dist = "renyi", bet = 0.25)
-)["elapsed"]
-iter[1] <- attr(d, "k")
+Sigma1_1 <- 0.2
+Sigma1_2 <- 0.3
 
 # Dim 2
-Sigma1 = rbind(c(1, 0.2), c(0.2, 1))
-Sigma2 = rbind(c(1, 0.3), c(0.3, 1))
-times[2] <- system.time(
-  d <- diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
-                   dist = "renyi", bet = 0.25)
-)["elapsed"]
-iter[2] <- attr(d, "k")
+Sigma2_1 = rbind(c(1, 0.2), c(0.2, 1))
+Sigma2_2 = rbind(c(1, 0.3), c(0.3, 1))
 
 # Dim 3
-Sigma1 = rbind(c(1, 0.6, 0.2), c(0.6, 1, 0.3), c(0.2, 0.3, 1))
-Sigma2 = rbind(c(1, 0.3, 0.1), c(0.3, 1, 0.4), c(0.1, 0.4, 1))
-times[3] <- system.time(
-  d <- diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
-                   dist = "renyi", bet = 0.25)
-)["elapsed"]
-iter[3] <- attr(d, "k")
+Sigma3_1 = rbind(c(1, 0.6, 0.2), c(0.6, 1, 0.3), c(0.2, 0.3, 1))
+Sigma3_2 = rbind(c(1, 0.3, 0.1), c(0.3, 1, 0.4), c(0.1, 0.4, 1))
 
 # Dim 4
-Sigma1 = rbind(c(1, 0.6, 0.2, 0), c(0.6, 1, 0.3, 0),
-               c(0.2, 0.3, 1, 0), c(0, 0, 0, 1))
-Sigma2 = rbind(c(1, 0.3, 0.1, 0), c(0.3, 1, 0.4, 0),
-               c(0.1, 0.4, 1, 0), c(0, 0, 0, 1))
-times[4] <- system.time(
-  d <- diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
-                   dist = "renyi", bet = 0.25)
-)["elapsed"]
-iter[4] <- attr(d, "k")
+Sigma4_1 = rbind(c(1, 0.6, 0.2, 0), c(0.6, 1, 0.3, 0),
+                 c(0.2, 0.3, 1, 0), c(0, 0, 0, 1))
+Sigma4_2 = rbind(c(1, 0.3, 0.1, 0), c(0.3, 1, 0.4, 0),
+                 c(0.1, 0.4, 1, 0), c(0, 0, 0, 1))
 
-# Dim 5
-Sigma1 = rbind(c(1, 0.6, 0.2, 0, 0), c(0.6, 1, 0.3, 0, 0),
-               c(0.2, 0.3, 1, 0, 0), c(0, 0, 0, 1, 0),
-               c(0, 0, 0, 0, 1))
-Sigma2 = rbind(c(1, 0.3, 0.1, 0, 0), c(0.3, 1, 0.4, 0, 0),
-               c(0.1, 0.4, 1, 0, 0), c(0, 0, 0, 1, 0),
-               c(0, 0, 0, 0, 1))
-times[5] <- system.time(
-  d <- diststudent(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
-                   dist = "renyi", bet = 0.25)
-)["elapsed"]
-iter[5] <- attr(d, "k")
-
-renyi_times <- times
-renyi_iter <- iter
-renyi_t3 <- renyi_times[3]
-renyi_exetime <- data.frame(dim = 1:5, iter = renyi_iter, exetime = renyi_times,
-                            normexet = renyi_times/renyi_t3)
+# # Dim 5
+# Sigma5_1 = rbind(c(1, 0.6, 0.2, 0, 0), c(0.6, 1, 0.3, 0, 0),
+#                  c(0.2, 0.3, 1, 0, 0), c(0, 0, 0, 1, 0),
+#                  c(0, 0, 0, 0, 1))
+# Sigma5_2 = rbind(c(1, 0.3, 0.1, 0, 0), c(0.3, 1, 0.4, 0, 0),
+#                  c(0.1, 0.4, 1, 0, 0), c(0, 0, 0, 1, 0),
+#                  c(0, 0, 0, 0, 1))
 
 
-# Kullback-Leibler divergence
+expr <- parse(text = paste0(
+  "drenyi <- diststudent(nu1 = nu1, Sigma1 = ",
+  "Sigma", 1:4, "_1, nu2 = nu2, Sigma2 = ",
+  "Sigma", 1:4, "_2, dist = 'renyi', bet = 0.25, eps = 1e-3)"
+)) |>
+  as.list()
+names(expr) <- paste0("dim", 1:4)
 
-nu1 <- 2
-nu2 <- 4
+renyi_exetime <- microbenchmark(list = expr, times = 30)
 
-times <- iter <- numeric(4)
 
-# Dim 1
-Sigma1 <- 0.2
-Sigma2 <- 0.3
-times[1] <- system.time(
-  d <- kld(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
-           distribution = "mtd")
-)["elapsed"]
-iter[1] <- attr(d, "k")
+expr <- parse(text = paste0(
+  "dkl <- kld(nu1 = nu1, Sigma1 ",
+  "Sigma", 1:4, "_1, nu2 = nu2, Sigma2 = Sigma2, ",
+  "Sigma", 1:4, "_2, distribution = 'mtd', eps = 1e-3)"
+)) |>
+  as.list()
+names(expr) <- -log10(epsilon)
 
-# Dim 2
-Sigma1 = rbind(c(1, 0.2), c(0.2, 1))
-Sigma2 = rbind(c(1, 0.3), c(0.3, 1))
-times[2] <- system.time(
-  d <- kld(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
-           distribution = "mtd")
-)["elapsed"]
-iter[2] <- attr(d, "k")
-
-# Dim 3
-Sigma1 = rbind(c(1, 0.6, 0.2), c(0.6, 1, 0.3), c(0.2, 0.3, 1))
-Sigma2 = rbind(c(1, 0.3, 0.1), c(0.3, 1, 0.4), c(0.1, 0.4, 1))
-times[3] <- system.time(
-  d <- kld(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
-           distribution = "mtd")
-)["elapsed"]
-iter[3] <- attr(d, "k")
-
-# Dim 4
-Sigma1 = rbind(c(1, 0.6, 0.2, 0), c(0.6, 1, 0.3, 0),
-               c(0.2, 0.3, 1, 0), c(0, 0, 0, 1))
-Sigma2 = rbind(c(1, 0.3, 0.1, 0), c(0.3, 1, 0.4, 0),
-               c(0.1, 0.4, 1, 0), c(0, 0, 0, 1))
-times[4] <- system.time(
-  d <- kld(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
-           distribution = "mtd")
-)["elapsed"]
-iter[4] <- attr(d, "k")
-
-# Dim 5
-Sigma1 = rbind(c(1, 0.6, 0.2, 0, 0), c(0.6, 1, 0.3, 0, 0),
-               c(0.2, 0.3, 1, 0, 0), c(0, 0, 0, 1, 0),
-               c(0, 0, 0, 0, 1))
-Sigma2 = rbind(c(1, 0.3, 0.1, 0, 0), c(0.3, 1, 0.4, 0, 0),
-               c(0.1, 0.4, 1, 0, 0), c(0, 0, 0, 1, 0),
-               c(0, 0, 0, 0, 1))
-times[5] <- system.time(
-  d <- kld(nu1 = nu1, Sigma1 = Sigma1, nu2 = nu2, Sigma2 = Sigma2,
-           distribution = "mtd")
-)["elapsed"]
-iter[5] <- attr(d, "k")
-
-kl_times <- times
-kl_iter <- iter
-kl_t3 <- kl_times[3]
-kl_exetime <- data.frame(dim = 1:5, iter = kl_iter, exetime = kl_times,
-                         normexet = kl_times/kl_t3)
+kl_exetime <- microbenchmark(list = expr, times = 30)
 
 
 # Save the execution times
