@@ -16,7 +16,7 @@ expr <- parse(text = paste0(
   as.list()
 names(expr) <- S
 
-renyi_exetime <- microbenchmark(list = expr)
+renyi_exetime <- microbenchmark(list = expr, times = 30)
 levels(renyi_exetime$expr) <- paste("S=", S)
 
 
@@ -27,7 +27,7 @@ expr <- parse(text = paste0(
 )) |>
   as.list()
 names(expr) <- S
-kl_exetime <- microbenchmark(list = expr)
+kl_exetime <- microbenchmark(list = expr, times = 30)
 levels(kl_exetime$expr) <- paste("S=", S)
 
 
