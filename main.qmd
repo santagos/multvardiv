@@ -1551,7 +1551,7 @@ table is given in appendix, see @sec-appendtime3.
 #| label: extime3
 #| echo: false
 
-if (!file.exists("exetimes/renyikl_2_3.rds"))
+if ((!file.exists("exetimes/renyi_2_3.rds"))|(!file.exists("exetimes/kl_2_3.rds")))
   source("scripts/_append_2_3.R")
 ```
 
