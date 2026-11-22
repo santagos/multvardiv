@@ -45,6 +45,12 @@ names(expr) <- paste0("dim", 1:5)
 
 renyi_exetime <- microbenchmark(list = expr, times = 30)
 levels(renyi_exetime$expr) <- paste("Dimension", 1:5)
+drenyi <- list(dim1 = drenyi1,
+               dim2 = drenyi2,
+               dim3 = drenyi3,
+               dim4 = drenyi4,
+               dim5 = drenyi5
+)
 
 
 expr <- parse(text = paste0(
@@ -57,8 +63,16 @@ names(expr) <- paste0("dim", 1:5)
 
 kl_exetime <- microbenchmark(list = expr, times = 30)
 levels(kl_exetime$expr) <- paste("Dimension", 1:5)
+dkl <- list(dim1 = dkl1,
+            dim2 = dkl2,
+            dim3 = dkl3,
+            dim4 = dkl4,
+            dim5 = dkl5
+)
 
 
 # Save the execution times
-saveRDS(renyi_exetime, file = "exetimes/renyi_2_2.rds")
-saveRDS(kl_exetime, file = "exetimes/kl_2_2.rds")
+saveRDS(list(exetimes = renyi_exetime, div = drenyi),
+        file = "exetimes/renyi_2_2.rds")
+saveRDS(list(exetimes = kl_exetime, div = dkl),
+        file = "exetimes/kl_2_2.rds")
