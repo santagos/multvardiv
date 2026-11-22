@@ -1391,8 +1391,10 @@ kld12
 
 The R code which produces the results presented in this section
 were run under Windows, with a Intel Core Ultra 7 165H (1.40 GHz, 32 Go).
+To evaluate the execution times, we used the
+[microbenchmark](https://github.com/joshuaulrich/microbenchmark/}) package.
 
-### Among the wanted precision
+### As a function of the wanted precision
 
 How does the execution time increase when the precision increases?
 
@@ -1423,7 +1425,7 @@ if ((!file.exists("exetimes/renyi_2_1.rds"))|(!file.exists("exetimes/kl_2_1.rds"
 
 ```{r}
 #| label: tbl-extime1
-#| tbl-cap: "Evolution of the normalized execution time among the wished precision of the divergence"
+#| tbl-cap: "Evolution of the normalized execution time as a function of the wished precision of the divergence. Each expression was evaluated 100 times."
 #| echo: false
 
 {{< include scripts/_append_2_1_tbl.R >}}
@@ -1431,7 +1433,7 @@ if ((!file.exists("exetimes/renyi_2_1.rds"))|(!file.exists("exetimes/kl_2_1.rds"
 
 ```{r}
 #| label: fig-extime1
-#| fig-cap: "Evolution of the execution time (in seconds) among the wished precision of the divergence"
+#| fig-cap: "Evolution of the execution time (in seconds) as a function of the wished precision of the divergence. Each expression was evaluated 100 times."
 #| fig-subcap:
 #|    - "Rényi divergence of order $\\beta=0.25$"
 #|    - "Kullback-Leibler"
@@ -1446,7 +1448,7 @@ if ((!file.exists("exetimes/renyi_2_1.rds"))|(!file.exists("exetimes/kl_2_1.rds"
 The R code which produce @tbl-extime1 and @fig-extime1 is given in appendix,
 see @sec-appendtime1.
 
-### Among the dimension of the distributions
+### As a function of the dimension of the distributions
 
 We consider the distributions:
 $X^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma_1})$ and
@@ -1520,15 +1522,29 @@ if ((!file.exists("exetimes/renyi_2_2.rds"))|(!file.exists("exetimes/kl_2_2.rds"
 
 ```{r}
 #| label: tbl-extime2
-#| tbl-cap: "Evolution of the normalized execution time among the wished precision of the divergence"
+#| tbl-cap: "Evolution of the normalized execution time as a function of the distributions dimension. Each expression was evaluated 30 times."
 #| echo: false
 
 {{< include scripts/_append_2_2_tbl.R >}}
 ```
 
-The R code which produce the table is given in appendix, see @sec-appenexetime.
+```{r}
+#| label: fig-extime2
+#| fig-cap: "Evolution of the execution time (in seconds) as a function of the wished precision of the divergence. Each expression was evaluated 100 times."
+#| fig-subcap:
+#|    - "Rényi divergence of order $\\beta=0.25$"
+#|    - "Kullback-Leibler"
+#| fig-height: 3.5
+#| fig-width: 9
+#| layout-ncol: 1
+#| echo: false
 
-### Among the divergence between distributions
+{{< include scripts/_append_2_2_plot.R >}}
+```
+
+The R code which produce these results is given in appendix, see @sec-appenexetime.
+
+### As a function of the divergence between distributions
 
 We consider the distributions:
 $X^1 \sim MTD(\mathbf{0}, \nu_1, \boldsymbol{\Sigma_1})$ and
@@ -1556,8 +1572,16 @@ if ((!file.exists("exetimes/renyi_2_3.rds"))|(!file.exists("exetimes/kl_2_3.rds"
 ```
 
 ```{r}
+#| label: tbl-extime3
+#| tbl-cap: "Evolution of the normalized execution time as a function of the divergence between the distributions. Each expression was evaluated 30 times."
+#| echo: false
+
+{{< include scripts/_append_2_3_tbl.R >}}
+```
+
+```{r}
 #| label: fig-extime3
-#| fig-cap: "Evolution of the execution time among the divergence between the distributions"
+#| fig-cap: "Evolution of the execution time as a function of the divergence between the distributions. Each expression was evaluated 30 times."
 #| fig-subcap:
 #|    - "Rényi divergence of order $\\beta=0.25$"
 #|    - "Kullback-Leibler"
