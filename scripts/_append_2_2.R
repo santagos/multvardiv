@@ -26,37 +26,37 @@ Sigma4_1 = rbind(c(1, 0.6, 0.2, 0), c(0.6, 1, 0.3, 0),
 Sigma4_2 = rbind(c(1, 0.3, 0.1, 0), c(0.3, 1, 0.4, 0),
                  c(0.1, 0.4, 1, 0), c(0, 0, 0, 1))
 
-# # Dim 5
-# Sigma5_1 = rbind(c(1, 0.6, 0.2, 0, 0), c(0.6, 1, 0.3, 0, 0),
-#                  c(0.2, 0.3, 1, 0, 0), c(0, 0, 0, 1, 0),
-#                  c(0, 0, 0, 0, 1))
-# Sigma5_2 = rbind(c(1, 0.3, 0.1, 0, 0), c(0.3, 1, 0.4, 0, 0),
-#                  c(0.1, 0.4, 1, 0, 0), c(0, 0, 0, 1, 0),
-#                  c(0, 0, 0, 0, 1))
+# Dim 5
+Sigma5_1 = rbind(c(1, 0.6, 0.2, 0, 0), c(0.6, 1, 0.3, 0, 0),
+                 c(0.2, 0.3, 1, 0, 0), c(0, 0, 0, 1, 0),
+                 c(0, 0, 0, 0, 1))
+Sigma5_2 = rbind(c(1, 0.3, 0.1, 0, 0), c(0.3, 1, 0.4, 0, 0),
+                 c(0.1, 0.4, 1, 0, 0), c(0, 0, 0, 1, 0),
+                 c(0, 0, 0, 0, 1))
 
 
 expr <- parse(text = paste0(
-  "drenyi <- diststudent(nu1 = nu1, Sigma1 = ",
-  "Sigma", 1:4, "_1, nu2 = nu2, Sigma2 = ",
-  "Sigma", 1:4, "_2, dist = 'renyi', bet = 0.25, eps = 1e-3)"
+  "drenyi", 1:5, " <- diststudent(nu1 = nu1, Sigma1 = ",
+  "Sigma", 1:5, "_1, nu2 = nu2, Sigma2 = ",
+  "Sigma", 1:5, "_2, dist = 'renyi', bet = 0.25, eps = 1e-3)"
 )) |>
   as.list()
-names(expr) <- paste0("dim", 1:4)
+names(expr) <- paste0("dim", 1:5)
 
 renyi_exetime <- microbenchmark(list = expr, times = 30)
-levels(renyi_exetime$expr) <- paste("Dimension", 1:4)
+levels(renyi_exetime$expr) <- paste("Dimension", 1:5)
 
 
 expr <- parse(text = paste0(
-  "dkl <- kld(nu1 = nu1, Sigma1 = ",
-  "Sigma", 1:4, "_1, nu2 = nu2, Sigma2 = ",
-  "Sigma", 1:4, "_2, distribution = 'mtd', eps = 1e-3)"
+  "dkl", 1:5, " <- kld(nu1 = nu1, Sigma1 = ",
+  "Sigma", 1:5, "_1, nu2 = nu2, Sigma2 = ",
+  "Sigma", 1:5, "_2, distribution = 'mtd', eps = 1e-3)"
 )) |>
   as.list()
-names(expr) <- paste0("dim", 1:4)
+names(expr) <- paste0("dim", 1:5)
 
 kl_exetime <- microbenchmark(list = expr, times = 30)
-levels(kl_exetime$expr) <- paste("Dimension", 1:4)
+levels(kl_exetime$expr) <- paste("Dimension", 1:5)
 
 
 # Save the execution times
