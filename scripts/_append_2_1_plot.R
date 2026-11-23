@@ -11,7 +11,7 @@ boxplot(renyi_exetime$exetime, main = "Rényi divergence - microbenchmark timing
 axis(1, at = -log10(renyi_exetime$epsilon) + 1,
      labels = parse(text = paste0("10^", log10(renyi_exetime$epsilon))))
 axis(1, line = 1.2, tick = FALSE, at = -log10(renyi_exetime$epsilon) + 1,
-     labels = paste0("(", sapply(renyi_exetime$div, attr, "k"), " it.)")
+     labels = paste0("(", sapply(renyi_exetime$div, attr, "k"), " it)")
 )
 
 boxplot(kl_exetime$exetime, main = "Kullback-Leibler divergence - microbenchmark timings",
@@ -20,5 +20,5 @@ boxplot(kl_exetime$exetime, main = "Kullback-Leibler divergence - microbenchmark
 axis(1, at = -log10(kl_exetime$epsilon) + 1,
      labels = parse(text = paste0("10^", log10(kl_exetime$epsilon))))
 axis(1, line = 1.2, tick = FALSE, at = -log10(kl_exetime$epsilon) + 1,
-     labels = paste0("(", sapply(kl_exetime$div, attr, "k"), " it.)")
+     labels = paste0("(", sapply(kl_exetime$div, attr, "k"), " it)")
 )
