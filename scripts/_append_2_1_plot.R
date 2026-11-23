@@ -8,9 +8,15 @@ kl_exetime <- readRDS("exetimes/kl_2_1.rds")
 boxplot(renyi_exetime$exetime, main = "Rényi divergence - microbenchmark timings",
         xlab = "Precision", ylab = "Execution time (s)", xaxt = "n")
 axis(1, at = -log10(renyi_exetime$epsilon) + 1,
-     labels = parse(text = paste0("10^", log10(renyi_exetime$epsilon))))
+     labels = paste0(
+       parse(text = paste0("10^", log10(renyi_exetime$epsilon))),
+       "\n(", sapply(renyi_exetime$div, attr, "k"), " iterations)"
+     ))
 
 boxplot(kl_exetime$exetime, main = "Kullback-Leibler divergence - microbenchmark timings",
         xlab = "Precision", ylab = "Execution time (s)", xaxt = "n")
 axis(1, at = -log10(kl_exetime$epsilon) + 1,
-     labels = parse(text = paste0("10^", log10(kl_exetime$epsilon))))
+     labels = paste0(
+       parse(text = paste0("10^", log10(kl_exetime$epsilon))),
+       "\n(", sapply(kl_exetime$div, attr, "k"), " iterations)"
+     ))
