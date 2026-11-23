@@ -1433,12 +1433,12 @@ if ((!file.exists("exetimes/renyi_2_1.rds"))|(!file.exists("exetimes/kl_2_1.rds"
 
 ```{r}
 #| label: fig-extime1
-#| fig-cap: "Evolution of the execution time (in seconds) as a function of the wished precision of the divergence. Each expression was evaluated 100 times."
+#| fig-cap: "Evolution of the execution time (in seconds) as a function of the wished precision of the divergence. Each expression was evaluated 30 times."
 #| fig-subcap:
 #|    - "Rényi divergence of order $\\beta=0.25$"
 #|    - "Kullback-Leibler"
 #| fig-height: 3.5
-#| fig-width: 9
+#| fig-width: 12
 #| layout-ncol: 1
 #| echo: false
 
