@@ -6,7 +6,7 @@ kl_exetime <- readRDS("exetimes/kl_2_2.rds")
 
 # Display the table of execution time among the dimension
 library(kableExtra)
-merge(summary(renyi_exetime)[-8], summary(kl_exetime)[-8], by = "expr") |>
+merge(summary(renyi_exetime$exetimes)[-8], summary(kl_exetime$exetimes)[-8], by = "expr") |>
   kbl(col.names = c("Dimension", rep(c(
     "Minimum", "1st quartile", "Mean", "Median", "3rd quartile", "Maximum"),
     2)
